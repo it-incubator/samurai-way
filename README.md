@@ -1,6 +1,6 @@
 # Привет, Самурай! 
 
-Друзья, для вас мы специально подготовили этот репозиторий. Здась вы можете взять полностью подготовленный проект для "Пути самурая", где установлены ВСЕ библиотеки нужных версий.
+Друзья, для вас мы специально подготовили этот репозиторий. Здесь вы можете взять полностью подготовленный проект для "Пути самурая", где установлены ВСЕ библиотеки нужных версий.
 В процессе прохождения видео-уроков вам не нужно устанавливать пакеты. Просто провейряйте, что библиотека есть в package.json.
 В случае, если ее вы не найдете или заметите неправильную ее работу (отличную от Диминой версии), 
 просим вас написать об этом в Telegram `Валере Сафронову (@safronman)` или `Марго (@margokomilfo)`.
@@ -10,21 +10,21 @@
 В этом стартовом проекте установлены следующие библиотеки
 
 - **antd** 
-- **axios** and **@types/axios**
-- **classnames** and **@types/classnames**
+- **axios** 
+- **classnames**
 - **formik**
 - **gh-pages**
-- **jest** and **@types/jest**
+- **jest**
 - **react** and **@types/react**
 - **react-dom** and **@types/react-dom**
 - **react-redux** and **@types/react-redux**
 - **react-router-dom** and **@types/react-router-dom**
 - **react-scripts** 
 - **react-test-renderer** and **@types/react-test-renderer**
-- **redux** and **@types/redux**
+- **redux**
 - **redux-form** and **@types/redux-form**
-- **redux-thunk** and **@types/redux-thunk**
-- **reselect** and **@types/reselect**
+- **redux-thunk**
+- **reselect**
 - **typescript** 
 - **uuid** and **@types/uuid**
 

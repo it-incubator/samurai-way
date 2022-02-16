@@ -54,19 +54,13 @@
     ]
   },
   "devDependencies": {
-    "@types/axios": "0.14.0",
-    "@types/classnames": "2.3.1",
-    "@types/jest": "27.0.1",
     "@types/node": "16.7.13",
     "@types/react": "17.0.20",
     "@types/react-dom": "17.0.9",
     "@types/react-redux": "7.1.22",
     "@types/react-router-dom": "5.3.3",
     "@types/react-test-renderer": "17.0.1",
-    "@types/redux": "3.6.0",
     "@types/redux-form": "8.3.3",
-    "@types/redux-thunk": "2.1.0",
-    "@types/reselect": "2.2.0",
     "@types/uuid": "8.3.4"
   }
 }
