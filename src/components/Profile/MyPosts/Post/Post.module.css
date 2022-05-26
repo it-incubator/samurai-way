@@ -1,0 +1,9 @@
+.item{
+    display: flex;
+    height: 200px;
+}
+
+.item img{
+
+    border-radius: 50%;
+}
