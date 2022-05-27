@@ -1,8 +1,7 @@
 
-.item {
-    color: lightyellow;
-}
+.posts{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-.item img{
-    width: 120px;
 }
