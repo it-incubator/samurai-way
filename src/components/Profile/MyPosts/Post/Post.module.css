@@ -1,9 +1,46 @@
 .item{
+    position: relative;
+    min-height: 180px;
+    width: 740px;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: lightsalmon;
     display: flex;
-    height: 200px;
+    justify-content: stretch;
+    align-items: center;
+
 }
 
 .item img{
-
     border-radius: 50%;
+    height: 150px;
+    width: auto;
+    padding: 20px;
+}
+
+.message{
+    background-color: lightyellow;
+    border-radius: 15px;
+    min-width: 55%;
+    min-height: 100px;
+    padding: 15px;
+}
+
+.message p{
+    font-family: Georgia, sans-serif;
+    font-size: 1em;
+}
+
+.likes{
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    width: fit-content;
+    padding: 12px 8px;
+    background-color: lightskyblue;
+    border-radius: 7px;
+    font-family: Georgia, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
 }
