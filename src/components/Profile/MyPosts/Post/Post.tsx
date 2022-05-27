@@ -7,10 +7,10 @@ type PostType = {
 }
 
 
-export const Post = (props: PostType) => {
+export const Post: React.FC<PostType> = (props ) => {
     return (
         <div className={styles.item}>
-            <img src="https://html5css.ru/howto/img_avatar.png" alt="Profile Picture"/>
+            <img src="https://html5css.ru/howto/img_avatar.png" alt="Profile"/>
             <div className={styles.message}>
                 <p>{props.message}</p>
             </div>
