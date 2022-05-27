@@ -1,14 +1,23 @@
 import React from 'react'
 import styles from './Post.module.css'
 
-export const Post = () => {
+type PostType = {
+    message: string
+    likeCount: number
+}
+
+
+export const Post = (props: PostType) => {
     return (
         <div className={styles.item}>
             <img src="https://html5css.ru/howto/img_avatar.png" alt="Profile Picture"/>
-            <div>
-                <p>Some Text in Post</p>
+            <div className={styles.message}>
+                <p>{props.message}</p>
             </div>
-            <span>Like</span>
+            <div className={styles.likes}>
+                <span>Likes: {props.likeCount}</span>
+            </div>
+
         </div>
     )
 }
