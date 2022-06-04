@@ -1,0 +1,43 @@
+
+.dialogs {
+  display: grid;
+  background: aqua;
+  grid-template-columns: 2fr 4fr;
+
+  & .items {
+
+    background: pink;
+
+
+    & .item {
+      display: block;
+      margin: 15px;
+      background: aliceblue;
+      border-radius: 10px;
+      height: 50px;
+      padding: 10px;
+    }
+
+  }
+
+  & .active {
+    color: red;
+    background: dimgrey;
+  }
+
+  & .messages {
+    display: flex;
+    flex-direction: column;
+    padding-left: 30px;
+
+
+    & .message {
+      background: aliceblue;
+      height: 70px;
+      border-radius: 10px;
+      margin: 15px 35px 15px 0;
+      padding: 15px;
+    }
+  }
+
+}
