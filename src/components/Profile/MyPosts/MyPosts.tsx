@@ -1,12 +1,12 @@
 import React from 'react';
-import styles from './MyPosts.module.css'
+import s from './MyPosts.module.scss'
 import {Post} from './Post/Post';
 
 export const MyPosts = () => {
     return (
-        <div className={styles.posts}>
-            My posts
-            <div>
+        <div className={s.posts}>
+            <h3>My posts</h3>
+            <div className={s.addPost}>
                 <textarea name="" id=""></textarea>
                 <button>Submit</button>
             </div>
