@@ -7,18 +7,24 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import {Music} from './components/Music/Music';
 import {News} from './components/News/News';
 import {Settings} from './components/Settings/Settings';
+import {stateType} from './redux/state';
 
-const App = () => {
+type AppPropsType = {
+    appState: stateType
+}
+
+
+const App = (props: AppPropsType) => {
     return (
         <BrowserRouter>
             <div className={'app-wrapper'}>
                 <Header/>
                 <div className={'content'}>
-                    <Route path={'/dialogs'} component={Dialogs}/>
-                    <Route path={'/profile'} component={Profile}/>
-                    <Route path={'/news'} component={News}/>
-                    <Route path={'/music'} component={Music}/>
-                    <Route path={'/settings'} component={Settings}/>
+                    <Route path={'/dialogs'} render={() => <Dialogs dialogsState={props.appState.dialogsState}/>}/>
+                    <Route path={'/profile'} render={() => <Profile postsState={props.appState.postsState}/>}/>
+                    <Route path={'/news'} render={() => <News/>}/>
+                    <Route path={'/music'} render={() => <Music/>}/>
+                    <Route path={'/settings'} render={() => <Settings/>}/>
                 </div>
             </div>
         </BrowserRouter>
