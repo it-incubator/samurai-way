@@ -3,8 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
 import {state} from './redux/state';
+import {BrowserRouter} from 'react-router-dom';
 
 
-
-
-ReactDOM.render(<App appState={state}/>, document.getElementById('root'));
+ReactDOM.render(<BrowserRouter> <App appState={state}/> </BrowserRouter>, document.getElementById('root'));
