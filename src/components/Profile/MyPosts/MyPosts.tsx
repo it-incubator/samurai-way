@@ -1,25 +1,36 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.scss'
 import {Post} from './Post/Post';
-import {PostsStateType} from '../../../redux/state';
+import {PostsType} from '../../../redux/state';
 
 
 export type MyPostsPropsType = {
-    postsState: PostsStateType
+    postsState: PostsType
+    addPost: (postMessage: string) => void
+    changeNewText: (newText: string) => void
+    newMessage: string
 }
 
-export const MyPosts = (props:MyPostsPropsType) => {
+export const MyPosts = (props: MyPostsPropsType) => {
 
 
-    let postsElements = props.postsState
-        .map(post => <Post message={post.message} likeCount={post.likeCount}/>)
+    const postsElements = props.postsState
+        .map(post => <Post message={post.message} likeCount={post.likeCount} key={post.id}/>)
+
+    const addPost = () => {
+       props.addPost(props.newMessage)
+    }
+
+    const newTextChangeHandler = (e:ChangeEvent<HTMLTextAreaElement>) => {
+       props.changeNewText(e.currentTarget.value)
+    }
 
     return (
         <div className={s.posts}>
             <h3>My posts</h3>
             <div className={s.addPost}>
-                <textarea name="" id=""></textarea>
-                <button>Submit</button>
+                <textarea name="" id="" value={props.newMessage} onChange={e => newTextChangeHandler(e)}></textarea>
+                <button onClick={addPost}>Submit</button>
             </div>
             <div className={'posts'}>
                 {postsElements}
