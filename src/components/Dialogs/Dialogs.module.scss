@@ -5,39 +5,35 @@
   grid-template-columns: 2fr 4fr;
 
   & .items {
-
     background: pink;
-
-
-    & .item {
-      display: block;
-      margin: 15px;
-      background: aliceblue;
-      border-radius: 10px;
-      height: 50px;
-      padding: 10px;
-    }
-
   }
-
-  & .active {
-    color: red;
-    background: dimgrey;
-  }
-
-  & .messages {
-    display: flex;
-    flex-direction: column;
-    padding-left: 30px;
-
-
-    & .message {
-      background: aliceblue;
-      height: 70px;
-      border-radius: 10px;
-      margin: 15px 35px 15px 0;
-      padding: 15px;
-    }
-  }
-
 }
+
+
+.messages {
+  display: flex;
+  gap: 30px;
+  flex-direction: column;
+  padding: 30px;
+
+  .newMessage{
+    display: grid;
+    grid-gap: 15px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 5fr 1fr;
+    grid-template-areas:
+            "text text text text text"
+              ". . . . button" ;
+
+    & textarea{
+      border-radius: 10px;
+      grid-area: text;
+    }
+    & button{
+      grid-area: button;
+      border-radius: 5px;
+      border: 1px solid gray;
+    }
+  }
+}
+

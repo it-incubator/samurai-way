@@ -1,0 +1,25 @@
+.item {
+  display: flex;
+  padding: 15px;
+  gap: 15px;
+
+  & img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+  }
+
+  & .link{
+    display: block;
+    color: black;
+    background: aliceblue;
+    border-radius: 10px;
+    flex-grow: 1;
+    padding: 20px;
+
+    &.active{
+      color: red;
+    }
+
+  }
+}

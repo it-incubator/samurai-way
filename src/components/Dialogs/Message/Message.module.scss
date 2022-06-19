@@ -1,0 +1,32 @@
+
+
+
+  .message {
+    position: relative;
+    display: flex;
+    gap: 30px;
+    background: aliceblue;
+    height: 70px;
+    border-radius: 10px;
+
+    padding: 15px;
+
+    & img{
+      height: 70px;
+      width: 70px;
+      border-radius: 50%;
+    }
+
+    & .text{
+      font-family: Arial ,sans-serif;
+      font-size: 16px;
+      word-wrap: break-word;
+    }
+
+    & .time{
+      position: absolute;
+      right: 30px;
+      bottom: 15px;
+      margin: 0;
+    }
+  }
