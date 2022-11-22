@@ -1,3 +1,21 @@
 .img {
     width: 4em;
 }
+
+.style {
+
+    font-family: "Monotype Corsiva" ;
+    font-size: 24px;
+    font-style: italic;
+    letter-spacing: 10px;
+    color: saddlebrown;
+}
+
+.style_Button {
+    box-shadow: 10px 5px 10px blue;
+    font-family: "Monotype Corsiva" ;
+    font-size: 14px;
+    font-style: italic;
+    letter-spacing: 10px;
+    color: saddlebrown;
+}

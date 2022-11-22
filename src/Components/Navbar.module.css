@@ -2,6 +2,7 @@
     grid-area: n;
     background-color: rgba(0,211,255,0.31);
     height: 100%;
+    width: 100%;
 }
 .style {
     box-shadow: 10px 5px 10px blue;
@@ -13,6 +14,16 @@
 
 }
 
-.padding {
+.item a.activeLink {
+
+    color: gold;
+}
+
+.item {
     padding: 25px 15px 25px 25px;
+}
+
+.item a {
+
+    text-decoration: none;
 }

@@ -6,7 +6,7 @@ import {MyPost} from "./MyPost";
 export  const Profile = () => {
     return (
 <div className={s.content} >
-    <div  >
+    <div className={s.style} >
         <img className={s.city_img} src={city}/>Main contain</div>
     <MyPost/>
 </div>

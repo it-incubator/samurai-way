@@ -5,7 +5,17 @@
 }
 
 .logo {
-
+    margin-top: -2em;
     box-shadow: 10px 5px 5px blue;
     width: 40px;
+}
+
+.style {
+
+    font-family: "Monotype Corsiva" ;
+    font-size: 28px;
+    font-style: italic;
+    letter-spacing: 10px;
+    color: saddlebrown;
+    margin-left: 40em;
 }
