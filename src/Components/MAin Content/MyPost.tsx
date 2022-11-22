@@ -9,6 +9,8 @@ export  const MyPost = () => {
             <input/>
             <button>Add Post</button>
             <div><div>Avatar</div>
+
+
             <img className={s.img} src={Vikings}/></div>
         </div>
     );
