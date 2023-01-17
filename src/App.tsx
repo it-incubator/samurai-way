@@ -7,7 +7,7 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {Dialogs} from "./Components/Dialogs";
 
 
-function App(props:any) {
+function App() {
     return (
         <BrowserRouter>
         <div className='app-wrapper'>
