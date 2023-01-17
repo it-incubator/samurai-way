@@ -1,8 +1,8 @@
 import React from 'react';
 import city from "../../image/iceland.jpg";
 import  s from './Profile.module.css'
-import {MyPost} from "./MyPost";
-import {ProfileInfo} from "./ProfileInfo";
+import {MyPost} from "./MyPost/MyPost";
+import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 
 export  const Profile = () => {
     return (

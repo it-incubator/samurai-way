@@ -1,6 +1,6 @@
 import React from 'react';
-import s from "./MyPost.module.css";
-import Vikings from "../../image/Vikings.png";
+import s from "../MyPost/MyPost.module.css";
+import Vikings from "../../../image/Vikings.png";
 
 export  const ProfileInfo = () => {
     return (

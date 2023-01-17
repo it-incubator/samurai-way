@@ -1,6 +1,6 @@
 import React from 'react';
 import  s from './Header.module.css'
-import flag from '../image/flag.png';
+import flag from '../../image/flag.png';
 
 export const Header = () => {
     return (
