@@ -4,7 +4,7 @@ import {PostData} from "../../../App";
 
 type MyPost = {
     PostData:PostData[]
-
+    addPost:(postMessage:string)=>void
 }
 
 
@@ -15,7 +15,8 @@ export  const MyPost = (props:MyPost) => {
 
     const AddPost = ()=> {
 
-        alert(newPost.current?.value)
+        if(newPost.current){props.addPost(newPost.current?.value)}
+
     }
 
 

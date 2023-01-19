@@ -6,6 +6,7 @@ import {Profile} from "./Components/Profile/Profile";
 import {BrowserRouter, Route} from "react-router-dom";
 import {Dialogs} from "./Components/Dialog/Dialogs";
 import {SideBar} from "./Components/SideBar/SideBar";
+import {addPost} from "./Redux/state";
 
 type StateType = {
     State:DialogDataType
@@ -51,7 +52,7 @@ function App(props:StateType) {
            <Header />
             <Navbar/>
             <Route path={'/dialogs'} render={()=><Dialogs DialogData={props.State.data} MessageData={props.State.message} />}/>
-           <Route path={'/profile'} render={()=><Profile  PostData={props.State.post}/>}/>
+           <Route path={'/profile'} render={()=><Profile  PostData={props.State.post} addPost={addPost}/>}/>
             <Route path={'/sidebar'} render={()=><SideBar SideData={props.State.sideBar}/>}/>
         </div>
         </BrowserRouter>

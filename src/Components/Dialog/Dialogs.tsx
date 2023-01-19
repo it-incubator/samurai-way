@@ -12,8 +12,11 @@ type DialogsType = {
 export  const Dialogs = (props:DialogsType) => {
 
 
+let newPost = React.createRef<HTMLTextAreaElement>()
 
-
+    const AddPost = ()=> {
+    alert(newPost.current?.value)
+    }
 
     return ( <div className={s.items}>
             <div className={s.dialogs}>
@@ -38,6 +41,9 @@ export  const Dialogs = (props:DialogsType) => {
                     })}
 
 
+                </div>
+                <div>
+                    <textarea ref={newPost}/><button onClick={AddPost}>Add</button>
                 </div>
 
             </div>
