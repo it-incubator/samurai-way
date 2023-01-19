@@ -7,6 +7,7 @@ import {PostData} from "../../App";
 
 type PostType = {
     PostData:PostData[]
+
 }
 
 export  const Profile = (props:PostType) => {
@@ -15,7 +16,7 @@ export  const Profile = (props:PostType) => {
     <div className={s.style} >
         <img className={s.city_img} src={city}/>Main contain</div>
     <ProfileInfo/>
-    <MyPost PostData={props.PostData}/>
+    <MyPost PostData={props.PostData} />
 </div>
 
     );

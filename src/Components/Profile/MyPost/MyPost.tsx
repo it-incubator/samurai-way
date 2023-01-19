@@ -4,10 +4,24 @@ import {PostData} from "../../../App";
 
 type MyPost = {
     PostData:PostData[]
+
 }
 
 
 export  const MyPost = (props:MyPost) => {
+
+
+    let newPost = React.createRef<HTMLTextAreaElement>()
+
+    const AddPost = ()=> {
+
+        alert(newPost.current?.value)
+    }
+
+
+
+
+
     return (
         <div>
          <div className={s.style}>{
@@ -19,8 +33,9 @@ export  const MyPost = (props:MyPost) => {
                  )
              })
          }</div>
-            <input/>
-            <button className={s.style_Button} >Add Post</button>
+            <textarea  ref={newPost}/>
+
+            <button  onClick={AddPost} className={s.style_Button}>Add Post</button>
 
         </div>
     );

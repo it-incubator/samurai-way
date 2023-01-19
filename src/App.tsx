@@ -5,15 +5,26 @@ import {Navbar} from "./Components/Navbar/Navbar";
 import {Profile} from "./Components/Profile/Profile";
 import {BrowserRouter, Route} from "react-router-dom";
 import {Dialogs} from "./Components/Dialog/Dialogs";
+import {SideBar} from "./Components/SideBar/SideBar";
 
+type StateType = {
+    State:DialogDataType
+
+}
 
 export type DialogDataType = {
-    DialogData:DialogTypeApp[]
-    MessageData:MessageTypeApp[]
-    PostData:PostData[]
+    data:DialogTypeApp[]
+    message:MessageTypeApp[]
+    post:PostData[]
+    sideBar:SideData[]
 }
 
  export type DialogTypeApp = {
+    id:number,
+    name:string
+}
+
+export type SideData = {
     id:number,
     name:string
 }
@@ -33,14 +44,15 @@ export type PostData = {
 
 
 
-function App(props:DialogDataType,) {
+function App(props:StateType) {
     return (
         <BrowserRouter>
         <div className='app-wrapper'>
            <Header />
             <Navbar/>
-            <Route path={'/dialogs'} render={()=><Dialogs DialogData={props.DialogData} MessageData={props.MessageData} />}/>
-           <Route path={'/profile'} render={()=><Profile PostData={props.PostData}/>}/>
+            <Route path={'/dialogs'} render={()=><Dialogs DialogData={props.State.data} MessageData={props.State.message} />}/>
+           <Route path={'/profile'} render={()=><Profile  PostData={props.State.post}/>}/>
+            <Route path={'/sidebar'} render={()=><SideBar SideData={props.State.sideBar}/>}/>
         </div>
         </BrowserRouter>
     );
