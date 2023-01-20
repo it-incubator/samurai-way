@@ -14,9 +14,12 @@ export  const MyPost = (props:MyPost) => {
     let newPost = React.createRef<HTMLTextAreaElement>()
 
     const AddPost = ()=> {
-
-        if(newPost.current){props.addPost(newPost.current?.value)}
-
+        if (newPost.current) {
+            props.addPost(newPost.current?.value.trim())
+        }
+        if (newPost.current) {
+            newPost.current.value=''
+        }
     }
 
 
@@ -34,7 +37,7 @@ export  const MyPost = (props:MyPost) => {
                  )
              })
          }</div>
-            <textarea  ref={newPost}/>
+            <textarea  ref={newPost} />
 
             <button  onClick={AddPost} className={s.style_Button}>Add Post</button>
 

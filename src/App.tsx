@@ -3,7 +3,7 @@ import './App.css';
 import {Header} from "./Components/Header/Header";
 import {Navbar} from "./Components/Navbar/Navbar";
 import {Profile} from "./Components/Profile/Profile";
-import {BrowserRouter, Route} from "react-router-dom";
+import { Route} from "react-router-dom";
 import {Dialogs} from "./Components/Dialog/Dialogs";
 import {SideBar} from "./Components/SideBar/SideBar";
 import {addPost} from "./Redux/state";
@@ -47,7 +47,7 @@ export type PostData = {
 
 function App(props:StateType) {
     return (
-        <BrowserRouter>
+
         <div className='app-wrapper'>
            <Header />
             <Navbar/>
@@ -55,7 +55,7 @@ function App(props:StateType) {
            <Route path={'/profile'} render={()=><Profile  PostData={props.State.post} addPost={addPost}/>}/>
             <Route path={'/sidebar'} render={()=><SideBar SideData={props.State.sideBar}/>}/>
         </div>
-        </BrowserRouter>
+
     );
 }
 
