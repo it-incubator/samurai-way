@@ -8,8 +8,9 @@ import {PostData} from "../../App";
 
 type PostType = {
     PostData:PostData[]
-    addPost:(postMessage:string)=>void
-
+    addPost:()=>void
+    newPostText:string
+    ChangeText:(newText:string)=>void
 }
 
 export  const Profile = (props:PostType) => {
@@ -18,7 +19,7 @@ export  const Profile = (props:PostType) => {
     <div className={s.style} >
         <img className={s.city_img} src={city}/>Main contain</div>
     <ProfileInfo/>
-    <MyPost PostData={props.PostData} addPost={props.addPost}/>
+    <MyPost PostData={props.PostData} addPost={props.addPost} newPostText={props.newPostText} ChangeText={props.ChangeText}/>
 </div>
 
     );

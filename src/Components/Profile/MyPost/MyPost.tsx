@@ -1,29 +1,33 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import  s from './MyPost.module.css'
 import {PostData} from "../../../App";
 
 type MyPost = {
     PostData:PostData[]
-    addPost:(postMessage:string)=>void
+    addPost:()=>void
+    newPostText:string
+    ChangeText:(newText:string)=>void
 }
 
 
 export  const MyPost = (props:MyPost) => {
 
 
-    let newPost = React.createRef<HTMLTextAreaElement>()
+    let newPost = React.createRef<HTMLInputElement>()
 
     const AddPost = ()=> {
         if (newPost.current) {
-            props.addPost(newPost.current?.value.trim())
+            props.addPost()
         }
-        if (newPost.current) {
-            newPost.current.value=''
-        }
+
     }
 
 
-
+const onChangeHandler = ()=> {
+    if (newPost.current) {
+        props.ChangeText(newPost.current?.value.trim())
+    }
+}
 
 
     return (
@@ -37,7 +41,7 @@ export  const MyPost = (props:MyPost) => {
                  )
              })
          }</div>
-            <textarea  ref={newPost} />
+            <input onChange={onChangeHandler} ref={newPost} value={props.newPostText} />
 
             <button  onClick={AddPost} className={s.style_Button}>Add Post</button>
 

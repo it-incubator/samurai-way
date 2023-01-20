@@ -6,7 +6,7 @@ import {Profile} from "./Components/Profile/Profile";
 import { Route} from "react-router-dom";
 import {Dialogs} from "./Components/Dialog/Dialogs";
 import {SideBar} from "./Components/SideBar/SideBar";
-import {addPost} from "./Redux/state";
+import {addPost,ChangeText} from "./Redux/state";
 
 type StateType = {
     State:DialogDataType
@@ -16,7 +16,7 @@ type StateType = {
 export type DialogDataType = {
     data:DialogTypeApp[]
     message:MessageTypeApp[]
-    post:PostData[]
+    profilePage:ProfilePageType
     sideBar:SideData[]
 }
 
@@ -37,6 +37,11 @@ export type MessageTypeApp = {
     message:string
 }
 
+type ProfilePageType = {
+    post:PostData[];
+    newPostText:string
+
+}
 export type PostData = {
     id:number,
     message:string,
@@ -52,7 +57,7 @@ function App(props:StateType) {
            <Header />
             <Navbar/>
             <Route path={'/dialogs'} render={()=><Dialogs DialogData={props.State.data} MessageData={props.State.message} />}/>
-           <Route path={'/profile'} render={()=><Profile  PostData={props.State.post} addPost={addPost}/>}/>
+           <Route path={'/profile'} render={()=><Profile  PostData={props.State.profilePage.post} addPost={addPost} newPostText={props.State.profilePage.newPostText} ChangeText={ChangeText}/>}/>
             <Route path={'/sidebar'} render={()=><SideBar SideData={props.State.sideBar}/>}/>
         </div>
 
