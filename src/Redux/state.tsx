@@ -1,5 +1,9 @@
-import {rerenderEntireTree} from "../render";
 
+
+
+let  onChange =()=> {
+console.log('hi')
+}
 
 export const State =  {
     data:[{id:1,name:'Hróðgeirr'},
@@ -30,14 +34,25 @@ export  const addPost = ()=> {
 
     State.profilePage.post.push(newPost)
     State.profilePage.newPostText=''
-    rerenderEntireTree(State)
+    onChange()
+}
+
+export  const   AddPostDialogs=(newDialogs:string)=>{
+    let newPost ={id:1,message:newDialogs}
+    State.message.push(newPost)
+
+    onChange()
 }
 
 export const ChangeText = (newText:string)=> {
     State.profilePage.newPostText=newText
 
-    rerenderEntireTree(State)
+    onChange()
 }
 
 
+
+export const  subscriber = (observer:()=>void)=> {
+    onChange=observer
+}
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import  s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
@@ -7,17 +7,26 @@ import {DialogTypeApp,MessageTypeApp} from "../../App";
 type DialogsType = {
     DialogData:DialogTypeApp[]
     MessageData:MessageTypeApp[]
+    AddPostDialogs:(newDialogs:string)=>void
 }
 
 export  const Dialogs = (props:DialogsType) => {
 
 
-let newPost = React.createRef<HTMLTextAreaElement>()
+let newPost = React.createRef<HTMLInputElement>()
 
     const AddPost = ()=> {
-    alert(newPost.current?.value)
-    }
+    // if(newPost.current){props.AddPostDialogs(newPost.current?.value)}
+        props.AddPostDialogs(inputValue)
+        setInputValue('')
+}
 
+const [inputValue,setInputValue]=useState('')
+
+const onChangeHandler = (e:ChangeEvent<HTMLInputElement>)=> {
+    setInputValue(e.currentTarget.value)
+
+}
     return ( <div className={s.items}>
             <div className={s.dialogs}>
 
@@ -43,7 +52,8 @@ let newPost = React.createRef<HTMLTextAreaElement>()
 
                 </div>
                 <div>
-                    <textarea ref={newPost}/><button onClick={AddPost}>Add</button>
+                    <input onChange={onChangeHandler}  value={inputValue} ref={newPost}/>
+                    <button onClick={AddPost}>Add</button>
                 </div>
 
             </div>
