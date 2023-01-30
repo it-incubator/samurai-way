@@ -1,18 +1,31 @@
 import {DialogDataType} from "../App";
 
+
 export type StoreType = {
-    _State :DialogDataType;
+    _State:DialogDataType;
     onChange:()=>void;
     getState:()=>DialogDataType
-    addPost:()=>void;
-    AddPostDialogs:(newDialogs:string)=>void;
-    ChangeText :(newText:string)=>void;
     subscriber:(observer:()=>void)=>void
-
-
-
+    dispatch:(action:AllAction)=>void
 
 }
+
+
+export type AddPost = {
+    type:'ADD-Post'
+}
+
+ export  type  AddPostDialogs = {
+    type: 'AddPostDialogs'
+    newDialogs:string
+}
+
+export  type UpdateText = {
+    type:'UpdateText'
+    newText:string
+}
+
+export type AllAction = AddPost|AddPostDialogs|UpdateText
 
 
 export const Store:StoreType = {
@@ -45,27 +58,26 @@ export const Store:StoreType = {
     getState(){
         return this._State
     },
-    addPost  () {
-        let newPost = {id:5,message:this._State.profilePage.newPostText, likeCount:18}
-
-        Store._State.profilePage.post.push(newPost)
-        Store._State.profilePage.newPostText=''
-        this.onChange()
-    },
-    AddPostDialogs(newDialogs:string){
-        let newPost ={id:1,message:newDialogs}
-        this._State.message.push(newPost)
-
-        this.onChange()
-    },
-     ChangeText (newText:string) {
-        this._State.profilePage.newPostText=newText
-
-        this.onChange()
-    },
-     subscriber (observer:()=>void) {
+    subscriber (observer:()=>void) {
         this.onChange=observer
     },
+
+     dispatch (action){
+        if (action.type==='ADD-Post'){ let newPost = {id:5,message:this._State.profilePage.newPostText, likeCount:18}
+
+            Store._State.profilePage.post.push(newPost)
+            Store._State.profilePage.newPostText=''
+            this.onChange()}
+        else if (action.type==='AddPostDialogs'){ let newPost ={id:1,message:action.newDialogs}
+            this._State.message.push(newPost)
+
+            this.onChange()}
+        else if (action.type ==='UpdateText'){
+            this._State.profilePage.newPostText=action.newText
+
+            this.onChange() }
+        }
+
 
 
 }

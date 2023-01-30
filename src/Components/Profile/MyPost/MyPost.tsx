@@ -1,12 +1,13 @@
 import React, {ChangeEvent} from 'react';
 import  s from './MyPost.module.css'
 import {PostData} from "../../../App";
+import {AddPost, AddPostDialogs, UpdateText} from "../../../Redux/state";
 
 type MyPost = {
     PostData:PostData[]
-    addPost:()=>void
+    dispatch:(action:AddPost|AddPostDialogs|UpdateText)=>void
     newPostText:string
-    ChangeText:(newText:string)=>void
+
 }
 
 
@@ -17,7 +18,7 @@ export  const MyPost = (props:MyPost) => {
 
     const AddPost = ()=> {
         if (newPost.current) {
-            props.addPost()
+            props.dispatch({type:'ADD-Post'})
         }
 
     }
@@ -25,7 +26,7 @@ export  const MyPost = (props:MyPost) => {
 
 const onChangeHandler = ()=> {
     if (newPost.current) {
-        props.ChangeText(newPost.current?.value.trim())
+        props.dispatch({type:'UpdateText',newText:newPost.current?.value.trim()})
     }
 }
 

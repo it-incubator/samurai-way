@@ -60,8 +60,8 @@ function App(props:PropsType) {
         <div className='app-wrapper'>
            <Header />
             <Navbar/>
-            <Route path={'/dialogs'} render={()=><Dialogs DialogData={state.data} MessageData={state.message}  AddPostDialogs={props.Store.AddPostDialogs.bind(props.Store)} />}/>
-           <Route path={'/profile'} render={()=><Profile  PostData={state.profilePage.post} addPost={props.Store.addPost.bind(props.Store)} newPostText={state.profilePage.newPostText} ChangeText={props.Store.ChangeText.bind(props.Store)}/>}/>
+            <Route path={'/dialogs'} render={()=><Dialogs DialogData={state.data} MessageData={state.message}  dispatch={props.Store.dispatch.bind(props.Store)} />}/>
+           <Route path={'/profile'} render={()=><Profile  PostData={state.profilePage.post} dispatch={props.Store.dispatch.bind(props.Store)} newPostText={state.profilePage.newPostText} />}/>
             <Route path={'/sidebar'} render={()=><SideBar SideData={state.sideBar}/>}/>
         </div>
 
