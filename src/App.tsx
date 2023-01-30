@@ -6,12 +6,15 @@ import {Profile} from "./Components/Profile/Profile";
 import { Route} from "react-router-dom";
 import {Dialogs} from "./Components/Dialog/Dialogs";
 import {SideBar} from "./Components/SideBar/SideBar";
-import {addPost, AddPostDialogs, ChangeText} from "./Redux/state";
+import {StoreType} from "./Redux/state";
 
-export type StateType = {
-    State:DialogDataType
 
+type PropsType = {
+    Store:StoreType
 }
+
+
+
 
 export type DialogDataType = {
     data:DialogTypeApp[]
@@ -50,15 +53,16 @@ export type PostData = {
 
 
 
-function App(props:StateType) {
+function App(props:PropsType) {
+    const state =props.Store.getState()
     return (
 
         <div className='app-wrapper'>
            <Header />
             <Navbar/>
-            <Route path={'/dialogs'} render={()=><Dialogs DialogData={props.State.data} MessageData={props.State.message}  AddPostDialogs={AddPostDialogs} />}/>
-           <Route path={'/profile'} render={()=><Profile  PostData={props.State.profilePage.post} addPost={addPost} newPostText={props.State.profilePage.newPostText} ChangeText={ChangeText}/>}/>
-            <Route path={'/sidebar'} render={()=><SideBar SideData={props.State.sideBar}/>}/>
+            <Route path={'/dialogs'} render={()=><Dialogs DialogData={state.data} MessageData={state.message}  AddPostDialogs={props.Store.AddPostDialogs.bind(props.Store)} />}/>
+           <Route path={'/profile'} render={()=><Profile  PostData={state.profilePage.post} addPost={props.Store.addPost.bind(props.Store)} newPostText={state.profilePage.newPostText} ChangeText={props.Store.ChangeText.bind(props.Store)}/>}/>
+            <Route path={'/sidebar'} render={()=><SideBar SideData={state.sideBar}/>}/>
         </div>
 
     );
