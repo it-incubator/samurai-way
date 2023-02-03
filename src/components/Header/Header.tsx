@@ -1,9 +1,8 @@
 import React from 'react';
 import c from './Header.module.css';
-import logo from './logo.png';
+import logo from '../../img/logo.png';
 
-export const Header = (props: any) => {
-    console.log("Header rendered")
+export const Header = () => {
     return <div className={c.header}>
         <img src={logo} alt="logo" />
     </div>

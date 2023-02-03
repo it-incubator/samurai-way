@@ -1,0 +1,9 @@
+.profile__about {
+    display: flex;
+    gap: 20px;
+}
+
+.profile__about img {
+    width: 120px;
+    height: 120px;
+}
