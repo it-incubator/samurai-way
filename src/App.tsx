@@ -1,15 +1,19 @@
 import React from 'react';
 import './App.css';
-import Header from './components/Header';
-import Technologies from './components/Technologies';
+import { Header } from './components/Header/Header';
+import { Profile } from './components/Profile/Profile';
+import { Footer } from './components/Footer/Footer';
+import { Navbar } from './components/Navbar/Navbar';
 
 
 const App = () => {
   console.log("App render");
   return (
-    <div className='app'>
-      <Header value={true} />
-      <Technologies />
+    <div className='app-wrapper'>
+      <Header/>
+      <Navbar/>
+      <Profile/>
+      <Footer/>
     </div>
   )
 }

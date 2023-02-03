@@ -1,0 +1,26 @@
+.profile {
+    grid-area: profile;
+    display: grid;
+    gap: 5px;
+    margin: 0 auto;
+}
+
+.profile__logo {
+    height: 150px;
+    overflow: hidden;
+}
+
+.profile__logo img {
+    width: 100%;
+    transform: translateY();
+}
+
+.profile__about {
+    display: flex;
+    gap: 20px;
+}
+
+.profile__about img {
+    width: 120px;
+    height: 120px;
+}
