@@ -1,0 +1,17 @@
+.item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+
+.item img {
+    width: 60px;
+    height: 60px;
+}
+
+.like {
+    padding: 1px;
+    font-weight: bold;
+    border: 1px solid red;
+}

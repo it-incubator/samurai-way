@@ -1,0 +1,30 @@
+.profile__posts {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0px 20px;
+}
+
+.profile__posts span {
+    color: #47525E;
+    font-size: 25px;
+    line-height: 45px;
+    width: 244px;
+}
+
+.profile__form {
+    background-color: #E6EEEA;
+    width: 900px;
+    height: 84px;
+    border-style: none;
+    border-radius: 10px;
+
+}
+
+.profile__button {
+    background-color: #79b5f2;
+    width: 162px;
+    height: 36px;
+    border-radius: 10px;
+    border-style: none;
+    margin-top: 10px;
+}
