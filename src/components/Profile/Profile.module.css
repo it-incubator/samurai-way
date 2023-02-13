@@ -1,8 +1,9 @@
 .profile {
-    grid-area: profile;
+    /*grid-area: profile;*/
     display: grid;
     gap: 5px;
     margin: 0 auto;
+    background-color: aquamarine;
 }
 
 .profile__logo {
