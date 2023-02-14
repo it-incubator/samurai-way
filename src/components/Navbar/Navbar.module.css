@@ -10,5 +10,18 @@
 }
 
 
-.item a {
+.item {
+    margin: 10px;
+    color: white;
+    text-decoration: none;
+}
+
+
+.active {
+    color: black;
+    background-color: lightgray;
+    border: 1px solid;
+    border-radius: 3px;
+    transition: 0.5s;
+    text-decoration: none;
 }
