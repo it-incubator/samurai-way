@@ -4,15 +4,7 @@
     gap: 5px;
     margin: 0 auto;
     background-color: aquamarine;
+    padding: 10px;
 }
 
-.profile__logo {
-    height: 150px;
-    overflow: hidden;
-}
-
-.profile__logo img {
-    width: 100%;
-    transform: translateY();
-}
 

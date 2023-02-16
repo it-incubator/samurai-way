@@ -1,0 +1,18 @@
+.about {
+    display: flex;
+    gap: 20px;
+}
+
+.about img {
+    width: 120px;
+    height: 120px;
+}
+
+.logo {
+    height: 150px;
+    overflow: hidden;
+}
+
+.logo img {
+    width: 100%;
+}

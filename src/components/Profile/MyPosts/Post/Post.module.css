@@ -10,8 +10,8 @@
     height: 60px;
 }
 
-.like {
+.likes {
     padding: 1px;
     font-weight: bold;
-    border: 1px solid red;
+    border: 1px solid #a11818;
 }
