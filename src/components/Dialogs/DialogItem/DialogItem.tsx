@@ -1,17 +1,16 @@
 import React from 'react';
 import c from '../Dialogs.module.css';
 import {NavLink} from 'react-router-dom'
-import {v1} from 'uuid';
+import {DialogType} from '../../../redux/state';
 
-type DialogsDataType={
-    id: string
-    name:string
+type DialogItemPropsType={
+    dialog: DialogType
 }
 
-export const DialogItem: React.FC<DialogsDataType> = (props) => {
+export const DialogItem: React.FC<DialogItemPropsType> = (props) => {
     return (
-        <div className={c.dialog}>
-            <NavLink to={'/dialogs/' + props.id}>{props.name}</NavLink>
-        </div>
+            <NavLink to={'/dialogs/' + props.dialog.id}>
+                {props.dialog.name}
+            </NavLink>
     )
 }

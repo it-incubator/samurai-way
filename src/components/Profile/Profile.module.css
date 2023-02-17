@@ -1,9 +1,7 @@
 .profile {
-    /*grid-area: profile;*/
-    display: grid;
     gap: 5px;
     margin: 0 auto;
-    background-color: aquamarine;
+    background-color: #eeeeee;
     padding: 10px;
 }
 

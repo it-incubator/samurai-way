@@ -5,13 +5,12 @@
     grid-template-areas:
     "header header"
     "nav content"
-    "nav content";
-    grid-template-rows: 80px 1fr 60px;
+    "friends content";
+    grid-template-rows: 1fr 6fr 5fr;
     grid-template-columns: 2fr 10fr;
     gap: 5px;
 }
 
 .app-wrapper-content {
     grid-area: content;
-    background-color: lightgoldenrodyellow;
 }

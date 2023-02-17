@@ -9,19 +9,25 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {News} from './components/News/News';
 import {Music} from './components/Music/News';
 import {Settings} from './components/Settings/Settings';
-import {RootStateType, state} from './redux/state'
+import {RootStateType} from './redux/state';
+import {Sidebar} from './components/Navbar/Sidebar/Sidebar';
 
-const App: React.FC<RootStateType> = (props) => {
-state.
+type AppPropsType={
+    state: RootStateType
+}
+
+const App: React.FC<AppPropsType> = (props) => {
+
     return (
         <BrowserRouter>
             <div className="app-wrapper">
                 <Header/>
-                <Navbar/>
+                <Navbar />
+                <Sidebar sidebar={props.state.sideBar}/>
                 <div className="app-wrapper-content">
                     <Routes>
-                        <Route path="/dialogs/*" element={<Dialogs dialogs={props.dialogsPage}/>}/>
-                        <Route path="/profile" element={<Profile posts={props.dialogsPage}/>}/>
+                        <Route path="/dialogs/*" element={<Dialogs dialogsPage={props.state.dialogsPage}/>}/>
+                        <Route path="/profile" element={<Profile profilePage={props.state.profilePage}/>}/>
                         <Route path="/news" element={<News/>}/>
                         <Route path="/music" element={<Music/>}/>
                         <Route path="/settings" element={<Settings/>}/>

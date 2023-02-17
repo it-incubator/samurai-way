@@ -4,28 +4,24 @@ import {NavLink} from 'react-router-dom'
 import {v1} from 'uuid';
 import {DialogItem} from './DialogItem/DialogItem';
 import {Message} from './Message/Message';
+import {DialogsPageType} from '../../redux/state';
 
-type DialogsDataType={
-    id: string
-    name:string
-}
-type MessagesDataType={
-    id: string
-    message:string
+type DialogsPropsType={
+    dialogsPage: DialogsPageType
 }
 
-type DialogsType={
-    dialogs:DialogsDataType[]
-    messages:MessagesDataType[]
-}
+export const Dialogs: React.FC<DialogsPropsType>=(props) => {
 
-export const Dialogs: React.FC<DialogsType>=(props) => {
+    const dialogsDataMap = props.dialogsPage.dialogs
+        .map(el => <li key={el.id} className={c.dialog}>
+            <DialogItem dialog={el}/>
+        </li>);
 
-    const dialogsDataMap = props.dialogs
-        .map(el => <li key={el.id}><DialogItem id={el.id} name={el.name}/></li>);
-
-    const messagesDataMap = props.messages
-        .map(el => <div key={el.id}>{<Message id={el.id} message={el.message}/>}</div>);
+    const messagesDataMap = props.dialogsPage.messages
+        .map(el => <li key={el.id}>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScbrrOgLfx3xyrV6qAmKyrEimNekZcwCGKiwotVfQ&s" alt="ava" />
+            {<Message message={el}/>}
+        </li>);
 
     return (
         <div className={c.dialogs}>

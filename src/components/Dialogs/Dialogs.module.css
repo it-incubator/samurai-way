@@ -2,20 +2,43 @@
     display: grid;
     grid-template-columns: 2fr 10fr;
     height: 100%;
+    background-color: #eaeaea;
 }
 
-.dialogs_items {
-
+.dialogs ul {
+    margin: 0;
+    padding: 0 0 0 10px;
 }
 
-.item {
-
+.dialog {
+margin-bottom: 10px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .dialogs_messages {
-
+    padding-left: 20px;
+    height: 100%;
+    border-left: 1px solid darkblue;
+    height: 100%;
 }
 
+.dialogs_messages ul {
+    margin: 0;
+    padding: 0;
+}
+.dialogs_messages ul li {
+    margin-bottom: 10px;
+    /*height: 50px;*/
+    display: flex;
+    align-items: center;
+}
+.dialogs_messages ul li img {
+    width: 50px;
+    height: 50px;
+}
 .message {
-
+    margin-left: 10px;
 }

@@ -1,27 +1,33 @@
 import {v1} from 'uuid';
 
-type DialogType = {
+export type DialogType = {
     id: string
     name: string
 }
-type MessageType = {
+export type MessageType = {
     id: string
     message: string
 }
-type PostType = {
+export type PostType = {
     id: string
     message: string
     likes: number
 }
-type DialogsPageType = {
+export type DialogsPageType = {
     dialogs: DialogType[]
     messages: MessageType[]
 }
-type ProfilePageType = {
+export type ProfilePageType = {
     posts: PostType[]
 
 }
-type SideBarType = {}
+export type SideBarFriendType={
+    id: string
+    name: string
+}
+export type SideBarType = {
+    friends: SideBarFriendType[]
+}
 export type RootStateType = {
     dialogsPage: DialogsPageType
     profilePage: ProfilePageType
@@ -29,7 +35,7 @@ export type RootStateType = {
 }
 
 
-export let state = {
+export let state: RootStateType  = {
     dialogsPage: {
         dialogs: [
             {id: v1(), name: 'Sasha'},
@@ -52,5 +58,12 @@ export let state = {
             {id: v1(), message: 'Hi, im fine thank you, and you?', likes: 10}
         ]
     },
-    sideBar: {},
+    sideBar: {
+        friends: [
+            {id: v1(), name: 'Sasha'},
+            {id: v1(), name: 'Kolya'},
+            {id: v1(), name: 'Andrey'},
+        ]
+    },
 }
+

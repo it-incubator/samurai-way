@@ -1,25 +1,18 @@
 import React from 'react';
 import c from './Profile.module.css';
-import bg from '../../img/bg.jpeg';
 import {MyPosts} from './MyPosts/MyPosts';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
-import {postData} from '../../index';
+import {ProfilePageType} from '../../redux/state';
 
-type PostsDataType={
-    id: string
-    message:string
-    likes: number
+type ProfilePropsType={
+    profilePage: ProfilePageType
 }
 
-type PostsType={
-    posts: PostsDataType[]
-}
-
-export const Profile: React.FC<PostsType>=(props) => {
+export const Profile: React.FC<ProfilePropsType>=(props) => {
     return (
         <div className={c.profile}>
             <ProfileInfo/>
-            <MyPosts posts={postData}/>
+            <MyPosts posts={props.profilePage.posts}/>
         </div>
     )
 }
