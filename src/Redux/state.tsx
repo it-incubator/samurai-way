@@ -12,7 +12,8 @@ export type StoreType = {
 
 
 export type AddPost = {
-    type:'ADD-Post'
+    type:'ADD-Post',
+    postText:string
 }
 
  export  type  AddPostDialogs = {
@@ -84,6 +85,21 @@ export const Store:StoreType = {
 
 
 
+export  const AddPostActionCreator = (postText:string):AddPost=> {
+    return {
+        type:'ADD-Post',
+        postText:postText
+    }
+
+}
+
+export  const UpdateTextActionCreator = (newText:string):UpdateText=> {
+    return {
+        type:'UpdateText',
+        newText:newText
+    }
+
+}
 
 
 
