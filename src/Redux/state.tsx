@@ -11,24 +11,6 @@ export type StoreType = {
 }
 
 
-export type AddPost = {
-    type:'ADD-Post',
-    postText:string
-}
-
- export  type  AddPostDialogs = {
-    type: 'AddPostDialogs'
-    newDialogs:string
-}
-
-export  type UpdateText = {
-    type:'UpdateText'
-    newText:string
-}
-
-export type AllAction = AddPost|AddPostDialogs|UpdateText
-
-
 export const Store:StoreType = {
     _State : {
         data:[{id:1,name:'Hróðgeirr'},
@@ -42,6 +24,7 @@ export const Store:StoreType = {
             {id:3,message:'Å drive dank'},
             {id:4,message:'Å dra ved nesa'},
             {id:5,message:'Å gjøre en mygg til en elefant'}],
+
         profilePage :{ post : [{id:1,message:'Hi, how are you?', likeCount:12},
                 {id:2,message:'Hi, how are you?', likeCount:10},
                 {id:3,message:'Hi, how are you?', likeCount:8},
@@ -64,12 +47,12 @@ export const Store:StoreType = {
     },
 
      dispatch (action){
-        if (action.type==='ADD-Post'){ let newPost = {id:5,message:this._State.profilePage.newPostText, likeCount:18}
+        if (action.type==='ADD-Post'){ let newPost = {id:5,message:action.postText, likeCount:18}
 
             Store._State.profilePage.post.push(newPost)
             Store._State.profilePage.newPostText=''
             this.onChange()}
-        else if (action.type==='AddPostDialogs'){ let newPost ={id:1,message:action.newDialogs}
+        else if (action.type==='AddPostDialogs'){ let newPost ={id:6,message:action.newDialogs}
             this._State.message.push(newPost)
 
             this.onChange()}
@@ -84,20 +67,37 @@ export const Store:StoreType = {
 }
 
 
+export type AllAction = AddPost|AddPostDialogs|UpdateText
 
-export  const AddPostActionCreator = (postText:string):AddPost=> {
+export type AddPost = ReturnType<typeof AddPostActionCreator>
+
+export  const AddPostActionCreator = (postText:string)=> {
     return {
         type:'ADD-Post',
         postText:postText
-    }
+    } as const
 
 }
 
-export  const UpdateTextActionCreator = (newText:string):UpdateText=> {
+export  type UpdateText =ReturnType<typeof UpdateTextActionCreator>
+
+
+export  const UpdateTextActionCreator = (newText:string)=> {
     return {
         type:'UpdateText',
         newText:newText
-    }
+    } as const
+
+}
+
+export  type  AddPostDialogs = ReturnType<typeof AddPostDialogsActionCreator>
+
+
+export  const AddPostDialogsActionCreator = (newDialogs:string)=> {
+    return {
+        type:'AddPostDialogs',
+        newDialogs: newDialogs
+    } as const
 
 }
 

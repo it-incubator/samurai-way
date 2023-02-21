@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import  s from './MyPost.module.css'
 import {PostData} from "../../../App";
 import {AddPost, AddPostActionCreator, AddPostDialogs, UpdateText, UpdateTextActionCreator} from "../../../Redux/state";
@@ -18,19 +18,19 @@ type MyPost = {
 export  const MyPost = (props:MyPost) => {
 
 
-    let newPost = React.createRef<HTMLInputElement>()
+
 
     const AddPost = ()=> {
-        if (newPost.current) {
             props.dispatch(AddPostActionCreator(props.newPostText))
-        }
+
 
     }
 
 
-const onChangeHandler = ()=> {
-    if (newPost.current) {
-        props.dispatch(UpdateTextActionCreator(newPost.current?.value.trim()))
+const onChangeHandler = (e:ChangeEvent<HTMLInputElement>)=> {
+        let newPost =e.currentTarget.value
+    if (newPost.trim() !=='') {
+        props.dispatch(UpdateTextActionCreator(newPost))
     }
 }
 
@@ -46,7 +46,7 @@ const onChangeHandler = ()=> {
                  )
              })
          }</div>
-            <input onChange={onChangeHandler} ref={newPost} value={props.newPostText} />
+            <input onChange={onChangeHandler} value={props.newPostText} />
 
             <button  onClick={AddPost} className={s.style_Button}>Add Post</button>
 

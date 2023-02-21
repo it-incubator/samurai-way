@@ -3,7 +3,7 @@ import  s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 import {DialogTypeApp,MessageTypeApp} from "../../App";
-import {AllAction} from "../../Redux/state";
+import { AddPostDialogsActionCreator, AllAction} from "../../Redux/state";
 
 type DialogsType = {
     DialogData:DialogTypeApp[]
@@ -14,11 +14,11 @@ type DialogsType = {
 export  const Dialogs = (props:DialogsType) => {
 
 
-let newPost = React.createRef<HTMLInputElement>()
+
 
     const AddPost = ()=> {
     // if(newPost.current){props.AddPostDialogs(newPost.current?.value)}
-        props.dispatch({type:'AddPostDialogs',newDialogs:inputValue})
+        props.dispatch(AddPostDialogsActionCreator(inputValue))
         setInputValue('')
 }
 
@@ -53,7 +53,7 @@ const onChangeHandler = (e:ChangeEvent<HTMLInputElement>)=> {
 
                 </div>
                 <div>
-                    <input onChange={onChangeHandler}  value={inputValue} ref={newPost}/>
+                    <input onChange={onChangeHandler}  value={inputValue} />
                     <button onClick={AddPost}>Add</button>
                 </div>
 
