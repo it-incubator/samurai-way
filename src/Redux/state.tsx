@@ -1,4 +1,6 @@
 import {DialogDataType} from "../App";
+import {pageReducer} from "./pageReducer";
+import {dialogsReducer} from "./dialogsReducer";
 
 
 export type StoreType = {
@@ -47,23 +49,11 @@ export const Store:StoreType = {
     },
 
      dispatch (action){
-        if (action.type==='ADD-Post'){ let newPost = {id:5,message:action.postText, likeCount:18}
 
-            Store._State.profilePage.post.push(newPost)
-            Store._State.profilePage.newPostText=''
-            this.onChange()}
-        else if (action.type==='AddPostDialogs'){ let newPost ={id:6,message:action.newDialogs}
-            this._State.message.push(newPost)
-
-            this.onChange()}
-        else if (action.type ==='UpdateText'){
-            this._State.profilePage.newPostText=action.newText
-
-            this.onChange() }
+        pageReducer( Store,action)
+        dialogsReducer(Store,action)
+            this.onChange()
         }
-
-
-
 }
 
 
