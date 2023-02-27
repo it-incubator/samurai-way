@@ -8,9 +8,9 @@ import { AllAction} from "../../Redux/state";
 
 
 type PostType = {
-    PostData:PostData[]
+    PostData?:PostData[]
     dispatch:(action:AllAction)=>void
-    newPostText:string
+    newPostText?:string
 
 }
 
@@ -20,7 +20,7 @@ export  const Profile = (props:PostType) => {
     <div className={s.style} >
         <img className={s.city_img} src={city}/>Main contain</div>
     <ProfileInfo/>
-    <MyPost PostData={props.PostData} dispatch={props.dispatch} newPostText={props.newPostText} />
+    <MyPost PostData={props.PostData} dispatch={props.dispatch} newPostText={props.newPostText?} />
 </div>
 
     );

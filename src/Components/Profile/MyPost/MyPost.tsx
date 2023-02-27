@@ -4,9 +4,9 @@ import {PostData} from "../../../App";
 import {AddPost, AddPostActionCreator, AddPostDialogs, UpdateText, UpdateTextActionCreator} from "../../../Redux/state";
 
 type MyPost = {
-    PostData:PostData[]
+    PostData?:PostData[]
     dispatch:(action:AddPost|AddPostDialogs|UpdateText)=>void
-    newPostText:string
+    newPostText?:string
 
 }
 
@@ -21,7 +21,7 @@ export  const MyPost = (props:MyPost) => {
 
 
     const AddPost = ()=> {
-            props.dispatch(AddPostActionCreator(props.newPostText))
+            props.dispatch(AddPostActionCreator(props.newPostText?))
 
 
     }
@@ -38,7 +38,7 @@ const onChangeHandler = (e:ChangeEvent<HTMLInputElement>)=> {
     return (
         <div>
          <div className={s.style}>{
-             props.PostData.map((p)=>{
+             props.PostData?.map((p)=>{
                  return (
                      <li>
                          {p.message}{p.likeCount}

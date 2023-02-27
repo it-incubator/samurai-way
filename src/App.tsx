@@ -6,11 +6,12 @@ import {Profile} from "./Components/Profile/Profile";
 import { Route} from "react-router-dom";
 import {Dialogs} from "./Components/Dialog/Dialogs";
 import {SideBar} from "./Components/SideBar/SideBar";
-import {StoreType} from "./Redux/state";
+
+import {store, StoreType} from "./Redux/redux-store";
 
 
 type PropsType = {
-    Store:StoreType
+    state:StoreType
 }
 
 
@@ -54,15 +55,15 @@ export type PostData = {
 
 
 function App(props:PropsType) {
-    const state =props.Store.getState()
+console.log(props.state)
     return (
 
         <div className='app-wrapper'>
            <Header />
             <Navbar/>
-            <Route path={'/dialogs'} render={()=><Dialogs DialogData={state.data} MessageData={state.message}  dispatch={props.Store.dispatch.bind(props.Store)} />}/>
-           <Route path={'/profile'} render={()=><Profile  PostData={state.profilePage.post} dispatch={props.Store.dispatch.bind(props.Store)} newPostText={state.profilePage.newPostText} />}/>
-            <Route path={'/sidebar'} render={()=><SideBar SideData={state.sideBar}/>}/>
+            <Route path={'/dialogs'} render={()=><Dialogs DialogData={props.state.dialogsReducer?.data} MessageData={props.state.dialogsReducer?.message}  dispatch={store.dispatch.bind(props.state)} />}/>
+           <Route path={'/profile'} render={()=><Profile  PostData={props.state.pageReducer?.post} dispatch={store.dispatch.bind(props.state)} newPostText={props.state.pageReducer?.newPostText} />}/>
+            {/*<Route path={'/sidebar'} render={()=><SideBar SideData={state.sideBar}/>}/>*/}
         </div>
 
     );

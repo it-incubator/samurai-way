@@ -8,7 +8,7 @@ export type StoreType = {
     onChange:()=>void;
     getState:()=>DialogDataType
     subscriber:(observer:()=>void)=>void
-    dispatch:(action:AllAction)=>void
+    // dispatch:(action:AllAction)=>void
 
 }
 
@@ -48,12 +48,12 @@ export const Store:StoreType = {
         this.onChange=observer
     },
 
-     dispatch (action){
-
-        pageReducer( Store,action)
-        dialogsReducer(Store,action)
-            this.onChange()
-        }
+     // dispatch (action){
+     //
+     //    pageReducer( Store,action)
+     //    dialogsReducer(Store,action)
+     //        this.onChange()
+     //    }
 }
 
 

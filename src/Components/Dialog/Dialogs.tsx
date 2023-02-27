@@ -6,8 +6,8 @@ import {DialogTypeApp,MessageTypeApp} from "../../App";
 import { AddPostDialogsActionCreator, AllAction} from "../../Redux/state";
 
 type DialogsType = {
-    DialogData:DialogTypeApp[]
-    MessageData:MessageTypeApp[]
+    DialogData?:DialogTypeApp[]
+    MessageData?:MessageTypeApp[]
     dispatch:(action:AllAction)=>void
 }
 
@@ -31,7 +31,7 @@ const onChangeHandler = (e:ChangeEvent<HTMLInputElement>)=> {
     return ( <div className={s.items}>
             <div className={s.dialogs}>
 
-                {props.DialogData.map((d)=>{ return (
+                {props.DialogData?.map((d)=>{ return (
                     <DialogItem name={d.name} id={d.id}/>
                 )
 
@@ -44,7 +44,7 @@ const onChangeHandler = (e:ChangeEvent<HTMLInputElement>)=> {
                 <div className={s.messages}>
 
 
-                    {props.MessageData.map((m)=>{
+                    {props.MessageData?.map((m)=>{
                         return (
                             <Message message={m.message}/>
                         )
