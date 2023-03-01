@@ -1,12 +1,13 @@
 import React, {ChangeEvent} from 'react';
 import  s from './MyPost.module.css'
 import {PostData} from "../../../App";
-import {AddPost, AddPostActionCreator, AddPostDialogs, UpdateText, UpdateTextActionCreator} from "../../../Redux/state";
+
 
 type MyPost = {
     PostData?:PostData[]
-    dispatch:(action:AddPost|AddPostDialogs|UpdateText)=>void
-    newPostText?:string
+    addPost:(newPostText:string)=>void
+    newPostText:string
+    UpdatePost:(newPost:string)=>void
 
 }
 
@@ -21,7 +22,7 @@ export  const MyPost = (props:MyPost) => {
 
 
     const AddPost = ()=> {
-            props.dispatch(AddPostActionCreator(props.newPostText?))
+            props.addPost(props.newPostText)
 
 
     }
@@ -30,7 +31,7 @@ export  const MyPost = (props:MyPost) => {
 const onChangeHandler = (e:ChangeEvent<HTMLInputElement>)=> {
         let newPost =e.currentTarget.value
     if (newPost.trim() !=='') {
-        props.dispatch(UpdateTextActionCreator(newPost))
+        props.UpdatePost(newPost)
     }
 }
 

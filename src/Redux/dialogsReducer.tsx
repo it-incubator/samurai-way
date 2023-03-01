@@ -1,4 +1,4 @@
-import {AllAction} from "./state";
+
 
 export type InitializationStateDialogType = {
     data:DataType []
@@ -34,7 +34,7 @@ const InitializationState:InitializationStateDialogType = {
 
 
 
-export  const dialogsReducer= (state=InitializationState ,action:AllAction) => {
+export  const dialogsReducer= (state=InitializationState ,action:AddPostDialogs) => {
 
     switch (action.type) {
         case 'AddPostDialogs': {
@@ -46,4 +46,15 @@ export  const dialogsReducer= (state=InitializationState ,action:AllAction) => {
 
         default :return state
     }
+}
+
+export  type  AddPostDialogs = ReturnType<typeof AddPostDialogsActionCreator>
+
+
+export  const AddPostDialogsActionCreator = (newDialogs:string)=> {
+    return {
+        type:'AddPostDialogs',
+        newDialogs: newDialogs
+    } as const
+
 }

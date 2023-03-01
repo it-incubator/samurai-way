@@ -3,12 +3,12 @@ import  s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 import {DialogTypeApp,MessageTypeApp} from "../../App";
-import { AddPostDialogsActionCreator, AllAction} from "../../Redux/state";
+
 
 type DialogsType = {
     DialogData?:DialogTypeApp[]
     MessageData?:MessageTypeApp[]
-    dispatch:(action:AllAction)=>void
+    addPost:(inputValue:string)=>void
 }
 
 export  const Dialogs = (props:DialogsType) => {
@@ -18,7 +18,8 @@ export  const Dialogs = (props:DialogsType) => {
 
     const AddPost = ()=> {
     // if(newPost.current){props.AddPostDialogs(newPost.current?.value)}
-        props.dispatch(AddPostDialogsActionCreator(inputValue))
+        props.addPost(inputValue)
+        // props.dispatch(AddPostDialogsActionCreator(inputValue))
         setInputValue('')
 }
 

@@ -57,40 +57,6 @@ export const Store:StoreType = {
 }
 
 
-export type AllAction = AddPost|AddPostDialogs|UpdateText
-
-export type AddPost = ReturnType<typeof AddPostActionCreator>
-
-export  const AddPostActionCreator = (postText:string)=> {
-    return {
-        type:'ADD-Post',
-        postText:postText
-    } as const
-
-}
-
-export  type UpdateText =ReturnType<typeof UpdateTextActionCreator>
-
-
-export  const UpdateTextActionCreator = (newText:string)=> {
-    return {
-        type:'UpdateText',
-        newText:newText
-    } as const
-
-}
-
-export  type  AddPostDialogs = ReturnType<typeof AddPostDialogsActionCreator>
-
-
-export  const AddPostDialogsActionCreator = (newDialogs:string)=> {
-    return {
-        type:'AddPostDialogs',
-        newDialogs: newDialogs
-    } as const
-
-}
-
 
 
 

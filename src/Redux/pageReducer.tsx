@@ -1,4 +1,4 @@
-import {AllAction} from "./state";
+
 import React from "react";
 
 export type InitializationStatePageType = {
@@ -42,6 +42,31 @@ export  const pageReducer= (state=InitializationState,action:AllAction) => {
         default :return state
 }
     }
+
+export type AllAction = AddPost|UpdateText
+
+export type AddPost = ReturnType<typeof AddPostActionCreator>
+
+export  const AddPostActionCreator = (postText:string)=> {
+    return {
+        type:'ADD-Post',
+        postText:postText
+    } as const
+
+}
+
+export  type UpdateText =ReturnType<typeof UpdateTextActionCreator>
+
+
+export  const UpdateTextActionCreator = (newText:string)=> {
+    return {
+        type:'UpdateText',
+        newText:newText
+    } as const
+
+}
+
+
 
 
 
