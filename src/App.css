@@ -9,7 +9,7 @@
   gap: 10px;
 }
 
-.header{
+/* .header{
   grid-area: header;
   background-color: red;
 }
@@ -39,4 +39,4 @@
   .content img{
     height: 300px;
     width: 100%;
-  }
+  } */

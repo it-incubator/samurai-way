@@ -1,0 +1,8 @@
+.content{
+    grid-area: main;
+    background-color: pink;
+  }
+    .avatar{
+      height: 300px;
+      width: 100%;
+    }

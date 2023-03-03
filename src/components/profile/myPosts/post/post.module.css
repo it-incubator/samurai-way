@@ -1,0 +1,13 @@
+.item{
+    display: flex;
+    margin: 10px 0;
+    align-items: center;
+    padding: 0 15px;
+}
+
+.avatar{
+    display: inline-block;
+    height: 50px;
+    border-radius: 100%;
+    margin-right: 50px;
+}
