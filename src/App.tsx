@@ -12,8 +12,10 @@ import {Settings} from './components/Settings/Settings';
 import {RootStateType} from './redux/state';
 import {Sidebar} from './components/Navbar/Sidebar/Sidebar';
 
-type AppPropsType={
+
+type AppPropsType = {
     state: RootStateType
+    addPost:(value:string)=> void
 }
 
 const App: React.FC<AppPropsType> = (props) => {
@@ -22,12 +24,15 @@ const App: React.FC<AppPropsType> = (props) => {
         <BrowserRouter>
             <div className="app-wrapper">
                 <Header/>
-                <Navbar />
+                <Navbar/>
                 <Sidebar sidebar={props.state.sideBar}/>
                 <div className="app-wrapper-content">
                     <Routes>
                         <Route path="/dialogs/*" element={<Dialogs dialogsPage={props.state.dialogsPage}/>}/>
-                        <Route path="/profile" element={<Profile profilePage={props.state.profilePage}/>}/>
+                        <Route path="/profile"
+                               element={<Profile profilePage={props.state.profilePage}
+                                                 addPost={props.addPost}
+                               />}/>
                         <Route path="/news" element={<News/>}/>
                         <Route path="/music" element={<Music/>}/>
                         <Route path="/settings" element={<Settings/>}/>

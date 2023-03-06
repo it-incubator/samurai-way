@@ -25,4 +25,10 @@
     border-radius: 10px;
     border-style: none;
     margin-top: 10px;
+    cursor: pointer;
+}
+.profile__button:hover {
+    color: white;
+    background-color: #000067;
+    transition: 0.4s;
 }

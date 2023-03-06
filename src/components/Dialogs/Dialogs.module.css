@@ -42,3 +42,30 @@ margin-bottom: 10px;
 .message {
     margin-left: 10px;
 }
+
+.dialogs_form {
+    background-color: #E6EEEA;
+    width: 50%;
+    height: 84px;
+    border-radius: 10px;
+}
+
+.dialogs_button {
+    background-color: #79b5f2;
+    width: 162px;
+    height: 36px;
+    border-radius: 10px;
+    border-style: none;
+    margin-top: 10px;
+    cursor: pointer;
+}
+.dialogs_button:hover {
+    color: white;
+    background-color: #000067;
+    transition: 0.4s;
+}
+
+.dialogs_AddPostWrapper {
+    display: flex;
+    flex-direction: column;
+}
