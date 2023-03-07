@@ -4,10 +4,12 @@ import {NavLink} from 'react-router-dom'
 import {v1} from 'uuid';
 import {DialogItem} from './DialogItem/DialogItem';
 import {Message} from './Message/Message';
-import {DialogsPageType} from '../../redux/state';
+import {DialogsPageType, updateNewMessageText} from '../../redux/state';
 
 type DialogsPropsType = {
     dialogsPage: DialogsPageType
+    addMessage:()=>void
+    updateNewMessageText:(value:string)=> void
 }
 
 export const Dialogs: React.FC<DialogsPropsType> = (props) => {
@@ -25,9 +27,14 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
         </li>);
 
     let newMessageEl = useRef<HTMLTextAreaElement>(null) //create link for textArea
+
     const addMessage = () => {
+        props.addMessage()
+    }
+
+    const onMessageChange = () => {
         if (newMessageEl.current !== null) {
-            alert(newMessageEl.current.value)
+            props.updateNewMessageText(newMessageEl.current.value)
         }
     }
 
@@ -41,6 +48,8 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
                 <div className={c.dialogs_AddPostWrapper}>
                     <textarea className={c.dialogs_form}
                               ref={newMessageEl}
+                              onChange={onMessageChange}
+                              value={props.dialogsPage.newMessageText}
                     ></textarea>
                     <button className={c.dialogs_button}
                             onClick={addMessage}

@@ -1,5 +1,4 @@
 import {v1} from 'uuid';
-import {rerenderEntireTree} from '../render';
 
 export type DialogType = {
     id: string
@@ -17,12 +16,13 @@ export type PostType = {
 export type DialogsPageType = {
     dialogs: DialogType[]
     messages: MessageType[]
+    newMessageText: string
 }
 export type ProfilePageType = {
     posts: PostType[]
-
+    newPostText: string
 }
-export type SideBarFriendType={
+export type SideBarFriendType = {
     id: string
     name: string
 }
@@ -35,8 +35,14 @@ export type RootStateType = {
     sideBar: SideBarType
 }
 
+let rerenderEntireTree = (props: any) => {
+    //get rerender to call it in functions
+}
+export const subscribe = (observer: (state:RootStateType) => void) => { //get rerender from index.tsx
+    rerenderEntireTree = observer // observer pattern
+}
 
-export let state: RootStateType  = {
+export let state: RootStateType = {
     dialogsPage: {
         dialogs: [
             {id: v1(), name: 'Sasha'},
@@ -51,13 +57,15 @@ export let state: RootStateType  = {
             {id: v1(), message: 'when will you return?'},
             {id: v1(), message: 'What films do you prefer?'},
             {id: v1(), message: 'How are you?'},
-        ]
+        ],
+        newMessageText: '' //update from Dialogs textarea
     },
     profilePage: {
         posts: [
             {id: v1(), message: 'Hi, how are you?', likes: 15},
             {id: v1(), message: 'Hi, im fine thank you, and you?', likes: 10}
-        ]
+        ],
+        newPostText: '' //update from MyPosts textarea
     },
     sideBar: {
         friends: [
@@ -68,9 +76,26 @@ export let state: RootStateType  = {
     },
 }
 
-export const addPost = (value:string) => {
-    let newPost={id:v1(), message: value, likes: 0}
+export const addPost = () => {
+    let newPost = {id: v1(), message: state.profilePage.newPostText, likes: 0}
     state.profilePage.posts.push(newPost);
+    state.profilePage.newPostText = ''
     rerenderEntireTree(state)
 }
+export const updateNewPostText = (newText: string) => {
+    state.profilePage.newPostText = newText
+    rerenderEntireTree(state)
+}
+export const addMessage = () => {
+    let newMessage = {id: v1(), message: state.dialogsPage.newMessageText}
+    state.dialogsPage.messages.push(newMessage);
+    state.dialogsPage.newMessageText = ''
+    rerenderEntireTree(state)
+}
+export const updateNewMessageText = (newMess: string) => {
+    state.dialogsPage.newMessageText = newMess
+    rerenderEntireTree(state)
+}
+
+
 
