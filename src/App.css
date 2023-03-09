@@ -1,12 +1,16 @@
-.App{ 
-  display: grid;
-  grid-template-areas: 
+.App {
+    display: grid;
+    grid-template-areas:
       'header header'
-      'nav main'
-  ;
-  grid-template-rows: 60px 1fr;
-  grid-template-columns: 2fr 10fr;
-  gap: 10px;
+      'nav main';
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 2fr 10fr;
+    gap: 10px;
+}
+
+.content {
+    grid-area: main;
+    background-color: pink;
 }
 
 /* .header{
