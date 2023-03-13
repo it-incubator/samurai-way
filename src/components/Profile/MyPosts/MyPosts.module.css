@@ -12,20 +12,22 @@
 }
 
 .profile__form {
-    background-color: #E6EEEA;
-    width: 900px;
-    height: 84px;
+    background-color: aliceblue;
+    max-width: 50%;
+    height: 40px;
     border-radius: 10px;
+    padding: 10px;
 }
 
 .profile__button {
     background-color: #79b5f2;
-    width: 162px;
-    height: 36px;
+    width: 80px;
+    height: 30px;
     border-radius: 10px;
     border-style: none;
     margin-top: 10px;
     cursor: pointer;
+    font-weight: bold;
 }
 .profile__button:hover {
     color: white;
