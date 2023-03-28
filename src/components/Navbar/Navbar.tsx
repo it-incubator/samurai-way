@@ -15,6 +15,8 @@ export const Navbar: React.FC = () => {
                 <div><NavLink className={setActive}
                               to="/dialogs">Messages</NavLink></div>
                 <div><NavLink className={setActive}
+                              to="/users">Find Users</NavLink></div>
+                <div><NavLink className={setActive}
                               to="/news">News</NavLink></div>
                 <div><NavLink className={setActive}
                               to="/music">Music</NavLink></div>

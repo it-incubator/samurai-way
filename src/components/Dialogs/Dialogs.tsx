@@ -1,38 +1,28 @@
-import React, {ChangeEvent, useRef} from 'react';
+import React, {ChangeEvent} from 'react';
 import c from './Dialogs.module.css';
 import {DialogItem} from './DialogItem/DialogItem';
 import {Message} from './Message/Message';
-import {ActionTypes, addMessageAC, DialogsPageType, updateMessageAC} from '../../redux/state';
-
-type DialogsPropsType = {
-    dialogsPage: DialogsPageType
-    dispatch: (action: ActionTypes)=> void
-}
+import {DialogsPropsType} from './DialogsContainer';
 
 export const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
-    const dialPg=props.dialogsPage
-
-    const dialogsDataMap = dialPg.dialogs
+    const dialogsDataMap = props.dialogs
         .map(el => <li key={el.id} className={c.dialog}>
             <DialogItem dialog={el}/>
         </li>);
 
-    const messagesDataMap = dialPg.messages
+    const messagesDataMap = props.messages
         .map(el => <li key={el.id}>
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScbrrOgLfx3xyrV6qAmKyrEimNekZcwCGKiwotVfQ&s"
                  alt="ava"/>
             {<Message message={el}/>}
         </li>);
 
-    const addMessage = () => {
-        // .dispatch( {} )  action == Object
-        props.dispatch(addMessageAC(dialPg.newMessageText))
-        props.dispatch(updateMessageAC('')) //textarea clean
+    const onAddMessage = () => {
+        props.addMessage(props.newMessageText) //не было передачи месаджа
     }
-
     const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(updateMessageAC(e.currentTarget.value))
+        props.onMessageChange(e.currentTarget.value)
     }
 
     return (
@@ -45,11 +35,11 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
                 <div className={c.dialogs_AddPostWrapper}>
                     <textarea className={c.dialogs_form}
                               onChange={onMessageChange}
-                              value={dialPg.newMessageText}
+                              value={props.newMessageText}
                     ></textarea>
                     <button className={c.dialogs_button}
-                            onClick={addMessage}
-                            disabled={dialPg.newMessageText===''}
+                            onClick={onAddMessage}
+                            disabled={props.newMessageText === ''}
                     >Sent Message
                     </button>
                 </div>
