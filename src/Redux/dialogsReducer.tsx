@@ -34,13 +34,13 @@ const InitializationState:InitializationStateDialogType = {
 
 
 
-export  const dialogsReducer= (state=InitializationState ,action:AddPostDialogs) => {
+export  const dialogsReducer= (state=InitializationState ,action:AddPostDialogs):InitializationStateDialogType => {
 
     switch (action.type) {
         case 'AddPostDialogs': {
             let newPost ={id:6,message:action.newDialogs}
             state.message.push(newPost)
-            break
+            return state
         }
 
 

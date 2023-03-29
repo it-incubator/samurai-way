@@ -1,28 +1,28 @@
 import React, {ChangeEvent} from 'react';
 import  s from './MyPost.module.css'
-import {PostData} from "../../../App";
+import {MyPostType} from "./MyPostContainer";
 
 
-type MyPost = {
-    PostData?:PostData[]
-    addPost:(newPostText:string)=>void
-    newPostText:string
-    UpdatePost:(newPost:string)=>void
-
-}
-
-
-
+// type MyPost = {
+//     PostData?:PostData[]
+//     addPost:(newPostText:string)=>void
+//     newPostText:string
+//     UpdatePost:(newPost:string)=>void
+//
+// }
 
 
 
-export  const MyPost = (props:MyPost) => {
+
+
+
+export  const MyPost = (props:MyPostType) => {
 
 
 
 
     const AddPost = ()=> {
-            props.addPost(props.newPostText)
+            props.addPost(props.pageReducer.newPostText)
 
 
     }
@@ -30,16 +30,15 @@ export  const MyPost = (props:MyPost) => {
 
 const onChangeHandler = (e:ChangeEvent<HTMLInputElement>)=> {
         let newPost =e.currentTarget.value
-    if (newPost.trim() !=='') {
-        props.UpdatePost(newPost)
-    }
+        props.updatePost(newPost)
+
 }
 
 
     return (
         <div>
          <div className={s.style}>{
-             props.PostData?.map((p)=>{
+             props.pageReducer.post.map((p)=>{
                  return (
                      <li>
                          {p.message}{p.likeCount}
@@ -47,7 +46,7 @@ const onChangeHandler = (e:ChangeEvent<HTMLInputElement>)=> {
                  )
              })
          }</div>
-            <input onChange={onChangeHandler} value={props.newPostText} />
+            <input onChange={onChangeHandler} value={props.pageReducer.newPostText} />
 
             <button  onClick={AddPost} className={s.style_Button}>Add Post</button>
 

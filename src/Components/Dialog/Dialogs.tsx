@@ -2,16 +2,13 @@ import React, {ChangeEvent, useState} from 'react';
 import  s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {DialogTypeApp,MessageTypeApp} from "../../App";
+import {MyDialogType} from "./DialogsContainer";
 
 
-type DialogsType = {
-    DialogData?:DialogTypeApp[]
-    MessageData?:MessageTypeApp[]
-    addPost:(inputValue:string)=>void
-}
 
-export  const Dialogs = (props:DialogsType) => {
+
+
+export  const Dialogs = (props:MyDialogType) => {
 
 
 
@@ -32,7 +29,7 @@ const onChangeHandler = (e:ChangeEvent<HTMLInputElement>)=> {
     return ( <div className={s.items}>
             <div className={s.dialogs}>
 
-                {props.DialogData?.map((d)=>{ return (
+                {props.dialogsReducer.data.map((d)=>{ return (
                     <DialogItem name={d.name} id={d.id}/>
                 )
 
@@ -45,7 +42,7 @@ const onChangeHandler = (e:ChangeEvent<HTMLInputElement>)=> {
                 <div className={s.messages}>
 
 
-                    {props.MessageData?.map((m)=>{
+                    {props.dialogsReducer.message.map((m)=>{
                         return (
                             <Message message={m.message}/>
                         )

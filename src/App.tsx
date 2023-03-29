@@ -52,15 +52,15 @@ export type PostData = {
 
 
 
-function App(props:PropsType) {
+function App() {
 
     return (
 
         <div className='app-wrapper'>
            <Header />
             <Navbar/>
-            <Route path={'/dialogs'} render={()=><DialogsContainer DialogData={props.state.dialogsReducer?.data} MessageData={props.state.dialogsReducer?.message}  dispatch={store.dispatch.bind(props.state)} />}/>
-           <Route path={'/profile'} render={()=><Profile  PostData={props.state.pageReducer?.post} dispatch={store.dispatch.bind(props.state)} newPostText={props.state.pageReducer?.newPostText} />}/>
+            <Route path={'/dialogs'} render={()=><DialogsContainer  />}/>
+           <Route path={'/profile'} render={()=><Profile   />}/>
             {/*<Route path={'/sidebar'} render={()=><SideBar SideData={state.sideBar}/>}/>*/}
         </div>
 

@@ -21,27 +21,25 @@ const InitializationState:InitializationStatePageType = {
 }
 
 
-export  const pageReducer= (state=InitializationState,action:AllAction) => {
+export  const pageReducer= (state=InitializationState,action:AllAction):InitializationStatePageType => {
 
     switch (action.type) {
 
-        case 'ADD-Post': {
+        case 'ADD-Post':
             let newPost =
                 {id: 6, message: state.newPostText, likeCount: 18}
-
-            state.post.push(newPost)
             state.newPostText = ''
-           break
-        }
-        case 'UpdateText': {
+           return {
+                ...state,post:[...state.post,newPost]
+           }
 
-                state.newPostText=action.newText
-            break
-        }
+        case 'UpdateText':
+
+        return {...state,newPostText:action.newText}
 
         default :return state
-}
     }
+}
 
 export type AllAction = AddPost|UpdateText
 

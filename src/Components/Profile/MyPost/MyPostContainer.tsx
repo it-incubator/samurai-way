@@ -1,42 +1,51 @@
 import React from 'react';
-import {PostData} from "../../../App";
-
 import {MyPost} from "./MyPost";
-import {AddPost, AddPostActionCreator, UpdateText, UpdateTextActionCreator} from "../../../Redux/pageReducer";
+import {
+    AddPostActionCreator, InitializationStatePageType,
+    UpdateTextActionCreator
+} from "../../../Redux/pageReducer";
+import { StoreType} from "../../../Redux/redux-store";
+import {connect} from "react-redux";
+import {Dispatch} from "redux";
 
-type MyPostContainer = {
-    PostData?:PostData[]
-    dispatch:(action:AddPost|UpdateText)=>void
-    newPostText:string
+
+
+
+
+
+
+
+type mapStateToPropsType ={
+    pageReducer:InitializationStatePageType
+}
+
+const mapStateToProps =(state:StoreType):mapStateToPropsType=> {
+    return {
+        pageReducer:state.pageReducer,
+
+
+    }
+}
+
+type mapDispatchToPropsType ={
+    updatePost:(newPost:string)=>void
+    addPost:(newPostText:string)=>void
 
 }
 
+export type MyPostType = mapDispatchToPropsType & mapStateToPropsType
 
-
-
-
-
-export  const MyPostContainer = (props:MyPostContainer) => {
-
-
-
-
-    const AddPost = ()=> {
-        props.dispatch(AddPostActionCreator(props.newPostText))
+const mapDispatchToProps =(dispatch:Dispatch):mapDispatchToPropsType=> {
+    return {
+        updatePost:(newPost:string)=>{
+            dispatch(UpdateTextActionCreator(newPost))
+        },
+        addPost:(newPostText:string)=> {
+            dispatch(AddPostActionCreator(newPostText))
+        },
 
     }
-
-    const UpdatePost = (newPost:string)=> {
-        props.dispatch(UpdateTextActionCreator(newPost))
-    }
+}
 
 
-
-
-    return (
-        <div>
-          <MyPost  PostData={props.PostData} newPostText={props.newPostText} addPost={AddPost} UpdatePost={UpdatePost} />
-        </div>
-    );
-};
-
+export const MyPostContainer =connect(mapStateToProps,mapDispatchToProps)(MyPost)

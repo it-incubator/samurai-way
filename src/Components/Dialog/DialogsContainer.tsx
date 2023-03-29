@@ -1,35 +1,41 @@
 import React from 'react';
-import {DialogTypeApp,MessageTypeApp} from "../../App";
 import {Dialogs} from "./Dialogs";
-import {AddPostDialogs, AddPostDialogsActionCreator} from "../../Redux/dialogsReducer";
+import {AddPostDialogsActionCreator, InitializationStateDialogType} from "../../Redux/dialogsReducer";
+import {connect} from "react-redux";;
+import {StoreType} from "../../Redux/redux-store";
+import {Dispatch} from "redux";
 
-type DialogsType = {
-    DialogData?:DialogTypeApp[]
-    MessageData?:MessageTypeApp[]
-    dispatch:(action:AddPostDialogs)=>void
 
+
+
+
+type mapStateToPropsType ={
+    dialogsReducer:InitializationStateDialogType
 }
 
-export  const DialogsContainer = (props:DialogsType) => {
+const mapStateToProps =(state:StoreType)=> {
+    return {
+        dialogsReducer:state.dialogsReducer,
 
-
-
-
-    const AddPost = (inputValue:string)=> {
-
-        props.dispatch(AddPostDialogsActionCreator(inputValue))
 
     }
+}
+
+type mapDispatchToPropsType ={
+ addPost:(inputValue:string)=>void
+}
+
+export type MyDialogType = mapDispatchToPropsType & mapStateToPropsType
+
+const mapDispatchToProps =(dispatch:Dispatch):mapDispatchToPropsType=> {
+    return {
+
+        addPost:(inputValue:string)=> {
+            dispatch(AddPostDialogsActionCreator(inputValue))
+        },
+
+    }
+}
 
 
-    return ( <div>
-
-            <Dialogs  addPost={AddPost}
-                      DialogData={props.DialogData}
-                      MessageData={props.MessageData}
-                       />
-
-        </div>
-
-    );
-};
+export const  DialogsContainer  = connect(mapStateToProps,mapDispatchToProps)(Dialogs)
