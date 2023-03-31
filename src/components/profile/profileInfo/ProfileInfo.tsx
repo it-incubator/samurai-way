@@ -15,7 +15,7 @@ export const ProfileInfo = () => {
                         alt="avatar"/>
                 </div>
                 <div className={style.content__profile_info}>
-                        asdadasdadas
+                        NameNameNAme
                 </div>
             </div>
         </>

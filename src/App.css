@@ -6,11 +6,13 @@
     grid-template-rows: 60px 1fr;
     grid-template-columns: 2fr 10fr;
     gap: 10px;
+    height: 100%;
 }
 
 .content {
     grid-area: main;
     background-color: pink;
+    height: 100%;
 }
 
 /* .header{

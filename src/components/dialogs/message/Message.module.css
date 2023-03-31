@@ -17,7 +17,6 @@
     padding: 20px;
 }
 .message{
-    margin-bottom: 5px;
     font-size: 16px;
 }
 a{
@@ -26,4 +25,16 @@ a{
 }
 a.active{
     color: red;
+}
+.avatar {
+    height: 40px;
+    width: 40px;
+    background-color: green;
+    border-radius: 50%;
+    margin-right: 25px;
+}
+.messageWrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
 }

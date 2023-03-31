@@ -3,9 +3,13 @@
     background-color: green;
     height: 90vh;
 }
-
+.navInner {
+    display: flex;
+    flex-direction: column;
+}
 .nav__list {
     list-style: none;
+    margin-bottom: 100px;
 }
 
 .nav__list_item {

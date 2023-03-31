@@ -3,6 +3,7 @@ import style from './post.module.css'
 type PostPropsType = {
     message: string
     like: number
+    id?: number
 }
 
 export const Post = (props: PostPropsType) => {

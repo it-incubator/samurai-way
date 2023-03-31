@@ -1,0 +1,25 @@
+.wrapper {
+}
+.items{
+    display: flex;
+    justify-content: space-around;
+}
+.title{
+    margin-left: 40px;
+    color: white;
+}
+.avatar{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: purple;
+}
+.item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.friendName{
+    color: white;
+    margin: 0;
+}
