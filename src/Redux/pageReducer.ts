@@ -28,9 +28,9 @@ export  const pageReducer= (state=InitializationState,action:AllAction):Initiali
         case 'ADD-Post':
             let newPost =
                 {id: 6, message: state.newPostText, likeCount: 18}
-            state.newPostText = ''
+
            return {
-                ...state,post:[...state.post,newPost]
+                ...state,newPostText : '',post:[...state.post,newPost]
            }
 
         case 'UpdateText':
