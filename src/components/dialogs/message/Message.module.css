@@ -1,0 +1,40 @@
+.dialogs{
+    display: flex;
+}
+.dialogsItems{
+    flex-grow: 1;
+    padding: 20px;
+
+    margin: 0;
+    list-style: none;
+}
+.item{
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+.messages{
+    flex-grow: 7;
+    padding: 20px;
+}
+.message{
+    font-size: 16px;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+a.active{
+    color: red;
+}
+.avatar {
+    height: 40px;
+    width: 40px;
+    background-color: green;
+    border-radius: 50%;
+    margin-right: 25px;
+}
+.messageWrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}

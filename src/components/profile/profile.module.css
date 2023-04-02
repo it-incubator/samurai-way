@@ -1,0 +1,4 @@
+.content{
+    grid-area: main;
+    background-color: pink;
+  }

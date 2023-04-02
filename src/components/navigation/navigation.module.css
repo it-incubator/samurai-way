@@ -1,0 +1,26 @@
+.nav {
+    grid-area: nav;
+    background-color: green;
+    height: 90vh;
+}
+.navInner {
+    display: flex;
+    flex-direction: column;
+}
+.nav__list {
+    list-style: none;
+    margin-bottom: 100px;
+}
+
+.nav__list_item {
+}
+
+.nav__list_item a {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+}
+
+.nav__list_item a.activeLink {
+    color: blue;
+}

@@ -1,0 +1,29 @@
+.dialogs{
+    display: flex;
+}
+.dialogsItems{
+    flex-grow: 1;
+    padding: 20px;
+
+    margin: 0;
+    list-style: none;
+}
+.item{
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+.messages{
+    flex-grow: 7;
+    padding: 20px;
+}
+.message{
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+a.active{
+    color: red;
+}
