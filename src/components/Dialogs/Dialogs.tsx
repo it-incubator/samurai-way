@@ -19,7 +19,7 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
         </li>);
 
     const onAddMessage = () => {
-        props.addMessage(props.newMessageText) //не было передачи месаджа
+        props.addMessage(props.newMessageText)
     }
     const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.onMessageChange(e.currentTarget.value)
