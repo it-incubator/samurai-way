@@ -3,6 +3,7 @@ import {UsersPropsType} from './UsersContainer';
 import c from './Users.module.css';
 import userPhoto from '../../assets/images/userPhoto.png'
 import axios from 'axios';
+import Pagination from '@mui/material/Pagination';
 
 export const instance = axios.create({
     withCredentials: true,
@@ -20,14 +21,35 @@ export class Users extends React.Component<UsersPropsType> {
     //     // прокидывание пропсов происходит автоматически
     //     // extends -  расширяет родителя и наследуют все методы родителя
     componentDidMount() {
-        console.log('NEW DID MOUNT')
-        instance.get('users')
+        // console.log('NEW DID MOUNT')
+        instance.get(`users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+                this.props.setTotalUsersCount(response.data.totalCount)
+            })
+    }
+
+    onPageChanged = (e: React.ChangeEvent<unknown>, clickedPage: number) => {
+        this.props.setCurrentPage(clickedPage) //pageNumber from click in pagination
+        //then get users for this page
+        instance.get(`users?page=${clickedPage}&count=${this.props.pageSize}`)
             .then(response => this.props.setUsers(response.data.items))
     }
 
     render() {
+        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+
         return (
             <div className={c.usersPageWrapper}>
+                <div className={c.pagination}>
+                    <Pagination count={pagesCount > 0 ? pagesCount : this.props.currentPage}
+                                variant="outlined"
+                                color="secondary"
+                                showFirstButton={true}
+                                showLastButton={true}
+                                onChange={this.onPageChanged}
+                    />
+                </div>
                 {
                     this.props.users.map(u => <div key={u.id} className={c.userWrapper}>
                             <div className={c.userLogoWrapper}>

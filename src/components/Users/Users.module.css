@@ -53,4 +53,8 @@
    display: flex;
     justify-content: center;
 }
-
+.pagination {
+    display: flex;
+    margin-left: 80px;
+    margin-bottom: 20px;
+}
