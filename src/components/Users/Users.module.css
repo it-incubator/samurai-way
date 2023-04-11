@@ -6,7 +6,7 @@
 .usersPageWrapper {
     display: flex;
     flex-direction: column;
-    padding: 50px;
+    padding: 10px 50px 50px;
     gap: 10px;
 }
 
@@ -57,4 +57,12 @@
     display: flex;
     margin-left: 80px;
     margin-bottom: 20px;
+}
+
+.loader {
+    display: flex;
+    align-items: center;
+    height: 65px;
+    margin-left: 55px;
+    margin-top: 20px;
 }

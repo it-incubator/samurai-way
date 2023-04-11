@@ -5,20 +5,18 @@ export type PostType = {
     message: string
     likes: number
 }
-export type newPostTextType = string
-export type ProfileActionTypes = ReturnType<typeof addPostAC> | ReturnType<typeof updatePostTextAC>
+export type ProfileActionTypes = ReturnType<typeof addPost>
+                                    | ReturnType<typeof updatePostText>
+                                    | ReturnType<typeof setUserProfile>
 export type initialStateProfileType = typeof initialState
-export const addPostAC = (postText: string) => {
-    return {
-        type: 'ADD-POST',
-        newPost: postText
-    } as const
+export const addPost = (postText: string) => {
+    return {type: 'ADD-POST', newPost: postText} as const
 }
-export const updatePostTextAC = (updatePostText: string) => {
-    return {
-        type: 'UPDATE-NEW-POST-TEXT',
-        updatePostText: updatePostText
-    } as const
+export const updatePostText = (updateText: string) => {
+    return {type: 'UPDATE-NEW-POST-TEXT', updateText} as const
+}
+export const setUserProfile = (id: number) => {
+    return {type: 'SET-USER-PROFILE', id} as const
 }
 
 let initialState = {
@@ -26,7 +24,8 @@ let initialState = {
         {id: v1(), message: 'Hi, how are you?', likes: 15},
         {id: v1(), message: 'Hi, im fine thank you, and you?', likes: 10}
     ] as Array<PostType>,
-    newPostText: '' //update from MyPosts textarea
+    newPostText: '', //update from MyPosts textarea
+    profileID: 12
 }
 
 const profileReducer = (state: initialStateProfileType = initialState, action: ProfileActionTypes)
@@ -36,7 +35,9 @@ const profileReducer = (state: initialStateProfileType = initialState, action: P
             let newPost = {id: v1(), message: action.newPost, likes: 0}
             return {...state, posts: [...state.posts, newPost], newPostText: ''}
         case 'UPDATE-NEW-POST-TEXT':
-            return {...state, newPostText: action.updatePostText}
+            return {...state, newPostText: action.updateText}
+        case 'SET-USER-PROFILE':
+            return {...state, profileID: action.id}
         default:
             return state;
     }

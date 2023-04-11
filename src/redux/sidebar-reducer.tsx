@@ -1,5 +1,4 @@
 import {v1} from 'uuid';
-import {followAC, setUsersAC, unFollowAC} from './users-reducer';
 
 type SideBarFriendType = {
     id: string

@@ -1,11 +1,6 @@
-//не удалять
+import  {addMessageAC, updateMessageAC} from './dialogs-reducer';
+import {addPost, updatePostText} from './profile-reducer';
 
-import {v1} from 'uuid';
-import profileReducer, {addPostAC, ProfileActionTypes, updatePostTextAC} from './profile-reducer';
-import dialogsReducer, {addMessageAC, DialogsActionTypes, updateMessageAC} from './dialogs-reducer';
-import sidebarReducer from './sidebar-reducer';
-import {type} from 'os';
-import {followAC, setUsersAC, unFollowAC} from './users-reducer';
 
 type DialogType = {
     id: string
@@ -53,12 +48,12 @@ export type  StoreType = {
 //===================ACTIONS TYPES
 type ActionTypes = ReturnType<typeof addMessageAC>
                         | ReturnType<typeof updateMessageAC>
-                        | ReturnType<typeof addPostAC>
-                        | ReturnType<typeof updatePostTextAC>
+                        | ReturnType<typeof addPost>
+                        | ReturnType<typeof updatePostText>
 
 //=================== STORE
 // export let store: StoreType = {
-//     _state: {
+//     _state: {ß
 //         dialogsPage: {
 //             dialogs: [
 //                 {id: v1(), name: 'Sasha'},

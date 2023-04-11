@@ -9,35 +9,41 @@ export type UserType = {
     status: string
 }
 
-export type UsersActionTypes = ReturnType<typeof followAC>
-                                | ReturnType<typeof unFollowAC>
-                                | ReturnType<typeof setUsersAC>
-                                | ReturnType<typeof setCurrentPageAC>
-                                | ReturnType<typeof setTotalUsersCountAC>
+export type UsersActionTypes = ReturnType<typeof follow>
+                                | ReturnType<typeof unFollow>
+                                | ReturnType<typeof setUsers>
+                                | ReturnType<typeof setCurrentPage>
+                                | ReturnType<typeof setTotalUsersCount>
+                                | ReturnType<typeof setIsFetching>
 
-export const followAC = (userId: string) => {
+export const follow = (userId: string) => {
     return {
         type: 'FOLLOW', userId
     } as const
 }
-export const unFollowAC = (userId: string) => {
+export const unFollow = (userId: string) => {
     return {
         type: 'UN-FOLLOW', userId
     } as const
 }
-export const setUsersAC = (users: Array<UserType>) => {
+export const setUsers = (users: Array<UserType>) => {
     return {
         type: 'SET-USERS', users
     } as const
 }
-export const setCurrentPageAC = (clickedPage: number) => {
+export const setCurrentPage = (clickedPage: number) => {
     return {
         type: 'SET-CURRENT-PAGE', clickedPage
     } as const
 }
-export const setTotalUsersCountAC = (totalCount: number) => {
+export const setTotalUsersCount = (totalCount: number) => {
     return {
         type: 'SET-TOTAL-USERS-COUNT', totalCount
+    } as const
+}
+export const setIsFetching = (fetchingValue: boolean) => {
+    return {
+        type: 'TOGGLE-ISFETCHING', fetchingValue
     } as const
 }
 
@@ -45,7 +51,8 @@ let initialState = {
     users: [] as Array<UserType>,
     totalUsersCount: 5,
     pageSize: 5,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: false
 }
 export type initialStateUsersType = typeof initialState
 
@@ -62,6 +69,8 @@ export const usersReducer = (state: initialStateUsersType = initialState, action
             return {...state, currentPage: action.clickedPage}
         case 'SET-TOTAL-USERS-COUNT':
             return {...state, totalUsersCount: action.totalCount}
+        case 'TOGGLE-ISFETCHING':
+            return {...state, isFetching: action.fetchingValue}
         default:
             return state;
     }
