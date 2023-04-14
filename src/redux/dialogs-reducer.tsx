@@ -44,7 +44,7 @@ let initialState={
     newMessageText: '' //update from Dialogs textarea
 }
 
-const dialogsReducer = (state: initialStateDialogsType=initialState, action: DialogsActionTypes)
+export const dialogsReducer = (state: initialStateDialogsType=initialState, action: DialogsActionTypes)
     :initialStateDialogsType => {
 
     switch (action.type) {
@@ -57,4 +57,4 @@ const dialogsReducer = (state: initialStateDialogsType=initialState, action: Dia
             return state;
     }
 }
-export default dialogsReducer;
+

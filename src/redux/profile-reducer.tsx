@@ -1,4 +1,5 @@
 import {v1} from 'uuid';
+import {getProfileResponseType} from '../components/Profile/ProfileContainer';
 
 export type PostType = {
     id: string
@@ -8,15 +9,20 @@ export type PostType = {
 export type ProfileActionTypes = ReturnType<typeof addPost>
                                     | ReturnType<typeof updatePostText>
                                     | ReturnType<typeof setUserProfile>
-export type initialStateProfileType = typeof initialState
+export type initialStateProfileType = {
+    posts: PostType[]
+    newPostText: string
+    profile: getProfileResponseType
+}
+    // = typeof initialState
 export const addPost = (postText: string) => {
     return {type: 'ADD-POST', newPost: postText} as const
 }
 export const updatePostText = (updateText: string) => {
     return {type: 'UPDATE-NEW-POST-TEXT', updateText} as const
 }
-export const setUserProfile = (id: number) => {
-    return {type: 'SET-USER-PROFILE', id} as const
+export const setUserProfile = (profileValue: getProfileResponseType) => {
+    return {type: 'SET-USER-PROFILE', profileValue} as const
 }
 
 let initialState = {
@@ -25,10 +31,10 @@ let initialState = {
         {id: v1(), message: 'Hi, im fine thank you, and you?', likes: 10}
     ] as Array<PostType>,
     newPostText: '', //update from MyPosts textarea
-    profileID: 12
+    profile: null
 }
 
-const profileReducer = (state: initialStateProfileType = initialState, action: ProfileActionTypes)
+export const profileReducer = (state: initialStateProfileType = initialState, action: ProfileActionTypes)
     : initialStateProfileType => {
     switch (action.type) {
         case 'ADD-POST':
@@ -37,10 +43,8 @@ const profileReducer = (state: initialStateProfileType = initialState, action: P
         case 'UPDATE-NEW-POST-TEXT':
             return {...state, newPostText: action.updateText}
         case 'SET-USER-PROFILE':
-            return {...state, profileID: action.id}
+            return {...state, profile: action.profileValue}
         default:
             return state;
     }
 }
-
-export default profileReducer;

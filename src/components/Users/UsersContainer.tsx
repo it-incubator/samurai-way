@@ -1,6 +1,5 @@
 import React from 'react';
 import {AppRootStateType} from '../../redux/store-redux';
-import {Dispatch} from 'redux';
 import {connect} from 'react-redux';
 import {
     follow,
@@ -60,18 +59,19 @@ class UsersContainer extends React.Component<UsersContainerPropsType> {
             <div className={c.loader}>
                 {this.props.isFetching && <Loader/>}
             </div>
-            <Users onPageChanged={this.onPageChanged} //presentational component
-                   users={this.props.users}
-                   pageSize={this.props.pageSize}
-                   currentPage={this.props.currentPage}
-                   totalUsersCount={this.props.totalUsersCount}
-                   follow={this.props.follow}
-                   unFollow={this.props.unFollow}
-                   setCurrentPage={this.props.setCurrentPage}
-                   setTotalUsersCount={this.props.setTotalUsersCount}
-                   setUsers={this.props.setUsers}
-                   isFetching={this.props.isFetching}
-                   setIsFetching={this.props.setIsFetching}
+            <Users {...this.props}
+                onPageChanged={this.onPageChanged} //presentational component
+                //    users={this.props.users}
+                //    pageSize={this.props.pageSize}
+                //    currentPage={this.props.currentPage}
+                //    totalUsersCount={this.props.totalUsersCount}
+                //    follow={this.props.follow}
+                //    unFollow={this.props.unFollow}
+                //    setCurrentPage={this.props.setCurrentPage}
+                //    setTotalUsersCount={this.props.setTotalUsersCount}
+                //    setUsers={this.props.setUsers}
+                //    isFetching={this.props.isFetching}
+                //    setIsFetching={this.props.setIsFetching}
             />
         </>
     }
