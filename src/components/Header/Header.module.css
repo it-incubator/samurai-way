@@ -3,7 +3,7 @@
     border: 2px solid gray;
     display: flex;
     align-items: center;
-    justify-content: left;
+    justify-content: space-between;
     background-color: gray;
 }
 
@@ -13,23 +13,34 @@
     margin-left: 20px;
 }
 
-/* .header__logo {
-    height: 40vmin;
-    pointer-events: none;
+.loginBlock {
+    height: 100%;
+    width: 150px;
+    margin-right: 20px;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-    .header__logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+.loginLink {
+    font-size: 25px;
+    color: white;
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000067;
 }
-
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-} */
+.loginLink:hover {
+    background-color: deepskyblue;
+    color: black;
+    transition: 0.3s;
+}
+.userName {
+    border: 1px solid black;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #eeeeee;
+}

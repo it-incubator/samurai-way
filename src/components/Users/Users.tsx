@@ -2,8 +2,9 @@ import React from 'react';
 import c from './Users.module.css';
 import userPhoto from '../../assets/images/userPhoto.png'
 import Pagination from '@mui/material/Pagination';
-import {UsersContainerPropsType} from './UsersContainer';
+import {instance, UsersContainerPropsType} from './UsersContainer';
 import {NavLink} from 'react-router-dom';
+import {API} from '../../api/api';
 
 
 type UsersPropsType = UsersContainerPropsType & {
@@ -38,8 +39,28 @@ export const Users = (props: UsersPropsType) => {
                             </div>
                             <div className={c.buttonWrapper}>
                                 {u.followed
-                                    ? <button onClick={() => props.unFollow(u.id)}>UnFollow</button>
-                                    : <button onClick={() => props.follow(u.id)}>Follow</button>
+                                    ? <button disabled={props.followingProgress} onClick={() => {
+                                        props.setFollowingProgress(true)
+                                        API.unFollowFriend(u.id)
+                                            .then(data => {
+                                                if (data.resultCode===0) {
+                                                    props.unFollow(u.id)
+                                                }
+                                                props.setFollowingProgress(false)
+                                            })
+                                    }
+                                    }>UnFollow</button>
+                                    : <button disabled={props.followingProgress} onClick={() => {
+                                        props.setFollowingProgress(true)
+                                        API.followFriend(u.id)
+                                            .then(data => {
+                                                if (data.resultCode===0) {
+                                                    props.follow(u.id)
+                                                }
+                                                props.setFollowingProgress(false)
+                                            })
+                                    }
+                                    }>Follow</button>
                                 }
                             </div>
                         </div>

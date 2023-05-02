@@ -3,13 +3,14 @@ import {AppRootStateType} from '../../redux/store-redux';
 import {connect} from 'react-redux';
 import {
     follow,
-    initialStateUsersType, setCurrentPage, setIsFetching, setTotalUsersCount, setUsers, unFollow,
+    initialStateUsersType, setCurrentPage, setFollowingProgress, setIsFetching, setTotalUsersCount, setUsers, unFollow,
     UserType
 } from '../../redux/users-reducer';
 import axios from 'axios';
 import {Users} from './Users';
 import {Loader} from '../common/loader/Loader';
 import c from './Users.module.css';
+import {API} from '../../api/api';
 
 type mapStateToPropsType = initialStateUsersType;
 type mapDispatchToPropsType = {
@@ -19,7 +20,8 @@ type mapDispatchToPropsType = {
     setCurrentPage: (clickedPage: number) => void
     setTotalUsersCount: (totalCount: number) => void
     setIsFetching: (fetchingValue: boolean) => void
-}
+    setFollowingProgress: (fetchingValue: boolean) => void
+    }
 export type UsersContainerPropsType = mapStateToPropsType & mapDispatchToPropsType
 export const instance = axios.create({
     withCredentials: true,
@@ -29,17 +31,19 @@ export const instance = axios.create({
     }
 })
 
-
 class UsersContainer extends React.Component<UsersContainerPropsType> {
 
     componentDidMount() {
-        // console.log('NEW DID MOUNT')
         this.props.setIsFetching(true)
-        instance.get(`users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then(response => {
+            API.getUsers(this.props.currentPage, this.props.pageSize)
+                .then(data => {
                 this.props.setIsFetching(false)
-                this.props.setUsers(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)
+                this.props.setUsers(data.items)
+                this.props.setTotalUsersCount(data.totalCount)
+            })
+            .catch(err=> {
+                this.props.setIsFetching(false)
+                console.log('ERROR')
             })
     }
 
@@ -47,10 +51,10 @@ class UsersContainer extends React.Component<UsersContainerPropsType> {
         this.props.setIsFetching(true)
         this.props.setCurrentPage(clickedPage) //pageNumber from click in pagination
         //then get users for this page
-        instance.get(`users?page=${clickedPage}&count=${this.props.pageSize}`)
-            .then(response => {
+        API.getNewPageUsers(clickedPage, this.props.pageSize)
+            .then(data => {
                 this.props.setIsFetching(false)
-                this.props.setUsers(response.data.items)
+                this.props.setUsers(data.items)
             })
     }
 
@@ -61,17 +65,6 @@ class UsersContainer extends React.Component<UsersContainerPropsType> {
             </div>
             <Users {...this.props}
                 onPageChanged={this.onPageChanged} //presentational component
-                //    users={this.props.users}
-                //    pageSize={this.props.pageSize}
-                //    currentPage={this.props.currentPage}
-                //    totalUsersCount={this.props.totalUsersCount}
-                //    follow={this.props.follow}
-                //    unFollow={this.props.unFollow}
-                //    setCurrentPage={this.props.setCurrentPage}
-                //    setTotalUsersCount={this.props.setTotalUsersCount}
-                //    setUsers={this.props.setUsers}
-                //    isFetching={this.props.isFetching}
-                //    setIsFetching={this.props.setIsFetching}
             />
         </>
     }
@@ -85,32 +78,11 @@ const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => { //da
         totalUsersCount: state.usersPage.totalUsersCount,
         pageSize: state.usersPage.pageSize,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followingProgress: state.usersPage.followingProgress
     }
     //прокидываем в компоненту
 }
-// const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {  //callbacks
-//     return {
-//         follow: (userId: string) => {
-//             dispatch(followAC(userId))
-//         },
-//         unFollow: (userId: string) => {
-//             dispatch(unFollowAC(userId))
-//         },
-//         setUsers: (users: Array<UserType>) => {
-//             dispatch(setUsersAC(users))
-//         },
-//         setCurrentPage: (clickedPage: number) => { //e from MUI description
-//             dispatch(setCurrentPageAC(clickedPage))
-//         },
-//         setTotalUsersCount: (totalCount: number) => {
-//             dispatch(setTotalUsersCountAC(totalCount))
-//         },
-//         setIsFetching: (fetchingValue: boolean) => {
-//             dispatch(setIsFetchingAC(fetchingValue))
-//         },
-//     }
-// }
 
 
 export default connect(mapStateToProps, {
@@ -120,6 +92,7 @@ export default connect(mapStateToProps, {
     setCurrentPage,
     setTotalUsersCount,
     setIsFetching,
+    setFollowingProgress // это равно : () => store.dispatch(setFollowingProgress)
 })(UsersContainer);
 //all props from mapState.... to component UsersApiComponent ( this achieving by connect)
-// connect оборачивает наши AC в функцию-обертку () => store.dispatch(AC) и передаёт в props компонента
+// !!! connect оборачивает наши AC в функцию-обертку () => store.dispatch(AC) и передаёт в props компоненте
