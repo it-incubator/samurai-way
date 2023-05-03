@@ -21,11 +21,11 @@ export const API = {
         return instance.get(`auth/me`)
             .then(res => res.data)
     },
-    unFollowFriend: function (userId: string) {
+    unFollowFriend: function (userId: number) {
         return instance.delete(`follow/${userId}`)
             .then(res => res.data)
     },
-    followFriend: function (userId: string) {
+    followFriend: function (userId: number) {
         return instance.post(`follow/${userId}`)
             .then(res => res.data)
     }

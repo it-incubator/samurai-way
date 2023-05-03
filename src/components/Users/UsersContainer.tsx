@@ -2,26 +2,20 @@ import React from 'react';
 import {AppRootStateType} from '../../redux/store-redux';
 import {connect} from 'react-redux';
 import {
-    follow,
-    initialStateUsersType, setCurrentPage, setFollowingProgress, setIsFetching, setTotalUsersCount, setUsers, unFollow,
-    UserType
+    follow, getUsers, initialStateUsersType, setCurrentPage, unFollow
 } from '../../redux/users-reducer';
 import axios from 'axios';
 import {Users} from './Users';
 import {Loader} from '../common/loader/Loader';
 import c from './Users.module.css';
-import {API} from '../../api/api';
 
 type mapStateToPropsType = initialStateUsersType;
 type mapDispatchToPropsType = {
-    follow: (userId: string) => void
-    unFollow: (userId: string) => void
-    setUsers: (users: Array<UserType>) => void
     setCurrentPage: (clickedPage: number) => void
-    setTotalUsersCount: (totalCount: number) => void
-    setIsFetching: (fetchingValue: boolean) => void
-    setFollowingProgress: (fetchingValue: boolean) => void
-    }
+    getUsers: (currentPage: number, pageSize: number) => void
+    follow: (userId: number)=> void
+    unFollow: (userId: number)=> void
+}
 export type UsersContainerPropsType = mapStateToPropsType & mapDispatchToPropsType
 export const instance = axios.create({
     withCredentials: true,
@@ -34,28 +28,11 @@ export const instance = axios.create({
 class UsersContainer extends React.Component<UsersContainerPropsType> {
 
     componentDidMount() {
-        this.props.setIsFetching(true)
-            API.getUsers(this.props.currentPage, this.props.pageSize)
-                .then(data => {
-                this.props.setIsFetching(false)
-                this.props.setUsers(data.items)
-                this.props.setTotalUsersCount(data.totalCount)
-            })
-            .catch(err=> {
-                this.props.setIsFetching(false)
-                console.log('ERROR')
-            })
+        this.props.getUsers(this.props.currentPage, this.props.pageSize);
     }
 
     onPageChanged = (e: React.ChangeEvent<unknown>, clickedPage: number) => {
-        this.props.setIsFetching(true)
-        this.props.setCurrentPage(clickedPage) //pageNumber from click in pagination
-        //then get users for this page
-        API.getNewPageUsers(clickedPage, this.props.pageSize)
-            .then(data => {
-                this.props.setIsFetching(false)
-                this.props.setUsers(data.items)
-            })
+        this.props.getUsers(clickedPage, this.props.pageSize);
     }
 
     render() {
@@ -64,7 +41,7 @@ class UsersContainer extends React.Component<UsersContainerPropsType> {
                 {this.props.isFetching && <Loader/>}
             </div>
             <Users {...this.props}
-                onPageChanged={this.onPageChanged} //presentational component
+                   onPageChanged={this.onPageChanged} //presentational component
             />
         </>
     }
@@ -86,13 +63,8 @@ const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => { //da
 
 
 export default connect(mapStateToProps, {
-    follow,  //передаем экшн криэйторы в UsersContainer ( оборачивает коннект)
-    unFollow,
-    setUsers,
-    setCurrentPage,
-    setTotalUsersCount,
-    setIsFetching,
-    setFollowingProgress // это равно : () => store.dispatch(setFollowingProgress)
+    setCurrentPage, // это равно : () => store.dispatch(setFollowingProgress)
+    getUsers, follow, unFollow //thunkCreator
 })(UsersContainer);
-//all props from mapState.... to component UsersApiComponent ( this achieving by connect)
+//все пропсы  из mapState.... в компоненту UsersContainer ( с помощью коннекта)
 // !!! connect оборачивает наши AC в функцию-обертку () => store.dispatch(AC) и передаёт в props компоненте

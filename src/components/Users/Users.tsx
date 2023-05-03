@@ -2,13 +2,13 @@ import React from 'react';
 import c from './Users.module.css';
 import userPhoto from '../../assets/images/userPhoto.png'
 import Pagination from '@mui/material/Pagination';
-import {instance, UsersContainerPropsType} from './UsersContainer';
+import {UsersContainerPropsType} from './UsersContainer';
 import {NavLink} from 'react-router-dom';
 import {API} from '../../api/api';
 
 
 type UsersPropsType = UsersContainerPropsType & {
-    onPageChanged: (e: React.ChangeEvent<unknown>, clickedPage: number)=> void
+    onPageChanged: (e: React.ChangeEvent<unknown>, clickedPage: number) => void
 }
 
 
@@ -32,35 +32,17 @@ export const Users = (props: UsersPropsType) => {
                 props.users.map(u => <div key={u.id} className={c.userWrapper}>
                         <div className={c.userLogoWrapper}>
                             <div className={c.userLogo}>
-                                <NavLink to={'/profile/'+ u.id}>
-                                <img src={u.photos.small ? u.photos.small : userPhoto}
-                                     alt="ava" className={c.userPhoto}/>
+                                <NavLink to={'/profile/' + u.id}>
+                                    <img src={u.photos.small ? u.photos.small : userPhoto}
+                                         alt="ava" className={c.userPhoto}/>
                                 </NavLink>
                             </div>
                             <div className={c.buttonWrapper}>
                                 {u.followed
-                                    ? <button disabled={props.followingProgress} onClick={() => {
-                                        props.setFollowingProgress(true)
-                                        API.unFollowFriend(u.id)
-                                            .then(data => {
-                                                if (data.resultCode===0) {
-                                                    props.unFollow(u.id)
-                                                }
-                                                props.setFollowingProgress(false)
-                                            })
-                                    }
-                                    }>UnFollow</button>
-                                    : <button disabled={props.followingProgress} onClick={() => {
-                                        props.setFollowingProgress(true)
-                                        API.followFriend(u.id)
-                                            .then(data => {
-                                                if (data.resultCode===0) {
-                                                    props.follow(u.id)
-                                                }
-                                                props.setFollowingProgress(false)
-                                            })
-                                    }
-                                    }>Follow</button>
+                                    ? <button disabled={props.followingProgress.some(id => id === u.id)}
+                                              onClick={() => props.unFollow(u.id)}>UnFollow</button>
+                                    : <button disabled={props.followingProgress.some(id => id === u.id)}
+                                              onClick={() => props.follow(u.id)}>Follow</button>
                                 }
                             </div>
                         </div>
