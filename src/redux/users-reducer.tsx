@@ -1,4 +1,4 @@
-import {API} from '../api/api';
+import {usersAPI} from '../api/api';
 import {Dispatch} from 'redux';
 import {AppActionTypes} from './store-redux';
 
@@ -59,10 +59,10 @@ export const setFollowingProgress = (userId: number, fetchingValue: boolean) => 
 }
 
 //THUNK CREATORS START
-export const getUsers = (currentPage: number, pageSize: number) => {
+export const getUsersTC = (currentPage: number, pageSize: number) => {
     return (dispatch: Dispatch<AppActionTypes>) => { //return thunk
         dispatch(setIsFetching(true))
-        API.getUsers(currentPage, pageSize)
+        usersAPI.getUsers(currentPage, pageSize)
             .then(data => {
                 dispatch(setIsFetching(false))
                 dispatch(setUsers(data.items))
@@ -71,10 +71,10 @@ export const getUsers = (currentPage: number, pageSize: number) => {
     }
 }
 
-export const follow = (userId: number) => {
+export const followTC = (userId: number) => {
     return (dispatch: Dispatch<AppActionTypes>) => { //return thunk
         dispatch(setFollowingProgress(userId, true))
-        API.followFriend(userId)
+        usersAPI.followFriend(userId)
             .then(data => {
                 if (data.resultCode === 0) {
                     dispatch(followSuccess(userId))
@@ -84,10 +84,10 @@ export const follow = (userId: number) => {
     }
 }
 
-export const unFollow = (userId: number) => {
+export const unFollowTC = (userId: number) => {
     return (dispatch: Dispatch<AppActionTypes>) => { //return thunk
         dispatch(setFollowingProgress(userId, true))
-        API.unFollowFriend(userId)
+        usersAPI.unFollowFriend(userId)
             .then(data => {
                 if (data.resultCode === 0) {
                     dispatch(unFollowSuccess(userId))

@@ -1,10 +1,7 @@
 import React from 'react';
 import {AppRootStateType} from '../../redux/store-redux';
 import {connect} from 'react-redux';
-import {
-    follow, getUsers, initialStateUsersType, setCurrentPage, unFollow
-} from '../../redux/users-reducer';
-import axios from 'axios';
+import {followTC, getUsersTC, initialStateUsersType, setCurrentPage, unFollowTC} from '../../redux/users-reducer';
 import {Users} from './Users';
 import {Loader} from '../common/loader/Loader';
 import c from './Users.module.css';
@@ -12,27 +9,20 @@ import c from './Users.module.css';
 type mapStateToPropsType = initialStateUsersType;
 type mapDispatchToPropsType = {
     setCurrentPage: (clickedPage: number) => void
-    getUsers: (currentPage: number, pageSize: number) => void
-    follow: (userId: number)=> void
-    unFollow: (userId: number)=> void
+    getUsersTC: (currentPage: number, pageSize: number) => void
+    followTC: (userId: number)=> void
+    unFollowTC: (userId: number)=> void
 }
 export type UsersContainerPropsType = mapStateToPropsType & mapDispatchToPropsType
-export const instance = axios.create({
-    withCredentials: true,
-    baseURL: 'https://social-network.samuraijs.com/api/1.0/',
-    headers: {
-        'API-KEY': '5e6ef100-8143-4a2b-9ce9-13ce8d825d16'
-    }
-})
 
 class UsersContainer extends React.Component<UsersContainerPropsType> {
 
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize);
+        this.props.getUsersTC(this.props.currentPage, this.props.pageSize);
     }
 
     onPageChanged = (e: React.ChangeEvent<unknown>, clickedPage: number) => {
-        this.props.getUsers(clickedPage, this.props.pageSize);
+        this.props.getUsersTC(clickedPage, this.props.pageSize);
     }
 
     render() {
@@ -64,7 +54,7 @@ const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => { //da
 
 export default connect(mapStateToProps, {
     setCurrentPage, // это равно : () => store.dispatch(setFollowingProgress)
-    getUsers, follow, unFollow //thunkCreator
+    getUsersTC, followTC, unFollowTC //thunkCreator
 })(UsersContainer);
 //все пропсы  из mapState.... в компоненту UsersContainer ( с помощью коннекта)
 // !!! connect оборачивает наши AC в функцию-обертку () => store.dispatch(AC) и передаёт в props компоненте

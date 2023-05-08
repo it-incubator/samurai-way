@@ -1,25 +1,20 @@
 import React from 'react';
 import {Header} from './Header';
 import {connect} from 'react-redux';
-import {AuthData, initialStateUserDataType, setAuthUserData} from '../../redux/auth-reducer';
+import {AuthData, getAuthTC, initialStateUserDataType, setAuthUserData} from '../../redux/auth-reducer';
 import {AppRootStateType} from '../../redux/store-redux';
-import {API} from '../../api/api';
 
 
 type mapStateToPropsType = initialStateUserDataType;
 export type HeaderContainerPropsType = mapStateToPropsType & mapDispatchToPropsType
 type mapDispatchToPropsType = {
     setAuthUserData: (data: AuthData) => void
+    getAuthTC: () => void
 }
  class HeaderContainer extends React.Component<HeaderContainerPropsType> {
 
     componentDidMount() {
-        API.getAuthData()
-            .then(data => {
-                if (data.resultCode === 0) {
-                    this.props.setAuthUserData(data.data)
-                }
-            })
+        this.props.getAuthTC()
     }
     render() {
         return (
@@ -37,4 +32,4 @@ const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => { //da
     //прокидываем в компоненту
 }
 
-export default connect (mapStateToProps, {setAuthUserData}) (HeaderContainer);
+export default connect (mapStateToProps, {setAuthUserData, getAuthTC}) (HeaderContainer);

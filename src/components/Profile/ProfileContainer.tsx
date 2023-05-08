@@ -1,10 +1,9 @@
 import React from 'react';
 import c from './Profile.module.css';
 import {Profile} from './Profile';
-import {instance} from '../Users/UsersContainer';
 import {AppRootStateType} from '../../redux/store-redux';
 import {connect} from 'react-redux';
-import {initialStateProfileType, setUserProfile} from '../../redux/profile-reducer';
+import {getProfileTC, initialStateProfileType, setUserProfile} from '../../redux/profile-reducer';
 import {useParams} from 'react-router-dom';
 
 export type getProfileResponseType = null | {
@@ -39,6 +38,7 @@ type mapDispatchToPropsType = {
     addPost: (postText: string) => void
     updatePostText: (updateText: string) => void
     setUserProfile: (profile: getProfileResponseType) => void
+    getProfileTC: (userId: string)=> void
 }
 type mapStateToPropsType= initialStateProfileType
 type ProfileContainerPropsType = mapStateToPropsType & mapDispatchToPropsType & PathParamsType
@@ -54,10 +54,8 @@ export function withRouter(Children: any) {
 class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
-        instance.get(`profile/${!userId? "2" : userId}`) //if no userId => to 2 user page
-            .then(response => {
-                this.props.setUserProfile(response.data)
-            })
+        // API.getProfile(userId).then(data => this.props.setUserProfile(data))
+        this.props.getProfileTC(userId);
     }
 
     render() {
@@ -79,4 +77,7 @@ const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => { //da
     }
 }
 
-export default connect(mapStateToProps, {setUserProfile})(withRouter(ProfileContainer));
+export default connect(mapStateToProps, {
+    setUserProfile,
+    getProfileTC}
+)(withRouter(ProfileContainer));

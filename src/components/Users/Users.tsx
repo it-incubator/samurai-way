@@ -4,7 +4,6 @@ import userPhoto from '../../assets/images/userPhoto.png'
 import Pagination from '@mui/material/Pagination';
 import {UsersContainerPropsType} from './UsersContainer';
 import {NavLink} from 'react-router-dom';
-import {API} from '../../api/api';
 
 
 type UsersPropsType = UsersContainerPropsType & {
@@ -40,9 +39,9 @@ export const Users = (props: UsersPropsType) => {
                             <div className={c.buttonWrapper}>
                                 {u.followed
                                     ? <button disabled={props.followingProgress.some(id => id === u.id)}
-                                              onClick={() => props.unFollow(u.id)}>UnFollow</button>
+                                              onClick={() => props.unFollowTC(u.id)}>UnFollow</button>
                                     : <button disabled={props.followingProgress.some(id => id === u.id)}
-                                              onClick={() => props.follow(u.id)}>Follow</button>
+                                              onClick={() => props.followTC(u.id)}>Follow</button>
                                 }
                             </div>
                         </div>
