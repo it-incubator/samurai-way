@@ -5,14 +5,14 @@ import {followTC, getUsersTC, initialStateUsersType, setCurrentPage, unFollowTC}
 import {Users} from './Users';
 import {Loader} from '../common/loader/Loader';
 import c from './Users.module.css';
-import {Navigate} from 'react-router-dom';
+import {WithAuthRedirect} from '../../hoc/WithAuthRedirect';
 
-type mapStateToPropsType = initialStateUsersType & {isAuth: boolean};
+type mapStateToPropsType = initialStateUsersType
 type mapDispatchToPropsType = {
     setCurrentPage: (clickedPage: number) => void
     getUsersTC: (currentPage: number, pageSize: number) => void
-    followTC: (userId: number)=> void
-    unFollowTC: (userId: number)=> void
+    followTC: (userId: number) => void
+    unFollowTC: (userId: number) => void
 }
 export type UsersContainerPropsType = mapStateToPropsType & mapDispatchToPropsType
 
@@ -27,9 +27,8 @@ class UsersContainer extends React.Component<UsersContainerPropsType> {
     }
 
     render() {
-        if (!this.props.isAuth) return <Navigate to={"/login"} />
         return <>
-        <div className={c.loader}>
+            <div className={c.loader}>
                 {this.props.isFetching && <Loader/>}
             </div>
             <Users {...this.props}
@@ -49,15 +48,16 @@ const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => { //da
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
         followingProgress: state.usersPage.followingProgress,
-        isAuth: state.auth.isAuth
     }
     //прокидываем в компоненту
 }
 
+// const AuthRedirectContainer= WithAuthRedirect(UsersContainer)
 
-export default connect(mapStateToProps, {
-    setCurrentPage, // это равно : () => store.dispatch(setFollowingProgress)
-    getUsersTC, followTC, unFollowTC //thunkCreator
-})(UsersContainer);
+export default WithAuthRedirect(
+    connect(mapStateToProps,
+        {setCurrentPage, getUsersTC, followTC, unFollowTC})(UsersContainer)
+)
+//коннект оборачивает то что в диспатче =>  это равно : () => store.dispatch(setFollowingProgress)
 //все пропсы  из mapState.... в компоненту UsersContainer ( с помощью коннекта)
 // !!! connect оборачивает наши AC в функцию-обертку () => store.dispatch(AC) и передаёт в props компоненте
