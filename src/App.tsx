@@ -10,6 +10,7 @@ import {SideBarContainer} from './components/Navbar/Sidebar/SideBarContainer';
 import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
+import {Login} from './components/Login/Login';
 
 
 export const App = () => {
@@ -21,6 +22,7 @@ export const App = () => {
             <SideBarContainer/>
             <div className="app-wrapper-content">
                 <Routes>
+                    <Route path="/login" element={<Login/>}/>
                     <Route path="/dialogs/*" element={<DialogsContainer/>}/>
                     <Route path="/profile/:userId?" element={<ProfileContainer/>}/>
                     <Route path="/users/" element={<UsersContainer/>}/>

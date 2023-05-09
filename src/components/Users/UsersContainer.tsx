@@ -5,8 +5,9 @@ import {followTC, getUsersTC, initialStateUsersType, setCurrentPage, unFollowTC}
 import {Users} from './Users';
 import {Loader} from '../common/loader/Loader';
 import c from './Users.module.css';
+import {Navigate} from 'react-router-dom';
 
-type mapStateToPropsType = initialStateUsersType;
+type mapStateToPropsType = initialStateUsersType & {isAuth: boolean};
 type mapDispatchToPropsType = {
     setCurrentPage: (clickedPage: number) => void
     getUsersTC: (currentPage: number, pageSize: number) => void
@@ -26,8 +27,9 @@ class UsersContainer extends React.Component<UsersContainerPropsType> {
     }
 
     render() {
+        if (!this.props.isAuth) return <Navigate to={"/login"} />
         return <>
-            <div className={c.loader}>
+        <div className={c.loader}>
                 {this.props.isFetching && <Loader/>}
             </div>
             <Users {...this.props}
@@ -46,7 +48,8 @@ const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => { //da
         pageSize: state.usersPage.pageSize,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        followingProgress: state.usersPage.followingProgress
+        followingProgress: state.usersPage.followingProgress,
+        isAuth: state.auth.isAuth
     }
     //прокидываем в компоненту
 }

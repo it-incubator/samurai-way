@@ -13,7 +13,11 @@ export const setAuthUserData = (data: AuthData) => {
 export const getAuthTC=()=>(dispatch:Dispatch<AppActionTypes>)=> {
     authAPI.me()
         .then(data => {
-            if (data.resultCode === 0) dispatch(setAuthUserData(data.data))
+            if (data.resultCode === 0) {
+                // let {id,login,email}=data.data  // у димыча
+                // dispatch(setAuthUserData(id,login,email))  // у димыча
+                dispatch(setAuthUserData(data.data))
+            }
         })
 }
 

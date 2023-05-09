@@ -16,6 +16,9 @@ export const updatePostText = (updateText: string) => {
 export const setUserProfile = (profileValue: getProfileResponseType) => {
     return {type: 'SET-USER-PROFILE', profileValue} as const
 }
+export type ProfileActionTypes = ReturnType<typeof addPost>
+    | ReturnType<typeof updatePostText>
+    | ReturnType<typeof setUserProfile>
 
 //THUNK CREATORS ======================================================================
 export const getProfileTC = (userId: string) => {
@@ -27,6 +30,17 @@ export const getProfileTC = (userId: string) => {
 }
 
 //STATE ======================================================================
+export type PostType = {
+    id: string
+    message: string
+    likes: number
+}
+export type initialStateProfileType = {
+    posts: PostType[]
+    newPostText: string
+    profile: getProfileResponseType
+}
+
 let initialState = {
     posts: [
         {id: v1(), message: 'Hi, how are you?', likes: 15},
@@ -52,18 +66,5 @@ export const profileReducer = (state: initialStateProfileType = initialState, ac
     }
 }
 
-//TYPES ======================================================================
 
-export type PostType = {
-    id: string
-    message: string
-    likes: number
-}
-export type ProfileActionTypes = ReturnType<typeof addPost>
-                                | ReturnType<typeof updatePostText>
-                                | ReturnType<typeof setUserProfile>
-export type initialStateProfileType = {
-    posts: PostType[]
-    newPostText: string
-    profile: getProfileResponseType
-}
+
