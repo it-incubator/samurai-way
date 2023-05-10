@@ -4,7 +4,7 @@ import {DialogItem} from './DialogItem/DialogItem';
 import {Message} from './Message/Message';
 import {DialogsPropsType} from './DialogsContainer';
 
-export const Dialogs: React.FC<DialogsPropsType> = (props) => {
+ const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
     const dialogsDataMap = props.dialogs
         .map(el => <li key={el.id} className={c.dialog}>
@@ -47,3 +47,4 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
         </div>
     );
 }
+export default Dialogs

@@ -1,10 +1,10 @@
 import React from 'react';
 import {addMessageAC, initialStateDialogsType, updateMessageAC} from '../../redux/dialogs-reducer';
-import {Dialogs} from './Dialogs';
 import {connect} from 'react-redux';
 import {AppRootStateType} from '../../redux/store-redux';
-import {Dispatch} from 'redux';
-import {WithAuthRedirect} from '../../hoc/WithAuthRedirect';
+import {compose, Dispatch} from 'redux';
+import WithAuthRedirect from '../../hoc/WithAuthRedirect';
+import Dialogs from './Dialogs';
 
 type mapStateToPropsType = initialStateDialogsType
 type mapDispatchToPropsType = {
@@ -31,6 +31,9 @@ const mapDispatchToProps = (dispatch: Dispatch)
         }
     }
 }
-const AuthRedirectComponent = WithAuthRedirect(Dialogs) //Wrapper for redirect ( in HOC WithAuthRedirect)
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
+
+export default compose<React.ComponentType>(
+    WithAuthRedirect, //2
+    connect(mapStateToProps, mapDispatchToProps),//1
+)(Dialogs);
 

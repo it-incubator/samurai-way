@@ -3,9 +3,12 @@ import c from './ProfileInfo.module.css';
 import bg from '../../../img/bg.jpeg';
 import {Loader} from '../../common/loader/Loader';
 import {getProfileResponseType} from '../ProfileContainer';
+import {ProfileStatus} from './ProfileStatus/ProfileStatus';
 
 type ProfileInfoPropsType = {
     profile: getProfileResponseType
+    status:string
+    updateStatusTC: (status:string)=> void
 }
 
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
@@ -14,15 +17,18 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
     }
     return (
         <div>
-            <div className={c.logo}>
-                <img src={bg} alt="bg"/>
-            </div>
+            {/*<div className={c.logo}>*/}
+            {/*    <img src={bg} alt="bg"/>*/}
+            {/*</div>*/}
             <div className={c.about}>
                 {/*"https://www.pngall.com/wp-content/uploads/2016/04/Happy-Person-Free-Download-PNG.png"*/}
                 <img src={props.profile.photos.large} alt="ava"/>
 
                 <div>
                     <span>{props.profile.fullName}</span>
+                    <ProfileStatus status={props.status}
+                                   updateStatusTC={props.updateStatusTC}
+                    />
                     <ul>
                         <li>Обо мне: {props.profile.aboutMe}</li>
                         <li>В поисках работы: {props.profile.lookingForAJobDescription}</li>

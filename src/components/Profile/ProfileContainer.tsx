@@ -3,9 +3,19 @@ import c from './Profile.module.css';
 import {Profile} from './Profile';
 import {AppRootStateType} from '../../redux/store-redux';
 import {connect} from 'react-redux';
-import {getProfileTC, initialStateProfileType, setUserProfile} from '../../redux/profile-reducer';
-import {Navigate, useParams} from 'react-router-dom';
-import {WithAuthRedirect} from '../../hoc/WithAuthRedirect';
+import {
+    getProfileTC,
+    getUserStatusTC,
+    initialStateProfileType,
+    setUserProfile,
+    updateUserStatusTC
+} from '../../redux/profile-reducer';
+import {useParams} from 'react-router-dom';
+import WithAuthRedirect from '../../hoc/WithAuthRedirect';
+import {compose} from 'redux';
+import withAuthRedirect from '../../hoc/WithAuthRedirect';
+import {usersAPI} from '../../api/api';
+
 
 export type getProfileResponseType = null | {
     aboutMe: string,
@@ -39,7 +49,9 @@ type mapDispatchToPropsType = {
     addPost: (postText: string) => void
     updatePostText: (updateText: string) => void
     setUserProfile: (profile: getProfileResponseType) => void
-    getProfileTC: (userId: string) => void
+    getProfileTC: (userId: number) => void
+    getUserStatusTC: (userId: number) => void
+    updateUserStatusTC: (status: string) => void
 }
 type mapStateToPropsType = initialStateProfileType
 type ProfileContainerPropsType = mapStateToPropsType & mapDispatchToPropsType & PathParamsType
@@ -54,8 +66,10 @@ export function withRouter(Children: any) {
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     componentDidMount() {
-        let userId = this.props.match.params.userId
-        this.props.getProfileTC(userId);
+        let userId = Number(this.props.match.params.userId)
+        if (!userId) userId= 28462;
+        this.props.getProfileTC(userId)
+        this.props.getUserStatusTC(userId)
     }
 
     render() {
@@ -64,23 +78,28 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
             <div className={c.profile}>
                 <Profile {...this.props}
                          profile={this.props.profile}
+                         status={this.props.status}
+                         updateStatusTC={this.props.updateUserStatusTC}
                 />
             </div>
         )
     }
 }
 
-// let AuthRedirectComponent = WithAuthRedirect(ProfileContainer)
+
 
 const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => { //data
     return {
         posts: state.profilePage.posts,
         newPostText: state.profilePage.newPostText,
         profile: state.profilePage.profile,
+        status: state.profilePage.status,
     }
 }
 
-export default WithAuthRedirect(connect(mapStateToProps,
-        {setUserProfile, getProfileTC}
-    )(withRouter(ProfileContainer))
-)
+export default compose<React.ComponentType>(
+    // withAuthRedirect, //3
+    withRouter, //2
+    connect(mapStateToProps, {setUserProfile, getProfileTC, getUserStatusTC, updateUserStatusTC}),
+    //1
+)(ProfileContainer)

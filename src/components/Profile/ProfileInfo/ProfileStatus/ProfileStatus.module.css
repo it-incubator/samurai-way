@@ -1,0 +1,12 @@
+.statusWrapper {
+    background-color: lightblue;
+    width: 300px;
+    font-weight: bold;
+    font-size: 17px;
+    height: 25px;
+}
+.statusWrapper input {
+    width: 300px;
+    padding: 2px 2px 2px 5px;
+    font-size: 17px;
+}

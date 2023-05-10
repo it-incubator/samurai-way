@@ -21,14 +21,24 @@ export const usersAPI = {
         return instance.post(`follow/${userId}`)
             .then(res => res.data)
     },
-    getProfile: function (userId: string) {
-        return instance.get(`profile/${!userId? "2" : userId}`) //if no userId => to 2 user page
-            .then(res => res.data)
-    },
 }
 export const authAPI = {
     me: function () {
         return instance.get(`auth/me`)
             .then(res => res.data)
     },
+}
+export const profileAPI = {
+    getProfile: function (userId: number) {
+        return instance.get(`profile/${!userId? "2" : userId}`) //if no userId => to 2 user page
+            .then(res => res.data)
+    },
+    getStatus: function (userId: number) {
+        return instance.get(`profile/status/${!userId? "2" : userId}`)
+            .then(res => res.data)
+    },
+    setStatus: function (status: string) {
+        return instance.put('profile/status', {status: status}) //max length 300
+            .then(res => res.data)
+    }
 }

@@ -5,7 +5,11 @@ import {followTC, getUsersTC, initialStateUsersType, setCurrentPage, unFollowTC}
 import {Users} from './Users';
 import {Loader} from '../common/loader/Loader';
 import c from './Users.module.css';
-import {WithAuthRedirect} from '../../hoc/WithAuthRedirect';
+import WithAuthRedirect from '../../hoc/WithAuthRedirect';
+import {compose} from 'redux';
+import {getProfileTC, setUserProfile} from '../../redux/profile-reducer';
+import withAuthRedirect from '../../hoc/WithAuthRedirect';
+import {withRouter} from '../Profile/ProfileContainer';
 
 type mapStateToPropsType = initialStateUsersType
 type mapDispatchToPropsType = {
@@ -52,12 +56,11 @@ const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => { //da
     //прокидываем в компоненту
 }
 
-// const AuthRedirectContainer= WithAuthRedirect(UsersContainer)
+export default compose<React.ComponentType>(
+    withAuthRedirect, //2
+    connect(mapStateToProps, {setCurrentPage, getUsersTC, followTC, unFollowTC}), //1
+)(UsersContainer)
 
-export default WithAuthRedirect(
-    connect(mapStateToProps,
-        {setCurrentPage, getUsersTC, followTC, unFollowTC})(UsersContainer)
-)
 //коннект оборачивает то что в диспатче =>  это равно : () => store.dispatch(setFollowingProgress)
 //все пропсы  из mapState.... в компоненту UsersContainer ( с помощью коннекта)
 // !!! connect оборачивает наши AC в функцию-обертку () => store.dispatch(AC) и передаёт в props компоненте
