@@ -1,0 +1,4 @@
+.loginWrapper {
+    display: flex;
+    flex-direction: column;
+}

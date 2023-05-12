@@ -1,10 +1,11 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import c from './Dialogs.module.css';
 import {DialogItem} from './DialogItem/DialogItem';
 import {Message} from './Message/Message';
 import {DialogsPropsType} from './DialogsContainer';
+import {MessageFormDataType, MessageReduxForm} from './NewMessageForm/MessageReduxForm';
 
- const Dialogs: React.FC<DialogsPropsType> = (props) => {
+const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
     const dialogsDataMap = props.dialogs
         .map(el => <li key={el.id} className={c.dialog}>
@@ -18,11 +19,8 @@ import {DialogsPropsType} from './DialogsContainer';
             {<Message message={el}/>}
         </li>);
 
-    const onAddMessage = () => {
-        props.addMessage(props.newMessageText)
-    }
-    const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.onMessageChange(e.currentTarget.value)
+    const addNewMessage = (formData: MessageFormDataType) => {
+        props.addMessage(formData.newMessage) //data from fields
     }
 
     return (
@@ -33,15 +31,18 @@ import {DialogsPropsType} from './DialogsContainer';
             <div className={c.dialogs_messages}>
                 <ul>{messagesDataMap}</ul>
                 <div className={c.dialogs_AddPostWrapper}>
-                    <textarea className={c.dialogs_form}
-                              onChange={onMessageChange}
-                              value={props.newMessageText}
-                    ></textarea>
-                    <button className={c.dialogs_button}
-                            onClick={onAddMessage}
-                            disabled={props.newMessageText === ''}
-                    >Sent Message
-                    </button>
+
+                    <MessageReduxForm onSubmit={addNewMessage}/>
+
+                    {/*<textarea className={c.dialogs_form}*/}
+                    {/*          onChange={onMessageChange}*/}
+                    {/*          value={props.newMessageText}*/}
+                    {/*></textarea>*/}
+                    {/*<button className={c.dialogs_button}*/}
+                    {/*        onClick={onAddMessage}*/}
+                    {/*        disabled={props.newMessageText === ''}*/}
+                    {/*>Sent Message*/}
+                    {/*</button>*/}
                 </div>
             </div>
         </div>

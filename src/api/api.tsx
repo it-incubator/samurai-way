@@ -27,7 +27,16 @@ export const authAPI = {
         return instance.get(`auth/me`)
             .then(res => res.data)
     },
+    authorize: function (login: string, password: string, rememberMe: boolean) {
+        return instance.post(`auth/login`, {
+            email: login,
+            password: password,
+            rememberMe: rememberMe
+        })
+            .then(res => res.data)
+    },
 }
+
 export const profileAPI = {
     getProfile: function (userId: number) {
         return instance.get(`profile/${!userId? "2" : userId}`) //if no userId => to 2 user page

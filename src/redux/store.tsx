@@ -1,5 +1,5 @@
-import  {addMessageAC, updateMessageAC} from './dialogs-reducer';
-import {addPost, updatePostText} from './profile-reducer';
+import  {addMessageAC} from './dialogs-reducer';
+import {addPost} from './profile-reducer';
 
 
 type DialogType = {
@@ -46,10 +46,7 @@ export type  StoreType = {
 }
 
 //===================ACTIONS TYPES
-type ActionTypes = ReturnType<typeof addMessageAC>
-                        | ReturnType<typeof updateMessageAC>
-                        | ReturnType<typeof addPost>
-                        | ReturnType<typeof updatePostText>
+type ActionTypes = ReturnType<typeof addMessageAC> | ReturnType<typeof addPost>
 
 //=================== STORE
 // export let store: StoreType = {

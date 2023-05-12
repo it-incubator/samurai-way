@@ -91,7 +91,6 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => { //data
     return {
         posts: state.profilePage.posts,
-        newPostText: state.profilePage.newPostText,
         profile: state.profilePage.profile,
         status: state.profilePage.status,
     }

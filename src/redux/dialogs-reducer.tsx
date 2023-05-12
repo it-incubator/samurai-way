@@ -8,23 +8,23 @@ export type MessageType = {
     id: string
     message: string
 }
-export type NewMessageText=string
 
-export type DialogsActionTypes = ReturnType<typeof addMessageAC> | ReturnType<typeof updateMessageAC>
+export type DialogsActionTypes = ReturnType<typeof addMessageAC>
+    // | ReturnType<typeof updateMessageAC>
 
 export type initialStateDialogsType = typeof initialState
-export const addMessageAC = (messageText: string) => {
+export const addMessageAC = (newMessageText: string) => {
     return {
         type: 'ADD-MESSAGE',
-        newMess: messageText
+        newMessage: newMessageText
     } as const
 }
-export const updateMessageAC = (messageUpdateText: string) => {
-    return {
-        type: 'UPDATE-NEW-MESSAGE-TEXT',
-        messageUpdateText: messageUpdateText
-    } as const
-}
+// export const updateMessageAC = (messageUpdateText: string) => {
+//     return {
+//         type: 'UPDATE-NEW-MESSAGE-TEXT',
+//         messageUpdateText: messageUpdateText
+//     } as const
+// }
 
 let initialState={
     dialogs: [
@@ -41,7 +41,7 @@ let initialState={
     {id: v1(), message: 'What films do you prefer?'},
     {id: v1(), message: 'How are you?'},
 ]as Array <MessageType>,
-    newMessageText: '' //update from Dialogs textarea
+    // newMessageText: '' //update from Dialogs textarea
 }
 
 export const dialogsReducer = (state: initialStateDialogsType=initialState, action: DialogsActionTypes)
@@ -49,10 +49,7 @@ export const dialogsReducer = (state: initialStateDialogsType=initialState, acti
 
     switch (action.type) {
         case 'ADD-MESSAGE':
-            let newMessage = {id: v1(), message: action.newMess}
-            return {...state, messages: [...state.messages, newMessage], newMessageText: ''}
-        case 'UPDATE-NEW-MESSAGE-TEXT':
-            return {...state, newMessageText: action.messageUpdateText}
+            return {...state, messages: [...state.messages, {id: v1(), message: action.newMessage}]}
         default:
             return state;
     }
