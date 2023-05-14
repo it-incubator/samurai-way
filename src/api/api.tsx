@@ -27,12 +27,16 @@ export const authAPI = {
         return instance.get(`auth/me`)
             .then(res => res.data)
     },
-    authorize: function (login: string, password: string, rememberMe: boolean) {
+    login: function (email: string, password: string, rememberMe: boolean) {
         return instance.post(`auth/login`, {
-            email: login,
+            email: email,
             password: password,
             rememberMe: rememberMe
         })
+            .then(res => res.data)
+    },
+    logout: function () {
+        return instance.delete(`auth/login`)
             .then(res => res.data)
     },
 }

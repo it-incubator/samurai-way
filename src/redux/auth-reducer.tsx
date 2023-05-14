@@ -8,29 +8,29 @@ export const setAuthUserData = (data: AuthData) => {
         type: 'SET-USER-DATA', data
     } as const
 }
-export const authorizeUser = () => {
-    return {
-        type: 'LOGIN-USER'
-    } as const
-}
 
 //THUNKS
 export const getAuthTC = () => (dispatch: Dispatch<AppActionTypes>) => {
-    authAPI.me()
-        .then(data => {
+    authAPI.me().then(data => {
             if (data.resultCode === 0) {
-                // let {id,login,email}=data.data  // у димыча
-                // dispatch(setAuthUserData(id,login,email))  // у димыча
-                dispatch(setAuthUserData(data.data))
+                dispatch(setAuthUserData({...data.data, isAuth: true}))
             }
         })
 }
 
 export const loginUserTC = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch<AppActionTypes>) => {
-    authAPI.authorize(email, password, rememberMe)
+    authAPI.login(email, password, rememberMe)
         .then(data => {
             if (data.resultCode === 0) {
-                dispatch(authorizeUser())
+                dispatch(getAuthTC())
+            }
+        })
+}
+export const logoutUserTC = () => (dispatch: Dispatch<AppActionTypes>) => {
+    authAPI.logout()
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(setAuthUserData({...data.data, id:null,email:null,login:null, isAuth: false}))
             }
         })
 }
@@ -52,11 +52,8 @@ export const authReducer = (state: initialStateUserDataType = initialState, acti
         case 'SET-USER-DATA':
             return {
                 ...state,
-                ...action.data,
-                isAuth: true
+                ...action.data
             }
-        case 'LOGIN-USER':
-            return {...state} // ???
         default:
             return state;
     }
@@ -69,4 +66,4 @@ export type AuthData = {
     login: string | null
     isAuth: boolean
 }
-export type AuthActionTypes = ReturnType<typeof setAuthUserData> | ReturnType<typeof authorizeUser>
+export type AuthActionTypes = ReturnType<typeof setAuthUserData>

@@ -14,9 +14,12 @@
 }
 
 .loginBlock {
+    margin-right: 30px;
     height: 100%;
-    width: 150px;
-    margin-right: 20px;
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
 }
 .loginLink {
     font-size: 25px;
@@ -42,5 +45,6 @@
     align-items: center;
     font-size: 18px;
     font-weight: bold;
+    color: black;
     background-color: #eeeeee;
 }

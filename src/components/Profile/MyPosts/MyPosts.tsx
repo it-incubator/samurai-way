@@ -18,21 +18,7 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
         <div className={c.profile__postsWrapper}>
             <div className={c.profile__posts}>
                 <h3>My posts</h3>
-                <PostReduxForm onSubmit={addPost}
-                               // onPostChange={onPostChange}
-                               // newPostText={props.newPostText}
-                               // AddPost={onAddPost}
-                               // disabled={props.newPostText === ''}
-                />
-                {/*<textarea className={c.profile__form}*/}
-                {/*          onChange={onPostChange}*/}
-                {/*          value={props.newPostText}*/}
-                {/*/>*/}
-                {/*<button className={c.profile__button}*/}
-                {/*        onClick={onAddPost}*/}
-                {/*        disabled={props.newPostText === ''}*/}
-                {/*>Add post*/}
-                {/*</button>*/}
+                <PostReduxForm onSubmit={addPost}/>
             </div>
             {postDataMap}
         </div>
