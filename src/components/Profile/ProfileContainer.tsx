@@ -53,7 +53,7 @@ type mapDispatchToPropsType = {
     getUserStatusTC: (userId: number) => void
     updateUserStatusTC: (status: string) => void
 }
-type mapStateToPropsType = initialStateProfileType
+type mapStateToPropsType = initialStateProfileType & {authorizedUserId: number | null, isAuth: boolean}
 type ProfileContainerPropsType = mapStateToPropsType & mapDispatchToPropsType & PathParamsType
 
 // wrapper for profileContainer, to use hook useParams
@@ -68,6 +68,7 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     componentDidMount() {
         let userId = Number(this.props.match.params.userId)
         if (!userId) userId= 28462;
+        // if (!userId) userId = this.props.authorizedUserId;  // null пока не загрузилось приложение
         this.props.getProfileTC(userId)
         this.props.getUserStatusTC(userId)
     }
@@ -93,6 +94,8 @@ const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => { //da
         posts: state.profilePage.posts,
         profile: state.profilePage.profile,
         status: state.profilePage.status,
+        authorizedUserId: state.auth.id,
+        isAuth: state.auth.isAuth
     }
 }
 

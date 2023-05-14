@@ -26,7 +26,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                 <label htmlFor="firstName">Login (E-mail)</label>
                 <Field type="text" component={Input}  name="email"
                        validate={[requiredField]}
-                       placeholder="e-mail"
+                       placeholder="email"
                 />
             </div>
             <div>
@@ -40,6 +40,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                 <Field type="checkbox" component={Input} name="rememberMe"
                 />
             </div>
+            {props.error? <div className={c.formSummaryError}>{props.error}</div> : ''}
             <div>
                 <button type="submit">Login</button>
             </div>

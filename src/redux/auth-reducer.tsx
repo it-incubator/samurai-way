@@ -1,8 +1,11 @@
-//ACTIONS
+
 import {Dispatch} from 'redux';
 import {AppActionTypes} from './store-redux';
 import {authAPI} from '../api/api';
+import {stopSubmit} from 'redux-form';
+import login from '../components/Login/Login';
 
+//ACTIONS
 export const setAuthUserData = (data: AuthData) => {
     return {
         type: 'SET-USER-DATA', data
@@ -23,8 +26,11 @@ export const loginUserTC = (email: string, password: string, rememberMe: boolean
         .then(data => {
             if (data.resultCode === 0) {
                 dispatch(getAuthTC())
-            }
-        })
+            } else {
+                let message= data.messages.length > 0 ? data.messages[0] : 'Some error'
+                dispatch(stopSubmit("login", {_error: message}))
+            }}
+        )
 }
 export const logoutUserTC = () => (dispatch: Dispatch<AppActionTypes>) => {
     authAPI.logout()
