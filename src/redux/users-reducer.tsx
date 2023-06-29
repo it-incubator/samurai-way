@@ -68,11 +68,10 @@ export const setFollowingProgress = (userId: number, fetchingValue: boolean) => 
 };
 
 //THUNK CREATORS START
-export const getUsersTC = (currentPage: number, pageSize: number) => {
+export const getUsersTC = (page: number, pageSize: number) => {
   return (dispatch: Dispatch<AppActionTypes>) => {
-    //return thunk
     dispatch(setIsFetching(true));
-    usersAPI.getUsers(currentPage, pageSize).then((data) => {
+    usersAPI.getUsers(page, pageSize).then((data) => {
       dispatch(setIsFetching(false));
       dispatch(setUsers(data.items));
       dispatch(setTotalUsersCount(data.totalCount));
@@ -82,7 +81,6 @@ export const getUsersTC = (currentPage: number, pageSize: number) => {
 
 export const followTC = (userId: number) => {
   return (dispatch: Dispatch<AppActionTypes>) => {
-    //return thunk
     dispatch(setFollowingProgress(userId, true));
     usersAPI.followFriend(userId).then((data) => {
       if (data.resultCode === 0) {
@@ -95,7 +93,6 @@ export const followTC = (userId: number) => {
 
 export const unFollowTC = (userId: number) => {
   return (dispatch: Dispatch<AppActionTypes>) => {
-    //return thunk
     dispatch(setFollowingProgress(userId, true));
     usersAPI.unFollowFriend(userId).then((data) => {
       if (data.resultCode === 0) {
@@ -126,12 +123,16 @@ export const usersReducer = (
     case "FOLLOW":
       return {
         ...state,
-        users: state.users.map((u) => (u.id === action.userId ? { ...u, followed: true } : u)),
+        users: state.users.map((u) =>
+          u.id === action.userId ? { ...u, followed: true } : u
+        ),
       };
     case "UN-FOLLOW":
       return {
         ...state,
-        users: state.users.map((u) => (u.id === action.userId ? { ...u, followed: false } : u)),
+        users: state.users.map((u) =>
+          u.id === action.userId ? { ...u, followed: false } : u
+        ),
       };
     case "SET-USERS":
       return { ...state, users: action.users };
