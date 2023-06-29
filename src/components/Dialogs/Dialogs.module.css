@@ -1,72 +1,72 @@
 .dialogs {
-    display: grid;
-    grid-template-columns: 2fr 10fr;
-    height: 100%;
-    background-color: #eaeaea;
+  display: grid;
+  grid-template-columns: 2fr 10fr;
+  height: 100%;
+  background-color: #eaeaea;
 }
 
 .dialogs ul {
-    margin: 0;
-    padding: 0 0 0 10px;
+  margin: 0;
+  padding: 0 0 0 10px;
 }
 
 .dialog {
-margin-bottom: 10px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  margin-bottom: 10px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .dialogs_messages {
-    padding-left: 20px;
-    height: 100%;
-    border-left: 1px solid darkblue;
-    height: 100%;
+  padding-left: 20px;
+  height: 100%;
+  border-left: 1px solid darkblue;
+  height: 100%;
 }
 
 .dialogs_messages ul {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 .dialogs_messages ul li {
-    margin-bottom: 10px;
-    /*height: 50px;*/
-    display: flex;
-    align-items: center;
+  margin-bottom: 10px;
+  /*height: 50px;*/
+  display: flex;
+  align-items: center;
 }
 .dialogs_messages ul li img {
-    width: 50px;
-    height: 50px;
+  width: 50px;
+  height: 50px;
 }
 .message {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .dialogs_form {
-    background-color: aliceblue;
-    max-width: 50%;
-    height: 40px;
-    border-radius: 10px;
-    padding: 10px;
+  background-color: aliceblue;
+  max-width: 50%;
+  height: 40px;
+  border-radius: 10px;
+  padding: 10px;
 }
 
 .dialogs_button {
-    background-color: #79b5f2;
-    width: 100px;
-    height: 30px;
-    border-radius: 10px;
-    border-style: none;
-    margin-top: 10px;
-    cursor: pointer;
+  background-color: #79b5f2;
+  width: 100px;
+  height: 30px;
+  border-radius: 10px;
+  border-style: none;
+  margin-top: 10px;
+  cursor: pointer;
 }
 .dialogs_button:hover {
-    color: white;
-    background-color: #000067;
-    transition: 0.4s;
+  color: white;
+  background-color: #000067;
+  transition: 0.4s;
 }
 
 .dialogs_AddPostWrapper {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }

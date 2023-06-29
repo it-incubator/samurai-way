@@ -1,31 +1,29 @@
 .sidebar {
-    width: 100%;
-    grid-area: friends;
-    background-color: #97c5b1;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    color: #000067;
+  width: 100%;
+  grid-area: friends;
+  background-color: #97c5b1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: #000067;
 }
 
 .sidebar_title {
-    text-align: center;
+  text-align: center;
 }
 
 .sidebar_friends img {
-    width: 30px;
-    border-radius: 50%;
+  width: 30px;
+  border-radius: 50%;
 }
 
 .sidebar_friends {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
-.sidebar_friends_item{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.sidebar_friends_item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
-

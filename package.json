@@ -69,6 +69,7 @@
     "@types/react-router-dom": "5.3.3",
     "@types/react-test-renderer": "17.0.1",
     "@types/redux-form": "^8.3.5",
-    "@types/uuid": "^9.0.0"
+    "@types/uuid": "^9.0.0",
+    "prettier": "2.8.8"
   }
 }

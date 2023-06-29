@@ -1,10 +1,10 @@
 .loginWrapper {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 .formSummaryError {
-    border: 1px red solid;
-    padding: 5px;
-    color: brown;
-    width: 147px;
+  border: 1px red solid;
+  padding: 5px;
+  color: brown;
+  width: 147px;
 }

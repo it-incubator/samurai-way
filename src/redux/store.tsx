@@ -1,52 +1,51 @@
-import  {addMessageAC} from './dialogs-reducer';
-import {addPost} from './profile-reducer';
-
+import { addMessageAC } from "./dialogs-reducer";
+import { addPost } from "./profile-reducer";
 
 type DialogType = {
-    id: string
-    name: string
-}
+  id: string;
+  name: string;
+};
 type MessageType = {
-    id: string
-    message: string
-}
- type PostType = {
-    id: string
-    message: string
-    likes: number
-}
+  id: string;
+  message: string;
+};
+type PostType = {
+  id: string;
+  message: string;
+  likes: number;
+};
 type DialogsPageType = {
-    dialogs: DialogType[]
-    messages: MessageType[]
-    newMessageText: string
-}
+  dialogs: DialogType[];
+  messages: MessageType[];
+  newMessageText: string;
+};
 export type ProfilePageType = {
-    posts: PostType[]
-    newPostText: string
-}
- type SideBarFriendType = {
-    id: string
-    name: string
-}
- type SideBarType = {
-    friends: SideBarFriendType[]
-}
+  posts: PostType[];
+  newPostText: string;
+};
+type SideBarFriendType = {
+  id: string;
+  name: string;
+};
+type SideBarType = {
+  friends: SideBarFriendType[];
+};
 export type RootStateType = {
-    dialogsPage: DialogsPageType
-    profilePage: ProfilePageType
-    sideBar: SideBarType
-}
+  dialogsPage: DialogsPageType;
+  profilePage: ProfilePageType;
+  sideBar: SideBarType;
+};
 
-export type  StoreType = {
-    _state: RootStateType
-    subscribe: (observer: () => void) => void
-    _rerenderEntireTree: () => void
-    getState: () => RootStateType
-    dispatch: (action: ActionTypes) => void
-}
+export type StoreType = {
+  _state: RootStateType;
+  subscribe: (observer: () => void) => void;
+  _rerenderEntireTree: () => void;
+  getState: () => RootStateType;
+  dispatch: (action: ActionTypes) => void;
+};
 
 //===================ACTIONS TYPES
-type ActionTypes = ReturnType<typeof addMessageAC> | ReturnType<typeof addPost>
+type ActionTypes = ReturnType<typeof addMessageAC> | ReturnType<typeof addPost>;
 
 //=================== STORE
 // export let store: StoreType = {
@@ -102,7 +101,3 @@ type ActionTypes = ReturnType<typeof addMessageAC> | ReturnType<typeof addPost>
 //         this._rerenderEntireTree()
 //     }
 // }
-
-
-
-

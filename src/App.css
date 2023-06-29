@@ -1,16 +1,16 @@
 .app-wrapper {
-    display: grid;
-    width: 1200px;
-    margin: 0 auto;
-    grid-template-areas:
+  display: grid;
+  width: 1200px;
+  margin: 0 auto;
+  grid-template-areas:
     "header header"
     "nav content"
     "friends content";
-    grid-template-rows: 1fr 6fr 5fr;
-    grid-template-columns: 2fr 10fr;
-    gap: 5px;
+  grid-template-rows: 1fr 6fr 5fr;
+  grid-template-columns: 2fr 10fr;
+  gap: 5px;
 }
 
 .app-wrapper-content {
-    grid-area: content;
+  grid-area: content;
 }

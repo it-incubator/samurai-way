@@ -1,50 +1,50 @@
 .header {
-    grid-area: header;
-    border: 2px solid gray;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: gray;
+  grid-area: header;
+  border: 2px solid gray;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: gray;
 }
 
 .header img {
-    width: 50px;
-    display: block;
-    margin-left: 20px;
+  width: 50px;
+  display: block;
+  margin-left: 20px;
 }
 
 .loginBlock {
-    margin-right: 30px;
-    height: 100%;
-    display: flex;
-    gap: 30px;
-    justify-content: center;
-    align-items: center;
+  margin-right: 30px;
+  height: 100%;
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
 }
 .loginLink {
-    font-size: 25px;
-    color: white;
-    text-decoration: none;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #000067;
+  font-size: 25px;
+  color: white;
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000067;
 }
 .loginLink:hover {
-    background-color: deepskyblue;
-    color: black;
-    transition: 0.3s;
+  background-color: deepskyblue;
+  color: black;
+  transition: 0.3s;
 }
 .userName {
-    border: 1px solid black;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 18px;
-    font-weight: bold;
-    color: black;
-    background-color: #eeeeee;
+  border: 1px solid black;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: black;
+  background-color: #eeeeee;
 }

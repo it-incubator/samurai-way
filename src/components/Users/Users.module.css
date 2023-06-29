@@ -1,68 +1,68 @@
 .userPhoto {
-    width: 75px;
-    height: 70px;
+  width: 75px;
+  height: 70px;
 }
 
 .usersPageWrapper {
-    display: flex;
-    flex-direction: column;
-    padding: 10px 50px 50px;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 50px 50px;
+  gap: 10px;
 }
 
 .userWrapper {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 .userInfoWrapper {
-    border: 1px solid black;
-    width: 600px;
-    height: 90px;
-    display: flex;
-    justify-content: space-between;
+  border: 1px solid black;
+  width: 600px;
+  height: 90px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .nameStatusWrap {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    margin-left: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-left: 15px;
 }
 .locationWrap {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    margin-right: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-right: 15px;
 }
 .fullName {
-    font-weight: bold;
+  font-weight: bold;
 }
 .status {
-    font-style: italic;
+  font-style: italic;
 }
 .country {
-    text-align: right;
-    font-weight: bold;
-    font-style: italic;
+  text-align: right;
+  font-weight: bold;
+  font-style: italic;
 }
 .city {
-    text-align: right;
-    font-style: italic;
+  text-align: right;
+  font-style: italic;
 }
 .buttonWrapper {
-   display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 .pagination {
-    display: flex;
-    margin-left: 80px;
-    margin-bottom: 20px;
+  display: flex;
+  margin-left: 80px;
+  margin-bottom: 20px;
 }
 
 .loader {
-    display: flex;
-    align-items: center;
-    height: 65px;
-    margin-left: 55px;
-    margin-top: 20px;
+  display: flex;
+  align-items: center;
+  height: 65px;
+  margin-left: 55px;
+  margin-top: 20px;
 }
