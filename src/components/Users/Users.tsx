@@ -12,7 +12,7 @@ type UsersPropsType = UsersContainerPropsType & {
 export const Users = (props: UsersPropsType) => {
   let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
   //округляем количество страниц в большую сторону , чтобы отображать всех юзеров
-
+  console.log("Users render");
   return (
     <div className={c.usersPageWrapper}>
       <div className={c.pagination}>
@@ -30,7 +30,11 @@ export const Users = (props: UsersPropsType) => {
           <div className={c.userLogoWrapper}>
             <div className={c.userLogo}>
               <NavLink to={"/profile/" + u.id}>
-                <img src={u.photos.small ? u.photos.small : userPhoto} alt="ava" className={c.userPhoto} />
+                <img
+                  src={u.photos.small ? u.photos.small : userPhoto}
+                  alt="ava"
+                  className={c.userPhoto}
+                />
               </NavLink>
             </div>
             <div className={c.buttonWrapper}>

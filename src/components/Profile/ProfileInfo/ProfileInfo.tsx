@@ -1,9 +1,8 @@
 import React from "react";
 import c from "./ProfileInfo.module.css";
-import bg from "../../../img/bg.jpeg";
 import { Loader } from "../../common/loader/Loader";
 import { getProfileResponseType } from "../ProfileContainer";
-import { ProfileStatus } from "./ProfileStatus/ProfileStatus";
+import { ProfileStatusWithHooks } from "components/Profile/ProfileInfo/ProfileStatus/ProfileStatusWithHooks";
 
 type ProfileInfoPropsType = {
   profile: getProfileResponseType;
@@ -26,7 +25,10 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
 
         <div>
           <span>{props.profile.fullName}</span>
-          <ProfileStatus status={props.status} updateStatusTC={props.updateStatusTC} />
+          <ProfileStatusWithHooks
+            status={props.status}
+            updateStatusTC={props.updateStatusTC}
+          />
           <ul>
             <li>Обо мне: {props.profile.aboutMe}</li>
             <li>В поисках работы: {props.profile.lookingForAJobDescription}</li>

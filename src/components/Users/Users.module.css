@@ -6,8 +6,8 @@
 .usersPageWrapper {
   display: flex;
   flex-direction: column;
-  padding: 10px 50px 50px;
-  gap: 10px;
+  align-items: center;
+  padding: 0 30px;
 }
 
 .userWrapper {
@@ -16,10 +16,10 @@
 }
 .userInfoWrapper {
   border: 1px solid black;
-  width: 600px;
-  height: 90px;
+  width: 800px;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 7px;
 }
 
 .nameStatusWrap {
