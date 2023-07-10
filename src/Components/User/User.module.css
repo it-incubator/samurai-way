@@ -1,0 +1,32 @@
+.city_img {
+    height: 23em;
+    width:80em;
+
+
+}
+
+.content {
+    grid-area: c;
+    background-color: rgba(0,215,215,0.41);
+    width: 100%;
+    height: 100%;
+}
+
+
+.style {
+
+    font-family: "Monotype Corsiva" ;
+    font-size: 24px;
+    font-style: italic;
+    letter-spacing: 10px;
+    color: saddlebrown;
+}
+
+.style_Button {
+    box-shadow: 10px 5px 10px blue;
+    font-family: "Monotype Corsiva" ;
+    font-size: 14px;
+    font-style: italic;
+    letter-spacing: 10px;
+    color: saddlebrown;
+}

@@ -1,40 +1,40 @@
+import {ItemsType} from "../API/User-api";
 
 
 export type InitializationStateUserType = {
-    users:UsersProperty []
+    users: ItemsType[]
 
 }
 
-type UsersProperty = {
-    id:number
-    fallow:boolean
-    name:string
-    age:number
-}
+
 
 
 const InitializationState:InitializationStateUserType = {
-  users:[{id:1,fallow:true, name:'Dima', age:18},
-      {id:2,fallow:false,name:'Vitua',age:19},
-      {id:3,fallow:false,name:'Sveta',age:19}]
+  users:[]
 
 }
 
 
 
-export  const userReducer= (state=InitializationState ,action:Follow|UNFollow ):InitializationStateUserType => {
+export  const userReducer= (state=InitializationState ,action:Follow|UNFollow|ADDUsers ):InitializationStateUserType => {
 
     switch (action.type) {
 
-        case 'Follow':
+        // case 'Follow':
+        //
+        //
+        //     return {...state, users:state.users.map((el)=>el.id===action.payload.id ? {...el,fallow:true }: el)}
+        //
+        // case 'UNFollow':
+        //
+        //
+        //     return {...state, users:state.users.map((el)=>el.id===action.payload.id ? {...el,fallow:false }: el)}
+
+        case 'ADD-USERS':
 
 
-            return {...state, users:state.users.map((el)=>el.id===action.payload.id ? {...el,fallow:true }: el)}
 
-        case 'UNFollow':
-
-
-            return {...state, users:state.users.map((el)=>el.id===action.payload.id ? {...el,fallow:false }: el)}
+            return {...state,users:action.payload.users}
 
 
 
@@ -70,4 +70,17 @@ export  const UNFollowAC = (id:number)=> {
     } as const
 
 }
+
+export  type  ADDUsers = ReturnType<typeof ADDUsersAC  >
+export  const ADDUsersAC = (users:ItemsType[])=> {
+    return {
+        type:'ADD-USERS',
+        payload :{
+           users:users
+        }
+
+    } as const
+
+}
+
 

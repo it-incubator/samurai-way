@@ -1,21 +1,28 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {User} from "./User";
 import {StoreType} from "../../Redux/redux-store";
 import {Dispatch} from "redux";
-import {FollowAC, InitializationStateUserType, UNFollowAC} from "../../Redux/userReducer";
+import {ADDUsersAC, FollowAC, UNFollowAC} from "../../Redux/userReducer";
+import {User} from "./User";
+import {ItemsType} from "../../API/User-api";
+
+
 
 
 
 
 
 type mapStateToPropsType ={
-    userReducer:InitializationStateUserType
+    users:ItemsType[]
 }
 
 const mapStateToProps =(state:StoreType):mapStateToPropsType=> {
+
+
+
+
     return {
-     userReducer:state.userReducer
+     users:state.userReducer.users
 
     }
 }
@@ -23,6 +30,7 @@ const mapStateToProps =(state:StoreType):mapStateToPropsType=> {
 type mapDispatchToPropsType = {
     Follow:(id:number)=>void
     UNFollow:(id:number)=>void
+    setUsers:(users:ItemsType[])=>void
 
 }
 
@@ -37,6 +45,9 @@ const mapDispatchToProps =(dispatch:Dispatch):mapDispatchToPropsType=> {
         },
         UNFollow:(id:number)=>{
             dispatch(UNFollowAC(id))
+    },
+    setUsers :(users:ItemsType[])=> {
+         dispatch(ADDUsersAC(users))
     }
 }}
 
