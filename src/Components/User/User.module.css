@@ -30,3 +30,14 @@
     letter-spacing: 10px;
     color: saddlebrown;
 }
+
+.users_photo {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50px;
+}
+
+.current_Page {
+    font-weight: bold;
+}

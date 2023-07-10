@@ -3,6 +3,9 @@ import {ItemsType} from "../API/User-api";
 
 export type InitializationStateUserType = {
     users: ItemsType[]
+    pageSize:number
+    totalUsersCounter:number
+    currentPage :number
 
 }
 
@@ -10,31 +13,46 @@ export type InitializationStateUserType = {
 
 
 const InitializationState:InitializationStateUserType = {
-  users:[]
+  users:[],
+    pageSize:5,
+    totalUsersCounter: 20,
+    currentPage :1
 
 }
 
 
 
-export  const userReducer= (state=InitializationState ,action:Follow|UNFollow|ADDUsers ):InitializationStateUserType => {
+export  const userReducer= (state=InitializationState ,action:Follow|UNFollow|ADDUsers|CurrentPageType|TotalUserCounterType ):InitializationStateUserType => {
 
     switch (action.type) {
 
-        // case 'Follow':
-        //
-        //
-        //     return {...state, users:state.users.map((el)=>el.id===action.payload.id ? {...el,fallow:true }: el)}
-        //
-        // case 'UNFollow':
-        //
-        //
-        //     return {...state, users:state.users.map((el)=>el.id===action.payload.id ? {...el,fallow:false }: el)}
+        case 'Follow':
+
+
+            return {...state, users:state.users.map((el)=>el.id===action.payload.id ? {...el,fallow:true }: el)}
+
+        case 'UNFollow':
+
+
+            return {...state, users:state.users.map((el)=>el.id===action.payload.id ? {...el,fallow:false }: el)}
 
         case 'ADD-USERS':
 
 
 
             return {...state,users:action.payload.users}
+
+        case 'CURRENT-PAGE':
+
+
+
+            return {...state,currentPage:action.payload.p}
+
+        case 'TOTAL_USER_COUNT':
+
+
+
+            return {...state,totalUsersCounter:action.payload.totalCount}
 
 
 
@@ -82,5 +100,33 @@ export  const ADDUsersAC = (users:ItemsType[])=> {
     } as const
 
 }
+
+export  type  CurrentPageType = ReturnType<typeof CurrentPageAC>
+
+export  const CurrentPageAC = (p:number)=> {
+    return {
+        type:'CURRENT-PAGE',
+        payload :{
+        p:p
+        }
+
+    } as const
+
+}
+
+export  type  TotalUserCounterType = ReturnType<typeof TotalUserCounterAC>
+
+export  const TotalUserCounterAC = (totalCount:number)=> {
+    return {
+        type:'TOTAL_USER_COUNT',
+        payload :{
+            totalCount:totalCount
+        }
+
+    } as const
+
+}
+
+
 
 

@@ -11,7 +11,7 @@ export const userAPI = {
 
     getUser() {
         const promise = instance.get<UserType>(
-            `/users`)
+            `/users?page&count`)
         return promise
     },
     createTask(todolistId: string, title: string) {
