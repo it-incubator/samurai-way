@@ -6,6 +6,7 @@ export type InitializationStateUserType = {
     pageSize:number
     totalUsersCounter:number
     currentPage :number
+    isFetching:boolean
 
 }
 
@@ -16,13 +17,14 @@ const InitializationState:InitializationStateUserType = {
   users:[],
     pageSize:5,
     totalUsersCounter: 20,
-    currentPage :1
+    currentPage :1,
+    isFetching:true
 
 }
 
 
 
-export  const userReducer= (state=InitializationState ,action:Follow|UNFollow|ADDUsers|CurrentPageType|TotalUserCounterType ):InitializationStateUserType => {
+export  const userReducer= (state=InitializationState ,action:TsarType ):InitializationStateUserType => {
 
     switch (action.type) {
 
@@ -54,12 +56,20 @@ export  const userReducer= (state=InitializationState ,action:Follow|UNFollow|AD
 
             return {...state,totalUsersCounter:action.payload.totalCount}
 
+        case 'TOGLLE_IS_FETCHING':
+
+
+
+            return {...state,isFetching:action.payload.preloader}
+
 
 
 
         default :return state
     }
 }
+
+type TsarType = Follow|UNFollow|ADDUsers|CurrentPageType|TotalUserCounterType|ToglleIsFetchingType
 
 export  type  Follow = ReturnType<typeof FollowAC >
 
@@ -114,6 +124,8 @@ export  const CurrentPageAC = (p:number)=> {
 
 }
 
+
+
 export  type  TotalUserCounterType = ReturnType<typeof TotalUserCounterAC>
 
 export  const TotalUserCounterAC = (totalCount:number)=> {
@@ -121,6 +133,19 @@ export  const TotalUserCounterAC = (totalCount:number)=> {
         type:'TOTAL_USER_COUNT',
         payload :{
             totalCount:totalCount
+        }
+
+    } as const
+
+}
+
+export  type  ToglleIsFetchingType = ReturnType<typeof  ToglleIsFetchingAC>
+
+export  const  ToglleIsFetchingAC = (preloader:boolean)=> {
+    return {
+        type:'TOGLLE_IS_FETCHING',
+        payload :{
+           preloader:preloader
         }
 
     } as const

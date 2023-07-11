@@ -1,56 +1,48 @@
 import React from 'react';
 import s from "./User.module.css";
-import {UsersType} from "./UserContainer";
 import user from "../../image/user.jpeg";
-import axios from "axios";
+import {ItemsType} from "../../API/User-api";
+import {Preloader} from "../Preloader/Preloader";
 
 
-export class User extends React.Component<UsersType> {
+type UserType = {
+    changePage:(p:number)=>void
+    totalUsersCounter:number
+    pageSize:number
+    currentPage:number
+    users:ItemsType[]
+    isFetching:boolean
+}
 
 
-    componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then((res) => {
-                this.props.setUsers(res.data.items);
-            this.props.setTotalCount(res.data.totalCount)})
+
+const User:React.FC<UserType> = ({changePage,totalUsersCounter,
+                                     pageSize,currentPage,users,
+                                     isFetching,...props}) => {
+
+    let pagesCount = Math.ceil(totalUsersCounter / pageSize)
+
+
+    let pages = []
+
+    for (let i = 1; i <= pagesCount; i++) {
+
+        pages.push(i)
+
     }
+    return (
+        <div className={s.content}>
+            <div className={s.style}>
+                <div>
 
+                    {pages.map((p) => <span onClick={(e) => changePage(p)}
+                                            className={currentPage === p ? s.current_Page : ''}>{p}</span>)
+                    }
 
-    render() {
-
-        let pagesCount = Math.ceil(this.props.totalUsersCounter / this.props.pageSize)
-
-
-        let pages = []
-
-        for (let i = 1; i <= pagesCount; i++) {
-
-            pages.push(i)
-
-        }
-
-      const  ChangePage = (pageNumber: number) => {
-            this.props.setPage(pageNumber)
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
-                .then((res) => this.props.setUsers(res.data.items))
-
-        }
-
-
-        return (
-
-
-            <div className={s.content}>
-                <div className={s.style}>
-                    <div>
-
-                        {pages.map((p) => <span onClick={(e) => ChangePage(p)}
-                                                className={this.props.currentPage === p ? s.current_Page : ''}>{p}</span>)
-                        }
-
-                    </div>
-
-                    {this.props.users.map((el) =>
+                </div>
+                {isFetching
+                    ? <Preloader/>
+                    : <div>{users.map((el) =>
 
                         <li key={el.id}>
                             <img src={el.photos.small !== null ? el.photos.small : user} className={s.users_photo}/>
@@ -64,15 +56,14 @@ export class User extends React.Component<UsersType> {
                                     </button>}
                             </div>
                         </li>
-                    )}
+                    )}</div>}
 
-                </div>
+
+
             </div>
+        </div>
 
+    );
+};
 
-        );
-    }
-}
-
-
-
+export default User;
