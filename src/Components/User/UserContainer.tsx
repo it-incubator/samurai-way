@@ -10,7 +10,7 @@ import {
     TotalUserCounterAC,
     UNFollowAC
 } from "../../Redux/userReducer";
-import {ItemsType} from "../../API/User-api";
+import {ItemsType, userAPI} from "../../API/User-api";
 import axios from "axios";
 import User from "./User";
 
@@ -20,7 +20,7 @@ export class UserWrapper extends React.Component<UsersType> {
 
     componentDidMount() {
         this.props.setToggleISFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        userAPI.getUser(this.props.currentPage,this.props.pageSize)
             .then((res) => {
                 this.props.setToggleISFetching(false)
                 this.props.setUsers(res.data.items);

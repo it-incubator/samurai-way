@@ -9,9 +9,9 @@ const instance = axios.create(
 
 export const userAPI = {
 
-    getUser() {
+    getUser(currentPage:number,pageSize:number) {
         const promise = instance.get<UserType>(
-            `/users?page&count`)
+            `/users?page=${currentPage}&count=${pageSize}`)
         return promise
     },
     createTask(todolistId: string, title: string) {

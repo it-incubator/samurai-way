@@ -12,9 +12,6 @@ import {Dispatch} from "redux";
 
 
 
-
-
-
 type mapStateToPropsType ={
     pageReducer:InitializationStatePageType
 }

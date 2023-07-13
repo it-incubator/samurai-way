@@ -1,9 +1,10 @@
+import {ProfileType} from "../API/Profile-api";
 
-import React from "react";
 
 export type InitializationStatePageType = {
     post:PostType []
     newPostText:string
+    profileInfo: ProfileType
 }
 
 type PostType = {
@@ -13,11 +14,30 @@ type PostType = {
 }
 
 const InitializationState:InitializationStatePageType = {
+    profileInfo:{
+        userId: '',
+        lookingForAJob: true,
+        lookingForAJobDescription: 'bla',
+        fullName: 'Dima',
+        contacts: {},
+        github: '',
+        vk: '',
+        facebook: '',
+        instagram: '',
+        twitter: '',
+        website: '',
+        youtube: '',
+        mainLink: '',
+        photos: {small:'',large:''},
+        small: ''
+    },
+
     post : [{id:1,message:'Hi, how are you?', likeCount:12},
         {id:2,message:'Hi, how are you?', likeCount:10},
         {id:3,message:'Hi, how are you?', likeCount:8},
         {id:4,message:'Hi, how are you?', likeCount:6},],
-    newPostText:'it-kamasutra'
+    newPostText:'it-kamasutra',
+
 }
 
 
@@ -37,11 +57,15 @@ export  const pageReducer= (state=InitializationState,action:AllAction):Initiali
 
         return {...state,newPostText:action.newText}
 
+        case 'Update_PROFILE':
+
+            return {...state,profileInfo:action.data}
+
         default :return state
     }
 }
 
-export type AllAction = AddPost|UpdateText
+export type AllAction = AddPost|UpdateText|ProfileInfoAppDate
 
 export type AddPost = ReturnType<typeof AddPostActionCreator>
 
@@ -63,6 +87,19 @@ export  const UpdateTextActionCreator = (newText:string)=> {
     } as const
 
 }
+
+export  type ProfileInfoAppDate =ReturnType<typeof ProfileInfoAppDateAC>
+
+
+export  const ProfileInfoAppDateAC = (data:ProfileType)=> {
+    return {
+        type:'Update_PROFILE',
+        data:data
+
+    } as const
+
+}
+
 
 
 

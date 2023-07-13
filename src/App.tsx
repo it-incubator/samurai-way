@@ -2,11 +2,11 @@ import React from 'react';
 import './App.css';
 import {Header} from "./Components/Header/Header";
 import {Navbar} from "./Components/Navbar/Navbar";
-import {Profile} from "./Components/Profile/Profile";
 import { Route} from "react-router-dom";
-import {store, StoreType} from "./Redux/redux-store";
+import { StoreType} from "./Redux/redux-store";
 import {DialogsContainer} from "./Components/Dialog/DialogsContainer";
 import {UserContainer} from "./Components/User/UserContainer";
+import { ProfileWrapper} from "./Components/Profile/ProfileContainer";
 
 
 type PropsType = {
@@ -58,10 +58,11 @@ function App() {
     return (
 
         <div className='app-wrapper'>
-           <Header />
+           <Header  />
             <Navbar/>
+
             <Route path={'/dialogs'} render={()=><DialogsContainer  />}/>
-           <Route path={'/profile'} render={()=><Profile  />}/>
+           <Route path={`/profile/:userId?`} render={()=><ProfileWrapper  />}/>
             <Route path={'/user'} render={()=><UserContainer   />}/>
             {/*<Route path={'/sidebar'} render={()=><SideBar SideData={state.sideBar}/>}/>*/}
         </div>
