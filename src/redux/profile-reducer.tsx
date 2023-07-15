@@ -9,6 +9,7 @@ import { setFollowingProgress } from "./users-reducer";
 export const addPost = (postText: string) => {
   return { type: "ADD-POST", newPost: postText } as const;
 };
+export const deletePost = (postId: string) => ({ type: "DELETE-POST", postId } as const);
 export const setUserProfile = (profileValue: getProfileResponseType) => {
   return { type: "SET-USER-PROFILE", profileValue } as const;
 };
@@ -23,7 +24,8 @@ export type ProfileActionTypes =
   | ReturnType<typeof addPost>
   | ReturnType<typeof setUserProfile>
   | ReturnType<typeof setUserStatus>
-  | ReturnType<typeof updateUserStatus>;
+  | ReturnType<typeof updateUserStatus>
+  | ReturnType<typeof deletePost>;
 
 //THUNK CREATORS ======================================================================
 export const getProfileTC = (userId: number) => (dispatch: Dispatch<AppActionTypes>) => {
@@ -80,6 +82,11 @@ export const profileReducer = (
       return {
         ...state,
         posts: [...state.posts, { id: v1(), message: action.newPost, likes: 0 }],
+      };
+    case "DELETE-POST":
+      return {
+        ...state,
+        posts: state.posts.filter((post) => post.id !== action.postId),
       };
     case "SET-USER-PROFILE":
       return { ...state, profile: action.profileValue };
