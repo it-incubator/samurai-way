@@ -1,67 +1,43 @@
 import { v1 } from "uuid";
 import { getProfileResponseType } from "components/Profile/ProfileContainer";
 import { Dispatch } from "redux";
-import { AppActionTypes } from "./store-redux";
+import { RootActionTypes } from "./store-redux";
 import { profileAPI } from "api/api";
 import { setFollowingProgress } from "./users-reducer";
 
 //ACTION CREATORS ======================================================================
-export const addPost = (postText: string) => {
-  return { type: "ADD-POST", newPost: postText } as const;
-};
-export const deletePost = (postId: string) => ({ type: "DELETE-POST", postId } as const);
-export const setUserProfile = (profileValue: getProfileResponseType) => {
-  return { type: "SET-USER-PROFILE", profileValue } as const;
-};
-export const setUserStatus = (status: string) => {
-  return { type: "SET-USER-STATUS", status } as const;
-};
-export const updateUserStatus = (status: string) => {
-  return { type: "UPDATE-USER-STATUS", status } as const;
-};
+const ADD_POST = "profile/ADD-POST";
+const DELETE_POST = "profile/DELETE-POST";
+const SET_USER_PROFILE = "profile/SET-USER-PROFILE";
+const SET_USER_STATUS = "profile/SET-USER-STATUS";
+const UPDATE_USER_STATUS = "profile/UPDATE-USER-STATUS";
 
-export type ProfileActionTypes =
-  | ReturnType<typeof addPost>
-  | ReturnType<typeof setUserProfile>
-  | ReturnType<typeof setUserStatus>
-  | ReturnType<typeof updateUserStatus>
-  | ReturnType<typeof deletePost>;
+export const addPost = (postText: string) => ({ type: ADD_POST, newPost: postText } as const);
+
+export const deletePost = (postId: string) => ({ type: DELETE_POST, postId } as const);
+export const setUserProfile = (profileValue: getProfileResponseType) =>
+  ({ type: SET_USER_PROFILE, profileValue } as const);
+export const setUserStatus = (status: string) => ({ type: SET_USER_STATUS, status } as const);
+export const updateUserStatus = (status: string) => ({ type: UPDATE_USER_STATUS, status } as const);
 
 //THUNK CREATORS ======================================================================
-export const getProfileTC = (userId: number) => (dispatch: Dispatch<AppActionTypes>) => {
-  //return thunk
+export const getProfileTC = (userId: number) => async (dispatch: Dispatch<RootActionTypes>) => {
   dispatch(setFollowingProgress(+userId, true));
-  profileAPI.getProfile(userId).then((data) => dispatch(setUserProfile(data)));
+  const data = await profileAPI.getProfile(userId);
+  dispatch(setUserProfile(data));
 };
-export const getUserStatusTC =
-  (userId: number) =>
-  (
-    dispatch: Dispatch<AppActionTypes> //return thunk
-  ) =>
-    profileAPI.getStatus(userId).then((status) => {
-      dispatch(setUserStatus(status));
-    });
-
-export const updateUserStatusTC =
-  (status: string) =>
-  (
-    dispatch: Dispatch<AppActionTypes> //return thunk
-  ) =>
-    profileAPI.setStatus(status).then((data) => {
-      if (data.resultCode === 0) dispatch(updateUserStatus(status));
-    });
+export const getUserStatusTC = (userId: number) => async (dispatch: Dispatch<RootActionTypes>) => {
+  const data = await profileAPI.getStatus(userId);
+  dispatch(setUserStatus(data));
+};
+export const updateUserStatusTC = (status: string) => async (dispatch: Dispatch<RootActionTypes>) => {
+  const data = await profileAPI.setStatus(status);
+  if (data.resultCode === 0) {
+    dispatch(updateUserStatus(status));
+  }
+};
 
 //STATE ======================================================================
-export type PostType = {
-  id: string;
-  message: string;
-  likes: number;
-};
-export type initialStateProfileType = {
-  posts: PostType[];
-  profile: getProfileResponseType;
-  status: string;
-};
 
 let initialState = {
   posts: [
@@ -78,23 +54,43 @@ export const profileReducer = (
   action: ProfileActionTypes
 ): initialStateProfileType => {
   switch (action.type) {
-    case "ADD-POST":
+    case ADD_POST:
       return {
         ...state,
         posts: [...state.posts, { id: v1(), message: action.newPost, likes: 0 }],
       };
-    case "DELETE-POST":
+    case DELETE_POST:
       return {
         ...state,
         posts: state.posts.filter((post) => post.id !== action.postId),
       };
-    case "SET-USER-PROFILE":
+    case SET_USER_PROFILE:
       return { ...state, profile: action.profileValue };
-    case "SET-USER-STATUS":
+    case SET_USER_STATUS:
       return { ...state, status: action.status };
-    case "UPDATE-USER-STATUS":
+    case UPDATE_USER_STATUS:
       return { ...state, status: action.status };
     default:
       return state;
   }
+};
+
+//TYPES ======================================================================
+
+export type ProfileActionTypes =
+  | ReturnType<typeof addPost>
+  | ReturnType<typeof setUserProfile>
+  | ReturnType<typeof setUserStatus>
+  | ReturnType<typeof updateUserStatus>
+  | ReturnType<typeof deletePost>;
+
+export type PostType = {
+  id: string;
+  message: string;
+  likes: number;
+};
+export type initialStateProfileType = {
+  posts: PostType[];
+  profile: getProfileResponseType;
+  status: string;
 };

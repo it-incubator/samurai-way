@@ -9,7 +9,6 @@ import { reducer as formReducer } from "redux-form";
 import { AppClassActionTypes, appReducer } from "redux/app-reducer";
 
 export type AppRootStateType = ReturnType<typeof rootReducer>;
-//Type of new State (redux) , type of what rootReducer returns (it returns State)
 export type StoreReduxType = typeof store;
 
 export const rootReducer = combineReducers({
@@ -24,12 +23,13 @@ export const rootReducer = combineReducers({
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 export type RootState = ReturnType<typeof store.getState>;
-export type AppActionTypes =
+export type RootActionTypes =
   | UsersActionTypes
   | AuthActionTypes
   | DialogsActionTypes
   | ProfileActionTypes
   | SideBarActionTypes
   | AppClassActionTypes;
+
 // @ts-ignore
 window.store = store;

@@ -1,50 +1,48 @@
 import { Dispatch } from "redux";
-import { AppActionTypes } from "./store-redux";
-import { authAPI } from "../api/api";
+import { RootActionTypes } from "./store-redux";
+import { authAPI } from "api/api";
 import { stopSubmit } from "redux-form";
 
 //ACTIONS ================================================================================
-export const setAuthUserData = (data: AuthData) => {
-  return {
-    type: "SET-USER-DATA",
+const SET_USER_DATA = "auth/SET-USER-DATA";
+export const setAuthUserData = (data: AuthData) =>
+  ({
+    type: SET_USER_DATA,
     data,
-  } as const;
-};
+  } as const);
 
 //THUNKS  ================================================================================
-export const getAuthTC = () => (dispatch: Dispatch<AppActionTypes>) => {
-  return authAPI.me().then((data) => {
-    if (data.resultCode === 0) {
-      dispatch(setAuthUserData({ ...data.data, isAuth: true }));
-    }
-  });
+export const getAuthTC = () => async (dispatch: Dispatch<RootActionTypes>) => {
+  const response = await authAPI.me();
+  if (response.resultCode === 0) {
+    dispatch(setAuthUserData({ ...response.data, isAuth: true }));
+  }
 };
 
 export const loginUserTC =
-  (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch<AppActionTypes>) => {
-    authAPI.login(email, password, rememberMe).then((data) => {
-      if (data.resultCode === 0) {
-        dispatch(getAuthTC());
-      } else {
-        let message = data.messages.length > 0 ? data.messages[0] : "Some error";
-        dispatch(stopSubmit("login", { _error: message }));
-      }
-    });
-  };
-export const logoutUserTC = () => (dispatch: Dispatch<AppActionTypes>) => {
-  authAPI.logout().then((data) => {
+  (email: string, password: string, rememberMe: boolean) =>
+  async (dispatch: Dispatch<RootActionTypes>) => {
+    const data = await authAPI.login(email, password, rememberMe);
     if (data.resultCode === 0) {
-      dispatch(
-        setAuthUserData({
-          ...data.data,
-          id: null,
-          email: null,
-          login: null,
-          isAuth: false,
-        })
-      );
+      dispatch(getAuthTC());
+    } else {
+      let message = data.messages.length > 0 ? data.messages[0] : "Some error";
+      dispatch(stopSubmit("login", { _error: message }));
     }
-  });
+  };
+export const logoutUserTC = () => async (dispatch: Dispatch<RootActionTypes>) => {
+  const data = await authAPI.logout();
+  if (data.resultCode === 0) {
+    dispatch(
+      setAuthUserData({
+        ...data.data,
+        id: null,
+        email: null,
+        login: null,
+        isAuth: false,
+      })
+    );
+  }
 };
 
 //STATE ================================================================================
@@ -62,7 +60,7 @@ export const authReducer = (
   action: AuthActionTypes
 ): initialStateUserDataType => {
   switch (action.type) {
-    case "SET-USER-DATA":
+    case SET_USER_DATA:
       return {
         ...state,
         ...action.data,

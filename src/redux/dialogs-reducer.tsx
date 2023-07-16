@@ -1,30 +1,18 @@
 import { v1 } from "uuid";
 
-export type DialogType = {
-  id: string;
-  name: string;
-};
-export type MessageType = {
-  id: string;
-  message: string;
-};
+//ACTIONS ================================================================================
 
-export type DialogsActionTypes = ReturnType<typeof addMessageAC>;
-// | ReturnType<typeof updateMessageAC>
-
-export type initialStateDialogsType = typeof initialState;
-export const addMessageAC = (newMessageText: string) => {
-  return {
-    type: "ADD-MESSAGE",
-    newMessage: newMessageText,
-  } as const;
-};
+export const addMessageAC = (newMessageText: string) =>
+  ({ type: "ADD-MESSAGE", newMessage: newMessageText } as const);
 // export const updateMessageAC = (messageUpdateText: string) => {
 //     return {
 //         type: 'UPDATE-NEW-MESSAGE-TEXT',
 //         messageUpdateText: messageUpdateText
 //     } as const
 // }
+
+//REDUCER ================================================================================
+export type initialStateDialogsType = typeof initialState;
 
 let initialState = {
   dialogs: [
@@ -58,3 +46,14 @@ export const dialogsReducer = (
       return state;
   }
 };
+
+//TYPES ================================================================================
+export type DialogType = {
+  id: string;
+  name: string;
+};
+export type MessageType = {
+  id: string;
+  message: string;
+};
+export type DialogsActionTypes = ReturnType<typeof addMessageAC>;

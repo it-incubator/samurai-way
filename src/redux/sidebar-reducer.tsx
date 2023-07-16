@@ -7,7 +7,8 @@ type SideBarFriendType = {
 type SideBarType = {
   friends: SideBarFriendType[];
 };
-export type SideBarActionTypes = any; // add
+export type SideBarActionTypes = any;
+//TODO
 
 let initialState = {
   friends: [

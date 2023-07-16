@@ -1,15 +1,13 @@
 import { Dispatch } from "redux";
-import { AppActionTypes } from "redux/store-redux";
+import { RootActionTypes } from "redux/store-redux";
 import { getAuthTC } from "redux/auth-reducer";
 
 //ACTIONS
-const SET_INITIALIZED = "SET-INITIALIZED";
-export const setInitializedSuccessAC = () => {
-  return { type: SET_INITIALIZED };
-};
+const SET_INITIALIZED = "app/SET-INITIALIZED";
+export const setInitializedSuccessAC = () => ({ type: SET_INITIALIZED });
 
 //THUNKS
-export const initializeAppTC = () => async (dispatch: Dispatch<AppActionTypes>) => {
+export const initializeAppTC = () => async (dispatch: Dispatch<RootActionTypes>) => {
   await dispatch(getAuthTC());
   dispatch(setInitializedSuccessAC());
 };
