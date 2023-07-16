@@ -1,6 +1,6 @@
 import React from "react";
 import c from "./ProfileInfo.module.css";
-import { Loader } from "../../common/loader/Loader";
+import { Loader } from "../../common/Loader/Loader";
 import { getProfileResponseType } from "../ProfileContainer";
 import { ProfileStatusWithHooks } from "components/Profile/ProfileInfo/ProfileStatus/ProfileStatusWithHooks";
 
@@ -25,10 +25,7 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
 
         <div>
           <span>{props.profile.fullName}</span>
-          <ProfileStatusWithHooks
-            status={props.status}
-            updateStatusTC={props.updateStatusTC}
-          />
+          <ProfileStatusWithHooks status={props.status} updateStatusTC={props.updateStatusTC} />
           <ul>
             <li>Обо мне: {props.profile.aboutMe}</li>
             <li>В поисках работы: {props.profile.lookingForAJobDescription}</li>

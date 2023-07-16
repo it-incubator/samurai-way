@@ -3,7 +3,7 @@ import { AppRootStateType } from "redux/store-redux";
 import { connect } from "react-redux";
 import { followTC, getUsersTC, initialStateUsersType, setCurrentPage, unFollowTC } from "redux/users-reducer";
 import { Users } from "./Users";
-import { Loader } from "../common/loader/Loader";
+import { Loader } from "../common/Loader/Loader";
 import c from "./Users.module.css";
 import { compose } from "redux";
 import {

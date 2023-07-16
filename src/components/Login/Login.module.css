@@ -3,8 +3,6 @@
   flex-direction: column;
 }
 .formSummaryError {
-  border: 1px red solid;
-  padding: 5px;
-  color: brown;
-  width: 147px;
+  margin-bottom: 10px;
+  color: red;
 }

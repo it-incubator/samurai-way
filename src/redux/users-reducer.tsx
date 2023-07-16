@@ -1,7 +1,7 @@
 import { FollowUnfollowResType, usersAPI } from "api/api";
 import { Dispatch } from "redux";
 import { RootActionTypes } from "./store-redux";
-import { updateObjInArray } from "utils/helper/arrayMapHelper";
+import { updateObjInArray } from "utils/helper/changeObjectInArrayHelper";
 
 //ACTIONS ======================================================================
 

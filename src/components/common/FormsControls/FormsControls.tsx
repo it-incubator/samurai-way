@@ -1,5 +1,7 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import c from "./FormsControls.module.css";
+import { Field } from "redux-form";
+import { requiredField } from "utils/validations/validations";
 
 export const FormControl =
   (Element: any) =>
@@ -13,4 +15,25 @@ export const FormControl =
     );
   };
 
-//в компоненте формы вызываем эту функцию и передаем название элемента, соотв. элемент отрисовывается в поле Field
+export const createField = (
+  component: ReactNode,
+  fieldType: string = "text",
+  fieldName: string,
+  placeholder?: string,
+  labelText: string | null = null,
+  required: boolean = true
+) => {
+  return (
+    <>
+      {labelText && <label htmlFor={fieldName}>{labelText}</label>}
+      <Field
+        className={c.field}
+        type={fieldType}
+        component={component}
+        name={fieldName}
+        validate={required && [requiredField]}
+        placeholder={placeholder}
+      />
+    </>
+  );
+};

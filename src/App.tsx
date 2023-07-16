@@ -14,7 +14,7 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { initializeAppTC } from "redux/app-reducer";
 import { AppRootStateType } from "redux/store-redux";
-import { Loader } from "components/common/loader/Loader";
+import { Loader } from "components/common/Loader/Loader";
 import ProfileContainer, { withRouter } from "components/Profile/ProfileContainer";
 
 class App extends React.Component<AppPropsType> {
@@ -47,7 +47,6 @@ class App extends React.Component<AppPropsType> {
 }
 
 const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
-  //data
   return {
     isInitialized: state.app.isInitialized,
   };
