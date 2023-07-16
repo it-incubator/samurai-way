@@ -1,9 +1,8 @@
 import React from "react";
 import c from "./Users.module.css";
-import userPhoto from "../../assets/images/userPhoto.png";
-import Pagination from "@mui/material/Pagination";
 import { UsersContainerPropsType } from "./UsersContainer";
-import { NavLink } from "react-router-dom";
+import Pagination from "@mui/material/Pagination";
+import { User } from "components/Users/User";
 
 type UsersPropsType = UsersContainerPropsType & {
   onPageChanged: (e: React.ChangeEvent<unknown>, clickedPage: number) => void;
@@ -11,13 +10,14 @@ type UsersPropsType = UsersContainerPropsType & {
 
 export const Users = (props: UsersPropsType) => {
   let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
-  //округляем количество страниц в большую сторону , чтобы отображать всех юзеров
-  console.log("Users render");
+  const count = pagesCount > 0 ? pagesCount : props.currentPage;
+
   return (
     <div className={c.usersPageWrapper}>
       <div className={c.pagination}>
         <Pagination
-          count={pagesCount > 0 ? pagesCount : props.currentPage}
+          page={props.currentPage}
+          count={count}
           variant="outlined"
           color="secondary"
           showFirstButton={true}
@@ -26,47 +26,13 @@ export const Users = (props: UsersPropsType) => {
         />
       </div>
       {props.users.map((u) => (
-        <div key={u.id} className={c.userWrapper}>
-          <div className={c.userLogoWrapper}>
-            <div className={c.userLogo}>
-              <NavLink to={"/profile/" + u.id}>
-                <img
-                  src={u.photos.small ? u.photos.small : userPhoto}
-                  alt="ava"
-                  className={c.userPhoto}
-                />
-              </NavLink>
-            </div>
-            <div className={c.buttonWrapper}>
-              {u.followed ? (
-                <button
-                  disabled={props.followingProgress.some((id) => id === u.id)}
-                  onClick={() => props.unFollowTC(u.id)}
-                >
-                  UnFollow
-                </button>
-              ) : (
-                <button
-                  disabled={props.followingProgress.some((id) => id === u.id)}
-                  onClick={() => props.followTC(u.id)}
-                >
-                  Follow
-                </button>
-              )}
-            </div>
-          </div>
-
-          <div className={c.userInfoWrapper}>
-            <div className={c.nameStatusWrap}>
-              <div className={c.fullName}>{u.name}</div>
-              <div className={c.status}>{u.status}</div>
-            </div>
-            <div className={c.locationWrap}>
-              <div className={c.country}>{"User country"}</div>
-              <div className={c.city}>{"User city"}</div>
-            </div>
-          </div>
-        </div>
+        <User
+          key={u.id}
+          user={u}
+          followingProgress={props.followingProgress}
+          unFollowTC={props.unFollowTC}
+          followTC={props.followTC}
+        />
       ))}
     </div>
   );
