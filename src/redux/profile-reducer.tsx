@@ -4,6 +4,7 @@ import { Dispatch } from "redux";
 import { RootActionTypes } from "./store-redux";
 import { profileAPI } from "api/api";
 import { setFollowingProgress } from "./users-reducer";
+import { setIsLoadingAC } from "redux/app-reducer";
 
 //ACTION CREATORS ======================================================================
 const ADD_POST = "profile/ADD-POST";
@@ -22,9 +23,11 @@ export const updateUserStatus = (status: string) => ({ type: UPDATE_USER_STATUS,
 
 //THUNK CREATORS ======================================================================
 export const getProfileTC = (userId: number) => async (dispatch: Dispatch<RootActionTypes>) => {
+  dispatch(setIsLoadingAC(true));
   dispatch(setFollowingProgress(+userId, true));
   const data = await profileAPI.getProfile(userId);
   dispatch(setUserProfile(data));
+  dispatch(setIsLoadingAC(false));
 };
 export const getUserStatusTC = (userId: number) => async (dispatch: Dispatch<RootActionTypes>) => {
   const data = await profileAPI.getStatus(userId);

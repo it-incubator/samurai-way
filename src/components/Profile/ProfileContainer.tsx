@@ -71,7 +71,6 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     if (!userId) {
       userId = this.props.authorizedUserId!;
     }
-    // null пока не загрузилось приложение
     this.props.getProfileTC(userId);
     this.props.getUserStatusTC(userId);
   }

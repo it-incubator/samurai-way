@@ -18,9 +18,6 @@ export const getPageSize = (state: AppRootStateType) => {
 export const getCurrentPage = (state: AppRootStateType) => {
   return state.usersPage.currentPage;
 };
-export const getIsFetching = (state: AppRootStateType) => {
-  return state.usersPage.isFetching;
-};
 export const getFollowingProgress = (state: AppRootStateType) => {
   return state.usersPage.followingProgress;
 };

@@ -4,17 +4,22 @@ import { getAuthTC } from "redux/auth-reducer";
 
 //ACTIONS
 const SET_INITIALIZED = "app/SET-INITIALIZED";
-export const setInitializedSuccessAC = () => ({ type: SET_INITIALIZED });
+const SET_IS_LOADING = "app/SET-IS-LOADING";
+export const setInitializedSuccessAC = () => ({ type: SET_INITIALIZED } as const);
+export const setIsLoadingAC = (value: boolean) => ({ type: SET_IS_LOADING, value } as const);
 
 //THUNKS
 export const initializeAppTC = () => async (dispatch: Dispatch<RootActionTypes>) => {
+  dispatch(setIsLoadingAC(true));
   await dispatch(getAuthTC());
   dispatch(setInitializedSuccessAC());
+  dispatch(setIsLoadingAC(false));
 };
 
 //STATE
 let initialState: appData = {
   isInitialized: false,
+  isLoading: false,
 };
 export type AppInitialStateType = typeof initialState;
 
@@ -29,6 +34,11 @@ export const appReducer = (
         ...state,
         isInitialized: true,
       };
+    case SET_IS_LOADING:
+      return {
+        ...state,
+        isLoading: action.value,
+      };
     default:
       return state;
   }
@@ -37,5 +47,8 @@ export const appReducer = (
 //TYPES
 export type appData = {
   isInitialized: boolean;
+  isLoading: boolean;
 };
-export type AppClassActionTypes = ReturnType<typeof setInitializedSuccessAC>;
+export type AppClassActionTypes =
+  | ReturnType<typeof setInitializedSuccessAC>
+  | ReturnType<typeof setIsLoadingAC>;

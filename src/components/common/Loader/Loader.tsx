@@ -1,6 +1,6 @@
-import loader from "../../../assets/images/loader.gif";
 import React from "react";
+import LinearProgress from "@mui/material/LinearProgress";
 
 export const Loader = () => {
-  return <img src={loader} alt="loader-gif" />;
+  return <LinearProgress sx={{ height: "8px" }} />;
 };

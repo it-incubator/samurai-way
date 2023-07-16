@@ -19,7 +19,6 @@ beforeEach(() => {
     totalUsersCount: 3,
     pageSize: 3,
     currentPage: 1,
-    isFetching: false,
     followingProgress: [],
   };
 });
@@ -72,15 +71,6 @@ it("should set total users count", () => {
   const newState = usersReducer(initialState, action);
 
   expect(newState.totalUsersCount).toBe(totalCount);
-});
-
-it("should toggle is fetching", () => {
-  const fetchingValue = true;
-  const action = { type: "TOGGLE-ISFETCHING", fetchingValue } as const;
-
-  const newState = usersReducer(initialState, action);
-
-  expect(newState.isFetching).toBe(fetchingValue);
 });
 
 it("should toggle following progress", () => {

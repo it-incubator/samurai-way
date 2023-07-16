@@ -12,22 +12,27 @@ export type UserPropsType = {
 };
 
 export const User = ({ user, followingProgress, unFollowTC, followTC }: UserPropsType) => {
-  const u = user;
   return (
-    <div key={u.id} className={c.userWrapper}>
+    <div key={user.id} className={c.userWrapper}>
       <div className={c.userLogoWrapper}>
         <div className={c.userLogo}>
-          <NavLink to={"/profile/" + u.id}>
-            <img src={u.photos.small ? u.photos.small : userPhoto} alt="ava" className={c.userPhoto} />
+          <NavLink to={"/profile/" + user.id}>
+            <img src={user.photos.small ? user.photos.small : userPhoto} alt="ava" className={c.userPhoto} />
           </NavLink>
         </div>
         <div className={c.buttonWrapper}>
-          {u.followed ? (
-            <button disabled={followingProgress.some((id) => id === u.id)} onClick={() => unFollowTC(u.id)}>
+          {user.followed ? (
+            <button
+              disabled={followingProgress.some((id) => id === user.id)}
+              onClick={() => unFollowTC(user.id)}
+            >
               UnFollow
             </button>
           ) : (
-            <button disabled={followingProgress.some((id) => id === u.id)} onClick={() => followTC(u.id)}>
+            <button
+              disabled={followingProgress.some((id) => id === user.id)}
+              onClick={() => followTC(user.id)}
+            >
               Follow
             </button>
           )}
@@ -36,8 +41,8 @@ export const User = ({ user, followingProgress, unFollowTC, followTC }: UserProp
 
       <div className={c.userInfoWrapper}>
         <div className={c.nameStatusWrap}>
-          <div className={c.fullName}>{u.name}</div>
-          <div className={c.status}>{u.status}</div>
+          <div className={c.fullName}>{user.name}</div>
+          <div className={c.status}>{user.status}</div>
         </div>
         <div className={c.locationWrap}>
           <div className={c.country}>{"User country"}</div>

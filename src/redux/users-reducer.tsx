@@ -2,6 +2,7 @@ import { FollowUnfollowResType, usersAPI } from "api/api";
 import { Dispatch } from "redux";
 import { RootActionTypes } from "./store-redux";
 import { updateObjInArray } from "utils/helper/changeObjectInArrayHelper";
+import { setIsLoadingAC } from "redux/app-reducer";
 
 //ACTIONS ======================================================================
 
@@ -38,12 +39,13 @@ const followUnfollowFlow = async (
 };
 
 export const getUsersTC = (page: number, pageSize: number) => async (dispatch: Dispatch<RootActionTypes>) => {
-  dispatch(setIsFetching(true));
+  dispatch(setIsLoadingAC(true));
   const data = await usersAPI.getUsers(page, pageSize);
-  dispatch(setIsFetching(false));
+  dispatch(setIsLoadingAC(false));
   dispatch(setUsers(data.items));
   dispatch(setTotalUsersCount(data.totalCount));
 };
+//TODO add helper for thunks refactor
 
 export const followTC = (userId: number) => async (dispatch: Dispatch<RootActionTypes>) => {
   const apiMethod = usersAPI.followFriend.bind(usersAPI);
@@ -62,7 +64,6 @@ let initialState = {
   totalUsersCount: 5,
   pageSize: 5,
   currentPage: 1,
-  isFetching: false,
   followingProgress: [] as Array<Number>,
 };
 export type initialStateUsersType = typeof initialState;
@@ -88,8 +89,6 @@ export const usersReducer = (
       return { ...state, currentPage: action.clickedPage };
     case SET_TOTAL_USERS_COUNT:
       return { ...state, totalUsersCount: action.totalCount };
-    case TOGGLE_ISFETCHING:
-      return { ...state, isFetching: action.fetchingValue };
     case TOGGLE_FOLLOWING_PROGRESS:
       return {
         ...state,

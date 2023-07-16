@@ -1,10 +1,15 @@
 .header {
   grid-area: header;
-  border: 2px solid gray;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+}
+.loader {
+  /*height: 8px;*/
+  width: 100%;
+}
+.content {
   background-color: gray;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .header img {
