@@ -1,6 +1,7 @@
-import { usersAPI } from "api/api";
+import { FollowUnfollowResType, usersAPI } from "api/api";
 import { Dispatch } from "redux";
 import { RootActionTypes } from "./store-redux";
+import { updateObjInArray } from "utils/helper/arrayMapHelper";
 
 //ACTIONS ======================================================================
 
@@ -24,6 +25,17 @@ export const setFollowingProgress = (userId: number, fetchingValue: boolean) =>
   ({ type: TOGGLE_FOLLOWING_PROGRESS, userId, fetchingValue } as const);
 
 //THUNKS ======================================================================
+const followUnfollowFlow = async (
+  userId: number,
+  dispatch: Dispatch<RootActionTypes>,
+  apiMethod: (userId: number) => Promise<FollowUnfollowResType>,
+  actionCreator: typeof followSuccess | typeof unFollowSuccess
+) => {
+  dispatch(setFollowingProgress(userId, true));
+  const data = await apiMethod(userId);
+  if (data.resultCode === 0) dispatch(actionCreator(userId));
+  dispatch(setFollowingProgress(userId, false));
+};
 
 export const getUsersTC = (page: number, pageSize: number) => async (dispatch: Dispatch<RootActionTypes>) => {
   dispatch(setIsFetching(true));
@@ -34,17 +46,13 @@ export const getUsersTC = (page: number, pageSize: number) => async (dispatch: D
 };
 
 export const followTC = (userId: number) => async (dispatch: Dispatch<RootActionTypes>) => {
-  dispatch(setFollowingProgress(userId, true));
-  const data = await usersAPI.followFriend(userId);
-  if (data.resultCode === 0) dispatch(followSuccess(userId));
-  dispatch(setFollowingProgress(userId, false));
+  const apiMethod = usersAPI.followFriend.bind(usersAPI);
+  await followUnfollowFlow(userId, dispatch, apiMethod, followSuccess);
 };
 
 export const unFollowTC = (userId: number) => async (dispatch: Dispatch<RootActionTypes>) => {
-  dispatch(setFollowingProgress(userId, true));
-  const data = await usersAPI.unFollowFriend(userId);
-  if (data.resultCode === 0) dispatch(unFollowSuccess(userId));
-  dispatch(setFollowingProgress(userId, false));
+  const apiMethod = usersAPI.unFollowFriend.bind(usersAPI);
+  await followUnfollowFlow(userId, dispatch, apiMethod, unFollowSuccess);
 };
 
 //REDUCER ======================================================================
@@ -67,12 +75,12 @@ export const usersReducer = (
     case FOLLOW:
       return {
         ...state,
-        users: state.users.map((u) => (u.id === action.userId ? { ...u, followed: true } : u)),
+        users: updateObjInArray(state.users, action.userId, "id", { followed: true }),
       };
     case UN_FOLLOW:
       return {
         ...state,
-        users: state.users.map((u) => (u.id === action.userId ? { ...u, followed: false } : u)),
+        users: updateObjInArray(state.users, action.userId, "id", { followed: false }),
       };
     case SET_USERS:
       return { ...state, users: action.users };

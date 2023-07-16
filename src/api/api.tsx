@@ -8,15 +8,22 @@ const instance = axios.create({
   },
 });
 
+export type FollowUnfollowResType = {
+  data: Object;
+  messages: string[];
+  fieldsErrors: string[];
+  resultCode: number;
+};
+
 export const usersAPI = {
   getUsers: function (currentPage: number, pageSize: number) {
     return instance.get(`users?page=${currentPage}&count=${pageSize}`).then((res) => res.data);
   },
   unFollowFriend: function (userId: number) {
-    return instance.delete(`follow/${userId}`).then((res) => res.data);
+    return instance.delete<FollowUnfollowResType>(`follow/${userId}`).then((res) => res.data);
   },
   followFriend: function (userId: number) {
-    return instance.post(`follow/${userId}`).then((res) => res.data);
+    return instance.post<FollowUnfollowResType>(`follow/${userId}`).then((res) => res.data);
   },
 };
 export const authAPI = {
