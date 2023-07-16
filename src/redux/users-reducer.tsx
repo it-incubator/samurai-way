@@ -99,8 +99,8 @@ export const usersReducer = (
 export type UserType = {
   id: number;
   photos: {
-    small: string;
-    large: string;
+    small: string | null;
+    large: string | null;
   };
   followed: boolean;
   name: string;

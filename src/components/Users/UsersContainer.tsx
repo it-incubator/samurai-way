@@ -1,13 +1,7 @@
 import React from "react";
 import { AppRootStateType } from "redux/store-redux";
 import { connect } from "react-redux";
-import {
-  followTC,
-  getUsersTC,
-  initialStateUsersType,
-  setCurrentPage,
-  unFollowTC,
-} from "redux/users-reducer";
+import { followTC, getUsersTC, initialStateUsersType, setCurrentPage, unFollowTC } from "redux/users-reducer";
 import { Users } from "./Users";
 import { Loader } from "../common/loader/Loader";
 import c from "./Users.module.css";
@@ -19,7 +13,7 @@ import {
   getPageSize,
   getTotalUsersCount,
   getUsersSelector,
-} from "redux/users-selectors";
+} from "redux/selectors/users-selectors";
 
 type mapStateToPropsType = initialStateUsersType;
 type mapDispatchToPropsType = {
