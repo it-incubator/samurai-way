@@ -7,6 +7,9 @@ import { StoreType} from "./Redux/redux-store";
 import {DialogsContainer} from "./Components/Dialog/DialogsContainer";
 import {UserContainer} from "./Components/User/UserContainer";
 import { ProfileWrapper} from "./Components/Profile/ProfileContainer";
+import {SideBar} from "./Components/SideBar/SideBar";
+import {LoginContainer} from "./Components/Login/LoginContainer";
+import {HeaderContainer} from "./Components/Header/HeaderContainer";
 
 
 type PropsType = {
@@ -21,6 +24,7 @@ export type DialogDataType = {
     message:MessageTypeApp[]
     profilePage:ProfilePageType
     sideBar:SideData[]
+
 }
 
  export type DialogTypeApp = {
@@ -58,13 +62,14 @@ function App() {
     return (
 
         <div className='app-wrapper'>
-           <Header  />
+            <HeaderContainer/>
             <Navbar/>
 
-            <Route path={'/dialogs'} render={()=><DialogsContainer  />}/>
-           <Route path={`/profile/:userId?`} render={()=><ProfileWrapper  />}/>
-            <Route path={'/user'} render={()=><UserContainer   />}/>
-            {/*<Route path={'/sidebar'} render={()=><SideBar SideData={state.sideBar}/>}/>*/}
+            <Route path={'/dialogs'} render={()=><DialogsContainer/>}/>
+           <Route path={`/profile/:userId?`} render={()=><ProfileWrapper/>}/>
+            <Route path={'/user'} render={()=><UserContainer/>}/>
+            <Route path={'/login'} render={()=><LoginContainer />}/>
+            {/*<Route path={'/sidebar'} render={()=><SideBar />}/>*/}
         </div>
 
     );

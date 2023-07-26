@@ -2,6 +2,10 @@
     grid-area: h;
     background-color: #99fff7;
     width: 100%;
+
+
+    padding: 10px;
+
 }
 
 .logo {
@@ -17,5 +21,31 @@
     font-style: italic;
     letter-spacing: 10px;
     color: saddlebrown;
-    margin-left: 40em;
+    margin-left: 25em;
+}
+
+.item {
+
+    float:right;
+    font-family: "Monotype Corsiva" ;
+    font-size: 28px;
+    font-style: italic;
+    letter-spacing: 10px;
+    color: saddlebrown;
+
+
+}
+
+
+.item a.activeLink {
+
+    color: gold;
+}
+
+.item {
+   margin-top: -45px;
+}
+
+.item a {
+    text-decoration: none;
 }
