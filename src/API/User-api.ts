@@ -14,9 +14,16 @@ export const userAPI = {
             `/users?page=${currentPage}&count=${pageSize}`)
         return promise
     },
-    createTask(todolistId: string, title: string) {
+    Follow(userId:number) {
         const promise = instance.post(
-            `/users`, {title: title}
+            `/follow/${userId}`,{}
+        )
+        return promise
+    },
+
+    UNFollow(userId:number) {
+        const promise = instance.delete(
+            `/follow/${userId}`,
         )
         return promise
     },
@@ -56,7 +63,11 @@ export type ItemsType = {
         small: null,
         large: null
     },
-    status: null,
-    followed: string
+    status: string,
+    followed: boolean
+
+
 
 }
+
+

@@ -13,13 +13,15 @@ type UserType = {
     currentPage: number
     users: ItemsType[]
     isFetching: boolean
+    follow:(id:number)=>void
+    unfollow:(id:number)=>void
 }
 
 
 const User: React.FC<UserType> = ({
                                       changePage, totalUsersCounter,
                                       pageSize, currentPage, users,
-                                      isFetching, ...props
+                                      isFetching,follow,unfollow, ...props
                                   }) => {
 
     let pagesCount = Math.ceil(totalUsersCounter / pageSize)
@@ -32,6 +34,15 @@ const User: React.FC<UserType> = ({
         pages.push(i)
 
     }
+
+    const Fallow =(id:number)=> {
+        follow(id)
+    }
+
+    const UNFallow =(id:number)=> {
+        unfollow(id)
+    }
+
     return (
         <>
             <div className={s.content}>
@@ -56,10 +67,10 @@ const User: React.FC<UserType> = ({
                                             </div>
                                         </NavLink>
                                         <div>
-                                            {el.followed ? <button>
+                                            {el.followed ? <button onClick={()=>UNFallow(el.id)}>
                                                     Follow
                                                 </button> :
-                                                <button>
+                                                <button onClick={()=>Fallow(el.id)}>
                                                     UnFollow
                                                 </button>}
                                         </div>

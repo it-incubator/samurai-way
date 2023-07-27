@@ -14,7 +14,9 @@ export type InitializationStateUserType = {
 
 
 const InitializationState:InitializationStateUserType = {
-  users:[],
+  users:[
+
+  ],
     pageSize:5,
     totalUsersCounter: 20,
     currentPage :1,
@@ -31,12 +33,12 @@ export  const userReducer= (state=InitializationState ,action:TsarType ):Initial
         case 'Follow':
 
 
-            return {...state, users:state.users.map((el)=>el.id===action.payload.id ? {...el,fallow:true }: el)}
+            return {...state, users:state.users.map((el)=>el.id===action.payload.id ? {...el,followed:true }: el)}
 
         case 'UNFollow':
 
 
-            return {...state, users:state.users.map((el)=>el.id===action.payload.id ? {...el,fallow:false }: el)}
+            return {...state, users:state.users.map((el)=>el.id===action.payload.id ? {...el,followed:false }: el)}
 
         case 'ADD-USERS':
 
@@ -78,7 +80,8 @@ export  const FollowAC = (id:number)=> {
     return {
         type:'Follow',
         payload :{
-           id:id
+           id:id,
+
         }
 
     } as const

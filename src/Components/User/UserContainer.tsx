@@ -41,7 +41,22 @@ export class UserWrapper extends React.Component<UsersType> {
                     this.props.setToggleISFetching(false)
                     this.props.setUsers(res.data.items)
                      })
+        }
 
+        const Follow = (userId: number) => {
+
+          userAPI.Follow(userId)
+                .then((res) => {
+               this.props.Follow(userId)
+                })
+        }
+
+        const UNFollow = (userId: number) => {
+
+            userAPI.UNFollow(userId)
+                .then((res) => {
+                    this.props.UNFollow(userId)
+                })
         }
 
 
@@ -54,6 +69,8 @@ export class UserWrapper extends React.Component<UsersType> {
                   totalUsersCounter={this.props.totalUsersCounter}
                   users={this.props.users}
                   isFetching={this.props.isFetching}
+                  follow={Follow}
+                  unfollow={UNFollow}
 
             />
 
@@ -91,6 +108,7 @@ type mapDispatchToPropsType = {
     setPage: (p: number) => void
     setTotalCount: (totalCount: number) => void
     setToggleISFetching: (preloader: boolean) => void
+
 
 }
 
