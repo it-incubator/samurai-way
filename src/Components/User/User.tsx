@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {ButtonHTMLAttributes, DetailedHTMLProps, useState} from 'react';
 import s from "./User.module.css";
-import user from "../../image/user.jpeg";
+import userPhoto from "../../image/user.jpeg";
 import {ItemsType} from "../../API/User-api";
 import {Preloader} from "../Preloader/Preloader";
 import {NavLink} from "react-router-dom";
+import {DisableType} from "../../Redux/userReducer";
 
 
 type UserType = {
@@ -13,15 +14,20 @@ type UserType = {
     currentPage: number
     users: ItemsType[]
     isFetching: boolean
-    follow:(id:number)=>void
-    unfollow:(id:number)=>void
+    follow: (id: number) => void
+    unfollow: (id: number) => void
+    disable: DisableType
+
+
 }
 
 
 const User: React.FC<UserType> = ({
                                       changePage, totalUsersCounter,
                                       pageSize, currentPage, users,
-                                      isFetching,follow,unfollow, ...props
+                                      isFetching, follow, unfollow,
+                                      disable,
+                                      ...props
                                   }) => {
 
     let pagesCount = Math.ceil(totalUsersCounter / pageSize)
@@ -35,13 +41,18 @@ const User: React.FC<UserType> = ({
 
     }
 
-    const Fallow =(id:number)=> {
+
+    const Fallow = (id: number) => {
         follow(id)
+
     }
 
-    const UNFallow =(id:number)=> {
+    const UNFallow = (id: number) => {
         unfollow(id)
+
+
     }
+
 
     return (
         <>
@@ -56,21 +67,23 @@ const User: React.FC<UserType> = ({
                     </div>
                     {isFetching
                         ? <Preloader/>
-                        : <div>{users.map((el) => {
+                        : <div>{users.map((user) => {
                                 return (
                                     <>
-                                        <NavLink to={`/profile/` + el.id}>
-                                            <div key={el.id}>
-                                                <img src={el.photos.small !== null ? el.photos.small : user}
+                                        <NavLink to={`/profile/` + user.id}>
+                                            <div key={user.id}>
+                                                <img src={user.photos.small !== null ? user.photos.small : userPhoto}
                                                      className={s.users_photo}/>
-                                                <div>  {el.name}</div>
+                                                <div>  {user.name}</div>
                                             </div>
                                         </NavLink>
                                         <div>
-                                            {el.followed ? <button onClick={()=>UNFallow(el.id)}>
+                                            {user.followed ?
+                                                <button onClick={() => UNFallow(user.id)}
+                                                        disabled={disable.id===user.id&&disable.disableButton===true}>
                                                     Follow
                                                 </button> :
-                                                <button onClick={()=>Fallow(el.id)}>
+                                                <button onClick={() => Fallow(user.id)} disabled={disable.id===user.id&&disable.disableButton===true}>
                                                     UnFollow
                                                 </button>}
                                         </div>

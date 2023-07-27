@@ -7,9 +7,14 @@ export type InitializationStateUserType = {
     totalUsersCounter:number
     currentPage :number
     isFetching:boolean
+    disable:DisableType
 
 }
 
+export type DisableType= {
+    id:number
+    disableButton:boolean
+}
 
 
 
@@ -20,7 +25,8 @@ const InitializationState:InitializationStateUserType = {
     pageSize:5,
     totalUsersCounter: 20,
     currentPage :1,
-    isFetching:true
+    isFetching:true,
+    disable:{id:1,disableButton:false}
 
 }
 
@@ -64,6 +70,12 @@ export  const userReducer= (state=InitializationState ,action:TsarType ):Initial
 
             return {...state,isFetching:action.payload.preloader}
 
+        case 'DISABLE':
+
+
+
+            return {...state, disable:{...state.disable,id:action.payload.disabled.id,disableButton:action.payload.disabled.disableButton}}
+
 
 
 
@@ -71,7 +83,7 @@ export  const userReducer= (state=InitializationState ,action:TsarType ):Initial
     }
 }
 
-type TsarType = Follow|UNFollow|ADDUsers|CurrentPageType|TotalUserCounterType|ToglleIsFetchingType
+type TsarType = Follow|UNFollow|ADDUsers|CurrentPageType|TotalUserCounterType|ToglleIsFetchingType|DisabledType
 
 export  type  Follow = ReturnType<typeof FollowAC >
 
@@ -154,6 +166,22 @@ export  const  ToglleIsFetchingAC = (preloader:boolean)=> {
     } as const
 
 }
+
+export  type  DisabledType = ReturnType<typeof  DisabledAC>
+
+export  const  DisabledAC = ( disabled: DisableType)=> {
+    return {
+        type:'DISABLE',
+        payload :{
+
+           disabled
+        }
+
+    } as const
+
+}
+
+
 
 
 

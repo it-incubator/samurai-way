@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {connect} from "react-redux";
 import {StoreType} from "../../Redux/redux-store";
 import {Dispatch} from "redux";
 import {
     ADDUsersAC,
-    CurrentPageAC,
+    CurrentPageAC, DisabledAC, DisableType,
     FollowAC,
     ToglleIsFetchingAC,
     TotalUserCounterAC,
@@ -19,8 +19,10 @@ export class UserWrapper extends React.Component<UsersType> {
 
 
     componentDidMount() {
+
+
         this.props.setToggleISFetching(true)
-        userAPI.getUser(this.props.currentPage,this.props.pageSize)
+        userAPI.getUser(this.props.currentPage, this.props.pageSize)
             .then((res) => {
                 this.props.setToggleISFetching(false)
                 this.props.setUsers(res.data.items);
@@ -40,22 +42,30 @@ export class UserWrapper extends React.Component<UsersType> {
                 .then((res) => {
                     this.props.setToggleISFetching(false)
                     this.props.setUsers(res.data.items)
-                     })
+                })
         }
 
         const Follow = (userId: number) => {
 
-          userAPI.Follow(userId)
+            this.props.setDisabled({id:userId,disableButton:true})
+            userAPI.Follow(userId)
+
                 .then((res) => {
-               this.props.Follow(userId)
+                    this.props.Follow(userId)
+                    this.props.setDisabled({id:userId,disableButton:false})
+
                 })
         }
 
         const UNFollow = (userId: number) => {
-
+            this.props.setDisabled({id:userId,disableButton:true})
             userAPI.UNFollow(userId)
+
                 .then((res) => {
                     this.props.UNFollow(userId)
+                    this.props.setDisabled({id:userId,disableButton:false})
+
+
                 })
         }
 
@@ -71,6 +81,8 @@ export class UserWrapper extends React.Component<UsersType> {
                   isFetching={this.props.isFetching}
                   follow={Follow}
                   unfollow={UNFollow}
+                  disable={this.props.disabled}
+
 
             />
 
@@ -86,6 +98,7 @@ type mapStateToPropsType = {
     totalUsersCounter: number
     currentPage: number
     isFetching: boolean
+    disabled:  DisableType
 }
 
 const mapStateToProps = (state: StoreType): mapStateToPropsType => {
@@ -96,7 +109,9 @@ const mapStateToProps = (state: StoreType): mapStateToPropsType => {
         pageSize: state.userReducer.pageSize,
         totalUsersCounter: state.userReducer.totalUsersCounter,
         currentPage: state.userReducer.currentPage,
-        isFetching: state.userReducer.isFetching
+        isFetching: state.userReducer.isFetching,
+        disabled: state.userReducer.disable
+
 
     }
 }
@@ -108,6 +123,7 @@ type mapDispatchToPropsType = {
     setPage: (p: number) => void
     setTotalCount: (totalCount: number) => void
     setToggleISFetching: (preloader: boolean) => void
+    setDisabled: ( disabled:  DisableType) => void
 
 
 }
@@ -135,6 +151,9 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
         },
         setToggleISFetching: (preloader: boolean) => {
             dispatch(ToglleIsFetchingAC(preloader))
+        },
+        setDisabled: ( disabled:  DisableType) => {
+            dispatch(DisabledAC(disabled))
         }
     }
 }
