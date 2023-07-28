@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 
 const instance = axios.create(
     {
@@ -14,9 +14,19 @@ export const userAPI = {
             `/users?page=${currentPage}&count=${pageSize}`)
         return promise
     },
+
+    getChangePageUser(pageNumber:number,pageSize:number) {
+        const promise = instance.get<UserType>(
+            `/users?page=${pageNumber}&count=${pageSize}`)
+        return promise
+    },
+
+
+
+
     Follow(userId:number) {
-        const promise = instance.post(
-            `/follow/${userId}`,{}
+        const promise = instance.post<{}, AxiosResponse, {userId: number}>(
+            `/follow/${userId}`,{userId}
         )
         return promise
     },

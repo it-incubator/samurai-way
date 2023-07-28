@@ -1,4 +1,5 @@
-import {ItemsType} from "../API/User-api";
+import {ItemsType, userAPI} from "../API/User-api";
+import {Dispatch} from "redux";
 
 
 export type InitializationStateUserType = {
@@ -25,7 +26,7 @@ const InitializationState:InitializationStateUserType = {
     pageSize:5,
     totalUsersCounter: 20,
     currentPage :1,
-    isFetching:true,
+    isFetching:false,
     disable:{id:1,disableButton:false}
 
 }
@@ -56,13 +57,12 @@ export  const userReducer= (state=InitializationState ,action:TsarType ):Initial
 
 
 
-            return {...state,currentPage:action.payload.p}
+            return {...state,currentPage:action.payload.page}
 
         case 'TOTAL_USER_COUNT':
 
-
-
             return {...state,totalUsersCounter:action.payload.totalCount}
+
 
         case 'TOGLLE_IS_FETCHING':
 
@@ -128,11 +128,11 @@ export  const ADDUsersAC = (users:ItemsType[])=> {
 
 export  type  CurrentPageType = ReturnType<typeof CurrentPageAC>
 
-export  const CurrentPageAC = (p:number)=> {
+export  const CurrentPageAC = (page:number)=> {
     return {
         type:'CURRENT-PAGE',
         payload :{
-        p:p
+        page:page
         }
 
     } as const
@@ -182,7 +182,53 @@ export  const  DisabledAC = ( disabled: DisableType)=> {
 }
 
 
+export const ThunkUser =(currentPage:number,pageSize:number) => (dispatch: Dispatch)=> {
+
+    dispatch(ToglleIsFetchingAC(true))
+    userAPI.getUser(currentPage, pageSize)
+        .then((res) => {
+            dispatch(ToglleIsFetchingAC(false))
+            dispatch(ADDUsersAC(res.data.items));
+            dispatch(TotalUserCounterAC(res.data.totalCount))
+
+        })
+
+}
+
+export const ThunkChangePage =(pageNumber:number,pageSize:number) => (dispatch:Dispatch)=> {
 
 
+    dispatch(ToglleIsFetchingAC(true))
+    dispatch(CurrentPageAC(pageNumber))
+
+    userAPI.getChangePageUser(pageNumber, pageSize)
+        .then((res) => {
+            dispatch(ToglleIsFetchingAC(false))
+            dispatch(ADDUsersAC(res.data.items));
+
+        })
+}
+
+export const ThunkFollow = (userId:number) => (dispatch:Dispatch)=>{
+    dispatch(DisabledAC({id:userId,disableButton:true}))
+    userAPI.Follow(userId)
+
+        .then((res) => {
+           dispatch(FollowAC(userId))
+            dispatch(DisabledAC({id:userId,disableButton:false}))
+
+        })
+}
+
+export const ThunkUNFollow = (userId:number) => (dispatch:Dispatch)=>{
+    dispatch(DisabledAC({id:userId,disableButton:true}))
+    userAPI.UNFollow(userId)
+
+        .then((res) => {
+            dispatch(UNFollowAC(userId))
+            dispatch(DisabledAC({id:userId,disableButton:false}))
+
+        })
+}
 
 

@@ -1,17 +1,14 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {connect} from "react-redux";
-import {StoreType} from "../../Redux/redux-store";
-import {Dispatch} from "redux";
+import {AppDispatchType, StoreType,} from "../../Redux/redux-store";
+
 import {
-    ADDUsersAC,
-    CurrentPageAC, DisabledAC, DisableType,
-    FollowAC,
-    ToglleIsFetchingAC,
-    TotalUserCounterAC,
+    DisabledAC, DisableType,
+    FollowAC, ThunkChangePage, ThunkFollow, ThunkUNFollow, ThunkUser,
+
     UNFollowAC
 } from "../../Redux/userReducer";
 import {ItemsType, userAPI} from "../../API/User-api";
-import axios from "axios";
 import User from "./User";
 
 
@@ -20,15 +17,8 @@ export class UserWrapper extends React.Component<UsersType> {
 
     componentDidMount() {
 
+        this.props.ChangePageUser(this.props.currentPage, this.props.pageSize)
 
-        this.props.setToggleISFetching(true)
-        userAPI.getUser(this.props.currentPage, this.props.pageSize)
-            .then((res) => {
-                this.props.setToggleISFetching(false)
-                this.props.setUsers(res.data.items);
-                this.props.setTotalCount(res.data.totalCount)
-
-            })
     }
 
 
@@ -36,37 +26,19 @@ export class UserWrapper extends React.Component<UsersType> {
 
 
         const ChangePage = (pageNumber: number) => {
-            this.props.setToggleISFetching(true)
-            this.props.setPage(pageNumber)
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
-                .then((res) => {
-                    this.props.setToggleISFetching(false)
-                    this.props.setUsers(res.data.items)
-                })
+
+            this.props.GetUser(pageNumber, this.props.pageSize)
         }
 
         const Follow = (userId: number) => {
 
-            this.props.setDisabled({id:userId,disableButton:true})
-            userAPI.Follow(userId)
-
-                .then((res) => {
-                    this.props.Follow(userId)
-                    this.props.setDisabled({id:userId,disableButton:false})
-
-                })
+            this.props.Follow(userId)
         }
 
         const UNFollow = (userId: number) => {
-            this.props.setDisabled({id:userId,disableButton:true})
-            userAPI.UNFollow(userId)
 
-                .then((res) => {
-                    this.props.UNFollow(userId)
-                    this.props.setDisabled({id:userId,disableButton:false})
+            this.props.UNFollow(userId)
 
-
-                })
         }
 
 
@@ -98,7 +70,7 @@ type mapStateToPropsType = {
     totalUsersCounter: number
     currentPage: number
     isFetching: boolean
-    disabled:  DisableType
+    disabled: DisableType
 }
 
 const mapStateToProps = (state: StoreType): mapStateToPropsType => {
@@ -111,49 +83,38 @@ const mapStateToProps = (state: StoreType): mapStateToPropsType => {
         currentPage: state.userReducer.currentPage,
         isFetching: state.userReducer.isFetching,
         disabled: state.userReducer.disable
-
-
     }
 }
 
 type mapDispatchToPropsType = {
     Follow: (id: number) => void
     UNFollow: (id: number) => void
-    setUsers: (users: ItemsType[]) => void
-    setPage: (p: number) => void
-    setTotalCount: (totalCount: number) => void
-    setToggleISFetching: (preloader: boolean) => void
-    setDisabled: ( disabled:  DisableType) => void
+    GetUser: (currentPage: number, pageSize: number) => void
+    ChangePageUser: (currentPage: number, pageSize: number) => void
 
 
 }
 
 export type UsersType = mapDispatchToPropsType & mapStateToPropsType
 
-const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
+
+const mapDispatchToProps = (dispatch: AppDispatchType): mapDispatchToPropsType => {
+
 
     return {
         Follow: (id: number) => {
-            dispatch(FollowAC(id))
+            dispatch(ThunkFollow(id))
 
         },
         UNFollow: (id: number) => {
-            dispatch(UNFollowAC(id))
+            dispatch(ThunkUNFollow(id))
         },
-        setUsers: (users: ItemsType[]) => {
-            dispatch(ADDUsersAC(users))
+
+        GetUser: (currentPage: number, pageSize: number) => {
+            dispatch(ThunkUser(currentPage, pageSize))
         },
-        setPage: (p: number) => {
-            dispatch(CurrentPageAC(p))
-        },
-        setTotalCount: (totalCount: number) => {
-            dispatch(TotalUserCounterAC(totalCount))
-        },
-        setToggleISFetching: (preloader: boolean) => {
-            dispatch(ToglleIsFetchingAC(preloader))
-        },
-        setDisabled: ( disabled:  DisableType) => {
-            dispatch(DisabledAC(disabled))
+        ChangePageUser: (pageNumber: number, pageSize: number) => {
+            dispatch(ThunkChangePage(pageNumber, pageSize))
         }
     }
 }
