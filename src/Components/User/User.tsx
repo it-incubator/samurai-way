@@ -1,4 +1,4 @@
-import React, {ButtonHTMLAttributes, DetailedHTMLProps, useState} from 'react';
+import React from 'react';
 import s from "./User.module.css";
 import userPhoto from "../../image/user.jpeg";
 import {ItemsType} from "../../API/User-api";
@@ -8,7 +8,7 @@ import {DisableType} from "../../Redux/userReducer";
 
 
 type UserType = {
-    changePage: (p: number) => void
+    changePage: (page: number) => void
     totalUsersCounter: number
     pageSize: number
     currentPage: number
@@ -39,6 +39,7 @@ const User: React.FC<UserType> = ({
 
         pages.push(i)
 
+
     }
 
 
@@ -55,13 +56,16 @@ const User: React.FC<UserType> = ({
 
 
     return (
+
         <>
             <div className={s.content}>
                 <div className={s.style}>
                     <div>
 
                         {pages.map((p) => <span onClick={(e) => changePage(p)}
+
                                                 className={currentPage === p ? s.current_Page : ''}>{p}</span>)
+
                         }
 
                     </div>

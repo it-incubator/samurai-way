@@ -3,8 +3,8 @@ import {Profile} from "./ProfileInfo/Profile";
 import {profileAPI, ProfileType} from "../../API/Profile-api";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
-import {ProfileInfoAppDateAC} from "../../Redux/pageReducer";
-import {StoreType} from "../../Redux/redux-store";
+import {ProfileInfoAppDateAC, ThunkGetUser} from "../../Redux/pageReducer";
+import {AppDispatchType, StoreType} from "../../Redux/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 
 
@@ -19,7 +19,9 @@ export  class ProfileContainer extends React.Component<WithRouterType> {
 
         if (!userId){userId='2'}
 
-       profileAPI.getUser(userId).then((res) => {this.props.setProfileInfo(res.data)})
+        this.props.setProfileInfo(userId)
+
+
 
 
     }
@@ -40,13 +42,13 @@ export  class ProfileContainer extends React.Component<WithRouterType> {
 export type ProfileContainerType = mapDispatchToPropsType & mapStateToPropsType
 
 type mapDispatchToPropsType = {
-    setProfileInfo: (data:ProfileType)=>void
+    setProfileInfo: (userId:string)=>void
 }
 
-const mapDispatchToProps  = (dispatch:Dispatch):mapDispatchToPropsType => {
+const mapDispatchToProps  = (dispatch:AppDispatchType):mapDispatchToPropsType => {
     return {
-        setProfileInfo: (data:ProfileType)=> {
-            dispatch(ProfileInfoAppDateAC(data))
+        setProfileInfo: (userId:string)=> {
+            dispatch(ThunkGetUser(userId))
         }
 
     }

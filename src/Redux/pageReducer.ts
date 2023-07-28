@@ -1,4 +1,5 @@
-import {ProfileType} from "../API/Profile-api";
+import {profileAPI, ProfileType} from "../API/Profile-api";
+import {Dispatch} from "redux";
 
 
 export type InitializationStatePageType = {
@@ -57,7 +58,7 @@ export  const pageReducer= (state=InitializationState,action:AllAction):Initiali
 
         return {...state,newPostText:action.newText}
 
-        case 'Update_PROFILE':
+        case 'UPDATE_PROFILE':
 
             return {...state,profileInfo:action.data}
 
@@ -93,13 +94,17 @@ export  type ProfileInfoAppDate =ReturnType<typeof ProfileInfoAppDateAC>
 
 export  const ProfileInfoAppDateAC = (data:ProfileType)=> {
     return {
-        type:'Update_PROFILE',
+        type:'UPDATE_PROFILE',
         data:data
 
     } as const
 
 }
 
+export const ThunkGetUser =(userId:string) => (dispatch:Dispatch) => {
+    profileAPI.getUser(userId).then((res) => {dispatch(ProfileInfoAppDateAC(res.data))})
+
+}
 
 
 

@@ -3,12 +3,11 @@ import {connect} from "react-redux";
 import {AppDispatchType, StoreType,} from "../../Redux/redux-store";
 
 import {
-    DisabledAC, DisableType,
-    FollowAC, ThunkChangePage, ThunkFollow, ThunkUNFollow, ThunkUser,
+    DisableType,
+    ThunkChangePage, ThunkFollow, ThunkUNFollow, ThunkUser,
 
-    UNFollowAC
 } from "../../Redux/userReducer";
-import {ItemsType, userAPI} from "../../API/User-api";
+import {ItemsType} from "../../API/User-api";
 import User from "./User";
 
 
@@ -17,7 +16,7 @@ export class UserWrapper extends React.Component<UsersType> {
 
     componentDidMount() {
 
-        this.props.ChangePageUser(this.props.currentPage, this.props.pageSize)
+        this.props.GetUser(this.props.currentPage, this.props.pageSize)
 
     }
 
@@ -25,9 +24,9 @@ export class UserWrapper extends React.Component<UsersType> {
     render() {
 
 
-        const ChangePage = (pageNumber: number) => {
+        const ChangePage = (p: number) => {
 
-            this.props.GetUser(pageNumber, this.props.pageSize)
+            this.props.ChangePageUser(p, this.props.pageSize)
         }
 
         const Follow = (userId: number) => {
@@ -89,7 +88,7 @@ const mapStateToProps = (state: StoreType): mapStateToPropsType => {
 type mapDispatchToPropsType = {
     Follow: (id: number) => void
     UNFollow: (id: number) => void
-    GetUser: (currentPage: number, pageSize: number) => void
+    GetUser: (p: number, pageSize: number) => void
     ChangePageUser: (currentPage: number, pageSize: number) => void
 
 
@@ -110,8 +109,8 @@ const mapDispatchToProps = (dispatch: AppDispatchType): mapDispatchToPropsType =
             dispatch(ThunkUNFollow(id))
         },
 
-        GetUser: (currentPage: number, pageSize: number) => {
-            dispatch(ThunkUser(currentPage, pageSize))
+        GetUser: (p: number, pageSize: number) => {
+            dispatch(ThunkUser(p, pageSize))
         },
         ChangePageUser: (pageNumber: number, pageSize: number) => {
             dispatch(ThunkChangePage(pageNumber, pageSize))

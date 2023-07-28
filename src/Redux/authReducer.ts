@@ -1,4 +1,5 @@
-import {AuthInitializationStateType} from "../API/Auth-api";
+import {AuthAPI, AuthInitializationStateType} from "../API/Auth-api";
+import {Dispatch} from "redux";
 
 
 const AuthInitializationState: AuthInitializationStateType = {
@@ -61,4 +62,11 @@ export const SET_AuthAC = ( login: string) => {
         }
     } as const
 
+}
+
+export const ThunkAuth =()=> (dispatch:Dispatch)=> {
+    AuthAPI.getUser()
+        .then((res) => {
+            dispatch(SET_AuthAC(res.data.data.login));
+        })
 }

@@ -1,8 +1,7 @@
 import React from 'react';
-import {AuthAPI, AuthInitializationStateType} from "../../API/Auth-api";
-import {StoreType} from "../../Redux/redux-store";
-import {Dispatch} from "redux";
-import {AuthAC, SET_AuthAC} from "../../Redux/authReducer";
+import { AuthInitializationStateType} from "../../API/Auth-api";
+import {AppDispatchType, StoreType} from "../../Redux/redux-store";
+import { ThunkAuth} from "../../Redux/authReducer";
 import {connect} from "react-redux";
 import {Header} from "./Header";
 
@@ -13,11 +12,8 @@ export class HeaderWrapper extends React.Component<MyAuthType> {
 
 
     componentDidMount() {
+      this.props.setAuth()
 
-        AuthAPI.getUser()
-            .then((res) => {
-                this.props.setAuth(res.data.data.login);
-            })
     }
 
 
@@ -50,16 +46,16 @@ const mapStateToProps =(state:StoreType)=> {
 
 type mapDispatchToPropsType ={
 
-    setAuth:(login:string)=>void
+    setAuth:()=>void
 }
 
 export type MyAuthType = mapDispatchToPropsType & mapStateToPropsType
 
-const mapDispatchToProps =(dispatch:Dispatch):mapDispatchToPropsType=> {
+const mapDispatchToProps =(dispatch:AppDispatchType):mapDispatchToPropsType=> {
     return {
 
-        setAuth:(login:string)=> {
-            dispatch(SET_AuthAC(login))
+        setAuth:()=> {
+            dispatch(ThunkAuth())
         }
     }
 }

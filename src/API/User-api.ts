@@ -15,12 +15,11 @@ export const userAPI = {
         return promise
     },
 
-    getChangePageUser(pageNumber:number,pageSize:number) {
+    getChangePageUser(p:number,pageSize:number) {
         const promise = instance.get<UserType>(
-            `/users?page=${pageNumber}&count=${pageSize}`)
+            `/users?page=${p}&count=${pageSize}`)
         return promise
     },
-
 
 
 

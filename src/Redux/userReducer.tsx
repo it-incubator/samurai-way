@@ -24,7 +24,7 @@ const InitializationState:InitializationStateUserType = {
 
   ],
     pageSize:5,
-    totalUsersCounter: 20,
+    totalUsersCounter: 1,
     currentPage :1,
     isFetching:false,
     disable:{id:1,disableButton:false}
@@ -55,9 +55,7 @@ export  const userReducer= (state=InitializationState ,action:TsarType ):Initial
 
         case 'CURRENT-PAGE':
 
-
-
-            return {...state,currentPage:action.payload.page}
+            return {...state,currentPage:action.payload.currentPage}
 
         case 'TOTAL_USER_COUNT':
 
@@ -66,12 +64,9 @@ export  const userReducer= (state=InitializationState ,action:TsarType ):Initial
 
         case 'TOGLLE_IS_FETCHING':
 
-
-
             return {...state,isFetching:action.payload.preloader}
 
         case 'DISABLE':
-
 
 
             return {...state, disable:{...state.disable,id:action.payload.disabled.id,disableButton:action.payload.disabled.disableButton}}
@@ -128,11 +123,11 @@ export  const ADDUsersAC = (users:ItemsType[])=> {
 
 export  type  CurrentPageType = ReturnType<typeof CurrentPageAC>
 
-export  const CurrentPageAC = (page:number)=> {
+export  const CurrentPageAC = (currentPage:number)=> {
     return {
         type:'CURRENT-PAGE',
         payload :{
-        page:page
+       currentPage
         }
 
     } as const
@@ -188,23 +183,26 @@ export const ThunkUser =(currentPage:number,pageSize:number) => (dispatch: Dispa
     userAPI.getUser(currentPage, pageSize)
         .then((res) => {
             dispatch(ToglleIsFetchingAC(false))
-            dispatch(ADDUsersAC(res.data.items));
             dispatch(TotalUserCounterAC(res.data.totalCount))
+            dispatch(ADDUsersAC(res.data.items));
+
 
         })
 
 }
 
-export const ThunkChangePage =(pageNumber:number,pageSize:number) => (dispatch:Dispatch)=> {
+export const ThunkChangePage =(p:number,pageSize:number) => (dispatch:Dispatch)=> {
 
 
     dispatch(ToglleIsFetchingAC(true))
-    dispatch(CurrentPageAC(pageNumber))
+    dispatch(CurrentPageAC(p))
 
-    userAPI.getChangePageUser(pageNumber, pageSize)
+    userAPI.getChangePageUser(p, pageSize)
         .then((res) => {
             dispatch(ToglleIsFetchingAC(false))
             dispatch(ADDUsersAC(res.data.items));
+            console.log( p)
+
 
         })
 }
