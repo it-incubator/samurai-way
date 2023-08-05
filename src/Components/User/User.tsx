@@ -5,6 +5,8 @@ import {ItemsType} from "../../API/User-api";
 import {Preloader} from "../Preloader/Preloader";
 import {NavLink, Redirect} from "react-router-dom";
 import {DisableType} from "../../Redux/userReducer";
+import withAuthRedirect from "../Hoc/WithAuthRedirect";
+import {UserContainer} from "./UserContainer";
 
 
 type UserType = {
@@ -17,7 +19,7 @@ type UserType = {
     follow: (id: number) => void
     unfollow: (id: number) => void
     disable: DisableType
-    isAuth :string
+
 
 
 }
@@ -27,7 +29,7 @@ const User: React.FC<UserType> = ({
                                       changePage, totalUsersCounter,
                                       pageSize, currentPage, users,
                                       isFetching, follow, unfollow,
-                                      disable,isAuth ,
+                                      disable,
                                       ...props
                                   }) => {
 
@@ -55,7 +57,7 @@ const User: React.FC<UserType> = ({
 
     }
 
-    if (!isAuth  ) return <Redirect to={'./login'}/>
+
 
     return (
 

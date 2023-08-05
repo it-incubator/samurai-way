@@ -9,6 +9,8 @@ import {
 } from "../../Redux/userReducer";
 import {ItemsType} from "../../API/User-api";
 import User from "./User";
+import withAuthRedirect from "../Hoc/WithAuthRedirect";
+
 
 
 export class UserWrapper extends React.Component<UsersType> {
@@ -41,6 +43,7 @@ export class UserWrapper extends React.Component<UsersType> {
         }
 
 
+
         return (
 
 
@@ -53,7 +56,7 @@ export class UserWrapper extends React.Component<UsersType> {
                   follow={Follow}
                   unfollow={UNFollow}
                   disable={this.props.disabled}
-                  isAuth ={this.props.isAuth }
+
 
 
             />
@@ -71,7 +74,7 @@ type mapStateToPropsType = {
     currentPage: number
     isFetching: boolean
     disabled: DisableType
-    isAuth :string
+
 }
 
 const mapStateToProps = (state: StoreType): mapStateToPropsType => {
@@ -84,7 +87,7 @@ const mapStateToProps = (state: StoreType): mapStateToPropsType => {
         currentPage: state.userReducer.currentPage,
         isFetching: state.userReducer.isFetching,
         disabled: state.userReducer.disable,
-        isAuth :state.authReducer.data.login
+
 
     }
 }
@@ -122,6 +125,7 @@ const mapDispatchToProps = (dispatch: AppDispatchType): mapDispatchToPropsType =
     }
 }
 
+const AuthRedirect = withAuthRedirect(UserWrapper)
 
-export const UserContainer = connect(mapStateToProps, mapDispatchToProps)(UserWrapper)
+export const UserContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirect)
 

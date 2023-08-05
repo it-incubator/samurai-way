@@ -6,6 +6,8 @@ import {Dispatch} from "redux";
 import {ProfileInfoAppDateAC, ThunkGetUser} from "../../Redux/pageReducer";
 import {AppDispatchType, StoreType} from "../../Redux/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
+import withAuthRedirect from "../Hoc/WithAuthRedirect";
+import {UserWrapper} from "../User/UserContainer";
 
 
 
@@ -30,7 +32,7 @@ export  class ProfileContainer extends React.Component<WithRouterType> {
 
         return      (
             <div>
-               <Profile profileInfo={this.props.profileInfo}  isAuth={this.props.isAuth} />
+               <Profile profileInfo={this.props.profileInfo}  />
             </div>
 
         );
@@ -57,13 +59,13 @@ const mapDispatchToProps  = (dispatch:AppDispatchType):mapDispatchToPropsType =>
 
 type mapStateToPropsType = {
     profileInfo: ProfileType
-    isAuth:string
+
 }
 
 const mapStateToProps = (state:StoreType):mapStateToPropsType => {
   return {
       profileInfo:state.pageReducer.profileInfo,
-      isAuth:state.authReducer.data.login
+
 
   }
 }
@@ -74,9 +76,9 @@ userId:string
 };
 
 
+const AuthRedirect = withAuthRedirect(ProfileContainer)
 
-
-const WithRouterProfile = withRouter(ProfileContainer);
+const WithRouterProfile = withRouter(AuthRedirect);
 
 export const ProfileWrapper = connect(mapStateToProps, mapDispatchToProps)(WithRouterProfile);
 
