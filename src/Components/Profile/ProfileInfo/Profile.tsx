@@ -4,14 +4,18 @@ import  s from '../Profile.module.css'
 import {ProfileInfo} from "./ProfileInfo";
 import {MyPostContainer} from "../MyPost/MyPostContainer";
 import {ProfileType} from "../../../API/Profile-api";
+import {Redirect} from "react-router-dom";
 
 
 type ProfileTypeProfile = {
     profileInfo: ProfileType
+    isAuth:string
 }
 
 
-export  const Profile:React.FC<ProfileTypeProfile> = ({profileInfo,...props}) => {
+export  const Profile:React.FC<ProfileTypeProfile> = ({profileInfo,isAuth,...props}) => {
+
+    if (!isAuth ) return <Redirect to={'./login'}/>
     return (
         <div className={s.content} >
             <div className={s.style} >

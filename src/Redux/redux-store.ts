@@ -4,7 +4,7 @@ import {dialogsReducer} from "./dialogsReducer";
 import {userReducer} from "./userReducer";
 import {authReducer} from "./authReducer";
 import thunk, {ThunkDispatch} from "redux-thunk";
-import {useDispatch} from "react-redux";
+
 
 
 const reducers = combineReducers({

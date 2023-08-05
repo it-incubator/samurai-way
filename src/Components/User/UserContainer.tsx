@@ -53,6 +53,7 @@ export class UserWrapper extends React.Component<UsersType> {
                   follow={Follow}
                   unfollow={UNFollow}
                   disable={this.props.disabled}
+                  isAuth ={this.props.isAuth }
 
 
             />
@@ -70,6 +71,7 @@ type mapStateToPropsType = {
     currentPage: number
     isFetching: boolean
     disabled: DisableType
+    isAuth :string
 }
 
 const mapStateToProps = (state: StoreType): mapStateToPropsType => {
@@ -81,7 +83,9 @@ const mapStateToProps = (state: StoreType): mapStateToPropsType => {
         totalUsersCounter: state.userReducer.totalUsersCounter,
         currentPage: state.userReducer.currentPage,
         isFetching: state.userReducer.isFetching,
-        disabled: state.userReducer.disable
+        disabled: state.userReducer.disable,
+        isAuth :state.authReducer.data.login
+
     }
 }
 

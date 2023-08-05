@@ -30,7 +30,7 @@ export  class ProfileContainer extends React.Component<WithRouterType> {
 
         return      (
             <div>
-               <Profile profileInfo={this.props.profileInfo}  />
+               <Profile profileInfo={this.props.profileInfo}  isAuth={this.props.isAuth} />
             </div>
 
         );
@@ -57,11 +57,14 @@ const mapDispatchToProps  = (dispatch:AppDispatchType):mapDispatchToPropsType =>
 
 type mapStateToPropsType = {
     profileInfo: ProfileType
+    isAuth:string
 }
 
 const mapStateToProps = (state:StoreType):mapStateToPropsType => {
   return {
-      profileInfo:state.pageReducer.profileInfo
+      profileInfo:state.pageReducer.profileInfo,
+      isAuth:state.authReducer.data.login
+
   }
 }
 
