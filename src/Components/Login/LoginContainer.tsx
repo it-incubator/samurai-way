@@ -57,7 +57,7 @@ const mapStateToProps =(state:StoreType)=> {
     }
 }
 
-type mapDispatchToPropsType ={
+type mapDispatchToPropsType = {
     addAuth:(email:string,login:string)=>void
     setAuth:(login:string)=>void
 }

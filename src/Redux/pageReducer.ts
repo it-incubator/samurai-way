@@ -6,6 +6,7 @@ export type InitializationStatePageType = {
     post:PostType []
     newPostText:string
     profileInfo: ProfileType
+    status:string
 }
 
 type PostType = {
@@ -38,6 +39,7 @@ const InitializationState:InitializationStatePageType = {
         {id:3,message:'Hi, how are you?', likeCount:8},
         {id:4,message:'Hi, how are you?', likeCount:6},],
     newPostText:'it-kamasutra',
+    status:''
 
 }
 
@@ -61,12 +63,15 @@ export  const pageReducer= (state=InitializationState,action:AllAction):Initiali
         case 'UPDATE_PROFILE':
 
             return {...state,profileInfo:action.data}
+        case 'SET_STATUS' :{
+            return {...state,status:action.status}
+        }
 
         default :return state
     }
 }
 
-export type AllAction = AddPost|UpdateText|ProfileInfoAppDate
+export type AllAction = AddPost|UpdateText|ProfileInfoAppDate|ProfileStatusType
 
 export type AddPost = ReturnType<typeof AddPostActionCreator>
 
@@ -101,11 +106,34 @@ export  const ProfileInfoAppDateAC = (data:ProfileType)=> {
 
 }
 
+export  type ProfileStatusType =ReturnType<typeof ProfileStatusAC>
+
+
+export  const ProfileStatusAC = (status:string)=> {
+    return {
+        type:'SET_STATUS',
+        status
+
+    } as const
+
+}
+
 export const ThunkGetUser =(userId:string) => (dispatch:Dispatch) => {
     profileAPI.getUser(userId).then((res) => {dispatch(ProfileInfoAppDateAC(res.data))})
 
 }
 
+export const ThunkGetStatus =(userId:string)=> (dispatch:Dispatch)=> {
+    profileAPI.getStatus(userId).then((res)=>{
+        dispatch(ProfileStatusAC(res.data))
+    })
+}
+
+export const ThunkChangStatus =(status:string)=> (dispatch:Dispatch)=> {
+    profileAPI.updateStatus(status).then((res)=>{
+        dispatch(ProfileStatusAC(status))
+    })
+}
 
 
 

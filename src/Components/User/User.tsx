@@ -77,11 +77,12 @@ const User: React.FC<UserType> = ({
                         : <div>{users.map((user) => {
                                 return (
                                     <>
-                                        <NavLink to={`/profile/` + user.id}>
+                                        <NavLink to={`/profile/` + user.id }>
                                             <div key={user.id}>
                                                 <img src={user.photos.small !== null ? user.photos.small : userPhoto}
                                                      className={s.users_photo}/>
                                                 <div>  {user.name}</div>
+                                                <div>{user.status}</div>
                                             </div>
                                         </NavLink>
                                         <div>

@@ -14,7 +14,18 @@ export const profileAPI = {
         const promise = instance.get<ProfileType>(
             `/profile/${userId}`)
         return promise
-    },}
+    },
+    getStatus(userId:string) {
+        const promise = instance.get<string>(
+            `/profile/status/${userId}`)
+        return promise
+    },
+    updateStatus(status:string){
+        const promise = instance.put(
+            `/profile/status`,{status})
+        return promise
+    }
+}
 
 
 export type ProfileType = {
@@ -35,3 +46,4 @@ export type ProfileType = {
     small: string
 
 }
+
