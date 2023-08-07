@@ -1,15 +1,14 @@
 import React from 'react';
 import './App.css';
-import {Header} from "./Components/Header/Header";
 import {Navbar} from "./Components/Navbar/Navbar";
 import { Route} from "react-router-dom";
 import { StoreType} from "./Redux/redux-store";
 import {DialogsContainer} from "./Components/Dialog/DialogsContainer";
-import {UserContainer} from "./Components/User/UserContainer";
 import { ProfileWrapper} from "./Components/Profile/ProfileContainer";
-import {SideBar} from "./Components/SideBar/SideBar";
 import {LoginContainer} from "./Components/Login/LoginContainer";
 import {HeaderContainer} from "./Components/Header/HeaderContainer";
+import UserContainer from "./Components/User/UserContainer";
+
 
 
 type PropsType = {

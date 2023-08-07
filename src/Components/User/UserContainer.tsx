@@ -10,10 +10,11 @@ import {
 import {ItemsType} from "../../API/User-api";
 import User from "./User";
 import withAuthRedirect from "../Hoc/WithAuthRedirect";
+import {compose} from "redux";
 
 
 
-export class UserWrapper extends React.Component<UsersType> {
+class UserWrapper extends React.Component<UsersType> {
 
 
     componentDidMount() {
@@ -125,7 +126,10 @@ const mapDispatchToProps = (dispatch: AppDispatchType): mapDispatchToPropsType =
     }
 }
 
-const AuthRedirect = withAuthRedirect(UserWrapper)
 
-export const UserContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirect)
+
+
+export default compose <React.ComponentType>(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect)(UserWrapper)
 

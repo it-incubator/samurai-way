@@ -3,10 +3,9 @@ import s from "./User.module.css";
 import userPhoto from "../../image/user.jpeg";
 import {ItemsType} from "../../API/User-api";
 import {Preloader} from "../Preloader/Preloader";
-import {NavLink, Redirect} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import {DisableType} from "../../Redux/userReducer";
-import withAuthRedirect from "../Hoc/WithAuthRedirect";
-import {UserContainer} from "./UserContainer";
+
 
 
 type UserType = {

@@ -1,13 +1,12 @@
 import React from 'react';
 import {Profile} from "./ProfileInfo/Profile";
-import {profileAPI, ProfileType} from "../../API/Profile-api";
+import {ProfileType} from "../../API/Profile-api";
 import {connect} from "react-redux";
-import {Dispatch} from "redux";
-import {ProfileInfoAppDateAC, ThunkGetUser} from "../../Redux/pageReducer";
+import { ThunkGetUser} from "../../Redux/pageReducer";
 import {AppDispatchType, StoreType} from "../../Redux/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import withAuthRedirect from "../Hoc/WithAuthRedirect";
-import {UserWrapper} from "../User/UserContainer";
+
 
 
 
