@@ -1,4 +1,5 @@
 import axios from "axios";
+import {FormDataType} from "../Components/Login/Login";
 
 
 const instance = axios.create(
@@ -16,9 +17,9 @@ export const AuthAPI = {
         return promise
     },
 
-    createLogin(email:string,login:string) {
-        const promise = instance.post(
-            `/auth/login`, {email:email,login:login}
+    createLogin(formData:FormDataType) {
+        const promise = instance.post<AuthInitializationStateType>(
+            `/auth/login`, formData
         )
         return promise
     },
@@ -32,6 +33,7 @@ export type AuthInitializationStateType = {
     data: AuthDataType
     resultCode: number
     messages: Array<string>
+    isAuth:boolean
 
 }
 

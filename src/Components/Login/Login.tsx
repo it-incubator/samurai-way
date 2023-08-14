@@ -1,45 +1,55 @@
-import React, {ChangeEvent, useState} from 'react';
+import React from 'react';
 import s  from "./Login.module.css"
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
-type AuthType ={
-    addAuth:(email:string,login:string)=>void
-    authReducer:string
+export type FormDataType ={
+    email:string
+    password:string
+    rememberMe:string
 }
 
+type LoginType ={
+    Authme:(formData:FormDataType)=>void
+}
 
-export const Login:React.FC<AuthType> = ({addAuth,authReducer,...props}) => {
+export const Login:React.FC<LoginType> = ({Authme,...props}) => {
 
-    const [email,setEmail]=useState('')
-    const [login,setLogin]=useState('')
+const onSubmit=(formData:FormDataType)=> {
 
-    const Email = (event:ChangeEvent<HTMLInputElement>)=> {
-        setEmail(event.currentTarget.value)
-    }
+    Authme(formData)
 
-    const Login = (event:ChangeEvent<HTMLInputElement>)=> {
-        setLogin(event.currentTarget.value)
-    }
 
-    const AddAuth =()=> {
-        addAuth(email,login)
-    }
-
+}
     return (
         <div className={s.style}>
-            <div className={s.auth}>
-                <div>
-                    <input onChange={Email}/> email
-                </div>
-                <div>
-                    <input onChange={Login}/> login
-                </div>
-
-                <button onClick={AddAuth}>Send</button>
-
-            </div>
-
-
+           <h1>Login</h1>
+            <LoginReduxForm onSubmit={onSubmit}/>
         </div>
     );
 };
+
+const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props)=> {
+
+    return (
+        <div className={s.auth}>
+            <form onSubmit={props.handleSubmit}>
+                <div>
+                    <Field  placeholder={'email'} name={'email'} component={'input'}/>
+                </div>
+                <div>
+                    <Field placeholder={'password'} name={'password'} component={'input'}/>
+                </div>
+                <div>
+                    <Field type={'checkbox'}  name={'rememberMe'} component={'input'}/>remember Me
+                </div>
+
+                <button >Send</button>
+            </form>
+
+
+        </div>
+    )
+}
+
+const LoginReduxForm = reduxForm<FormDataType>({form:'login'})(LoginForm)
 

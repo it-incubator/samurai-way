@@ -3,7 +3,9 @@ import {Dialogs} from "./Dialogs";
 import {AddPostDialogsActionCreator, InitializationStateDialogType} from "../../Redux/dialogsReducer";
 import {connect} from "react-redux";;
 import {StoreType} from "../../Redux/redux-store";
-import {Dispatch} from "redux";
+import {compose, Dispatch} from "redux";
+import withAuthRedirect from "../Hoc/WithAuthRedirect";
+import {withRouter} from "react-router-dom";
 
 
 
@@ -36,6 +38,8 @@ const mapDispatchToProps =(dispatch:Dispatch):mapDispatchToPropsType=> {
 
     }
 }
+
+
 
 
 export const  DialogsContainer  = connect(mapStateToProps,mapDispatchToProps)(Dialogs)

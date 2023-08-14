@@ -1,13 +1,15 @@
 import React from 'react';
 import './App.css';
 import {Navbar} from "./Components/Navbar/Navbar";
-import {NavLink, Route} from "react-router-dom";
+import { Route} from "react-router-dom";
 import { StoreType} from "./Redux/redux-store";
-import {DialogsContainer} from "./Components/Dialog/DialogsContainer";
-import {LoginContainer} from "./Components/Login/LoginContainer";
+
 import {HeaderContainer} from "./Components/Header/HeaderContainer";
 import UserContainer from "./Components/User/UserContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
+import {LoginContainer} from "./Components/Login/LoginContainer";
+import {DialogsContainer} from "./Components/Dialog/DialogsContainer";
+
 
 
 
@@ -66,7 +68,7 @@ function App() {
 
             <Route path={'/dialogs'} render={()=><DialogsContainer/>}/>
            <Route path={`/profile/:userId?`} render={()=><ProfileContainer/>}/>
-            <Route path={'/login'} render={()=><LoginContainer />}/>
+            <Route path={'/login'} render={()=><LoginContainer/>}/>
             <Route path={'/user'} render={()=><UserContainer/>}/>
 
             {/*<Route path={'/sidebar'} render={()=><SideBar />}/>*/}

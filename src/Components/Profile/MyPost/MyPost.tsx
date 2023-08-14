@@ -3,13 +3,7 @@ import  s from './MyPost.module.css'
 import {MyPostType} from "./MyPostContainer";
 
 
-// type MyPost = {
-//     PostData?:PostData[]
-//     addPost:(newPostText:string)=>void
-//     newPostText:string
-//     UpdatePost:(newPost:string)=>void
-//
-// }
+
 
 
 

@@ -4,11 +4,12 @@ import flag from '../../image/flag.png';
 import {NavLink} from "react-router-dom";
 
 type HeaderType = {
-    authReducer:string
+    login:string
+    isAuth:boolean
 }
 
 
-export const Header:React.FC<HeaderType> = ({authReducer}) => {
+export const Header:React.FC<HeaderType> = ({login,isAuth,...props}) => {
 
     return (
         <div className={s.header}>
@@ -16,8 +17,8 @@ export const Header:React.FC<HeaderType> = ({authReducer}) => {
             <header ><img className={s.logo} src={flag}/></header>
             <div  className={s.item}>
 
-                    {authReducer ?
-                    authReducer
+                    {isAuth ?
+                    login
                         :  <NavLink to='/login' activeClassName={s.activeLink} >Login</NavLink>}
 
             </div>

@@ -21,7 +21,7 @@ export const profileAPI = {
         return promise
     },
     updateStatus(status:string){
-        const promise = instance.put(
+        const promise = instance.put<StatusType>(
             `/profile/status`,{status})
         return promise
     }
@@ -45,5 +45,11 @@ export type ProfileType = {
     photos: {small:string,large: string}
     small: string
 
+}
+
+type StatusType = {
+    resultCode: number
+    messages: string
+    data: {}
 }
 

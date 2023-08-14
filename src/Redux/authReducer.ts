@@ -1,5 +1,6 @@
 import {AuthAPI, AuthInitializationStateType} from "../API/Auth-api";
 import {Dispatch} from "redux";
+import {FormDataType} from "../Components/Login/Login";
 
 
 const AuthInitializationState: AuthInitializationStateType = {
@@ -9,15 +10,16 @@ const AuthInitializationState: AuthInitializationStateType = {
         login: ''
     },
     resultCode: 0,
-    messages: []
+    messages: [],
+    isAuth:false
 }
 
 
-export const authReducer = (state = AuthInitializationState, action: AuthACType|SET_AuthACType) => {
+export const authReducer = (state = AuthInitializationState, action: setLoginType|SET_AuthACType) => {
 
     switch (action.type) {
         case "AUTH": {
-            return state
+            return {...state,isAuth:action.payload.isAuth}
         }
 
         case "SET-AUTH":
@@ -32,16 +34,15 @@ export const authReducer = (state = AuthInitializationState, action: AuthACType|
 };
 
 
-export  type  AuthACType = ReturnType<typeof AuthAC>
+export  type  setLoginType = ReturnType<typeof setLoginAC>
 
 
-export const AuthAC = (email: string, login: string) => {
-    console.log(email,login)
+export const setLoginAC = (isAuth:boolean) => {
+
     return {
         type: 'AUTH',
         payload: {
-            email,
-            login
+           isAuth
 
         }
     } as const
@@ -68,5 +69,21 @@ export const ThunkAuth =()=> (dispatch:Dispatch)=> {
     AuthAPI.getUser()
         .then((res) => {
             dispatch(SET_AuthAC(res.data.data.login));
+            dispatch(setLoginAC(true))
+        })
+}
+
+export const ThunkLogin =(formData:FormDataType)=> (dispatch:Dispatch)=> {
+    AuthAPI.createLogin(formData)
+        .then((res) => {
+            if (res.data.resultCode===0)
+            {dispatch(setLoginAC(true))}
+            else {
+             console.log(   'Error')
+            }
+
+        })
+        .catch((error)=>{
+            console.log(error)
         })
 }

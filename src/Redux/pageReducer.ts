@@ -131,7 +131,11 @@ export const ThunkGetStatus =(userId:string)=> (dispatch:Dispatch)=> {
 
 export const ThunkChangStatus =(status:string)=> (dispatch:Dispatch)=> {
     profileAPI.updateStatus(status).then((res)=>{
-        dispatch(ProfileStatusAC(status))
+
+        if (res.data.resultCode===0){
+            dispatch(ProfileStatusAC(status))
+        }
+
     })
 }
 

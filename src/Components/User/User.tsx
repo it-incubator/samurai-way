@@ -83,6 +83,7 @@ const User: React.FC<UserType> = ({
                                                      className={s.users_photo}/>
                                                 <div>  {user.name}</div>
                                                 <div>{user.status}</div>
+
                                             </div>
                                         </NavLink>
                                         <div>

@@ -1,12 +1,9 @@
 import React from 'react';
 import {AuthAPI, AuthInitializationStateType} from "../../API/Auth-api";
-import {Login} from "./Login";
-import {StoreType} from "../../Redux/redux-store";
-import {Dispatch} from "redux";
-import {AuthAC, SET_AuthAC} from "../../Redux/authReducer";
+import {FormDataType, Login} from "./Login";
+import {AppDispatchType, StoreType} from "../../Redux/redux-store";
+import { ThunkAuth, ThunkLogin} from "../../Redux/authReducer";
 import {connect} from "react-redux";
-
-
 
 
 export class LoginWrapper extends React.Component<MyAuthType> {
@@ -14,27 +11,23 @@ export class LoginWrapper extends React.Component<MyAuthType> {
 
     componentDidMount() {
 
-        AuthAPI.getUser()
-            .then((res) => {
-
-                this.props.setAuth(res.data.data.login);
+            this.props.setAuth()
 
 
-            })
     }
 
 
     render() {
 
-
+        const Autme = (formData:FormDataType) => {
+            this.props.addAuth(formData)
+        }
 
 
         return (
 
 
-            <Login addAuth={this.props.addAuth}
-                   authReducer={this.props.authReducer.data.login}
-            />
+            <Login Authme={Autme}/>
 
 
         );
@@ -42,39 +35,40 @@ export class LoginWrapper extends React.Component<MyAuthType> {
 }
 
 
-type mapStateToPropsType ={
-    authReducer:AuthInitializationStateType
+type mapStateToPropsType = {
+    authReducer: AuthInitializationStateType
 
 }
 
-const mapStateToProps =(state:StoreType)=> {
+const mapStateToProps = (state: StoreType) => {
+
     return {
 
-        authReducer:state.authReducer
-
+        authReducer: state.authReducer
 
 
     }
 }
 
 type mapDispatchToPropsType = {
-    addAuth:(email:string,login:string)=>void
-    setAuth:(login:string)=>void
+    addAuth: (formData:FormDataType) => void
+    setAuth: () => void
 }
 
 export type MyAuthType = mapDispatchToPropsType & mapStateToPropsType
 
-const mapDispatchToProps =(dispatch:Dispatch):mapDispatchToPropsType=> {
+const mapDispatchToProps = (dispatch:AppDispatchType): mapDispatchToPropsType => {
+
     return {
 
-        addAuth:(email:string,login:string)=> {
-            dispatch(AuthAC(email,login))
+        addAuth: (formData:FormDataType) => {
+            dispatch(ThunkLogin(formData))
         },
-        setAuth:(login:string)=> {
-            dispatch(SET_AuthAC(login))
+        setAuth: () => {
+            dispatch(ThunkAuth())
         }
     }
 }
 
 
-export const  LoginContainer  = connect(mapStateToProps,mapDispatchToProps)(LoginWrapper)
+export const LoginContainer = connect(mapStateToProps, mapDispatchToProps)(LoginWrapper)

@@ -4,6 +4,7 @@ import {dialogsReducer} from "./dialogsReducer";
 import {userReducer} from "./userReducer";
 import {authReducer} from "./authReducer";
 import thunk, {ThunkDispatch} from "redux-thunk";
+import { reducer as formReducer } from 'redux-form';
 
 
 
@@ -11,7 +12,8 @@ const reducers = combineReducers({
     dialogsReducer,
     pageReducer,
     userReducer,
-    authReducer
+    authReducer,
+    form:formReducer
 
 
 })

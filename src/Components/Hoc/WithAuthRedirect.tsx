@@ -5,12 +5,12 @@ import {connect} from "react-redux";
 
 
 type MapStatePropsType ={
-    isAuth:string
+    isAuth:boolean
 }
 
 const mapStateToProps =(state:StoreType):MapStatePropsType=> (
     {
-       isAuth:state.authReducer.data.login
+       isAuth:state.authReducer.isAuth
     }
 )
 

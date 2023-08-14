@@ -22,7 +22,7 @@ import {compose} from "redux";
         let userId =this.props.match.params.userId
 
 
-        if (!userId){userId='2'}
+        if (!userId){userId='23762'}
 
         this.props.setProfileInfo(userId)
         this.props.setStatus(userId)
@@ -30,13 +30,16 @@ import {compose} from "redux";
 
     }
 
+    componentDidUpdate(prevProps: Readonly<WithRouterType>, prevState: Readonly<{}>, snapshot?: any) {
 
+    }
 
-    render() {
+      render() {
 
         const ChangeStatus =(status:string)=> {
             this.props.changeStatus(status)
         }
+
 
         return      (
             <div>
