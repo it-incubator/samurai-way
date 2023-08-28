@@ -1,14 +1,19 @@
 import React from 'react';
 import './App.css';
 import {Navbar} from "./Components/Navbar/Navbar";
-import { Route} from "react-router-dom";
-import { StoreType} from "./Redux/redux-store";
-
+import {NavLink, Redirect, Route} from "react-router-dom";
+import {AppDispatchType, StoreType} from "./Redux/redux-store";
 import {HeaderContainer} from "./Components/Header/HeaderContainer";
 import UserContainer from "./Components/User/UserContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
 import {LoginContainer} from "./Components/Login/LoginContainer";
-import {DialogsContainer} from "./Components/Dialog/DialogsContainer";
+import {ThunkAuth} from "./Redux/authReducer";
+import {connect} from "react-redux";
+import CircularProgress from "@mui/material/CircularProgress";
+import DialogsContainer from "./Components/Dialog/DialogsContainer";
+import withAuthRedirect from "./Components/Hoc/WithAuthRedirect";
+import s from "./Components/Header/Header.module.css";
+
 
 
 
@@ -58,24 +63,77 @@ export type PostData = {
 
 
 
-function App() {
+class App extends React.Component<AppType> {
 
-    return (
 
-        <div className='app-wrapper'>
-            <HeaderContainer/>
-            <Navbar/>
-
-            <Route path={'/dialogs'} render={()=><DialogsContainer/>}/>
-           <Route path={`/profile/:userId?`} render={()=><ProfileContainer/>}/>
-            <Route path={'/login'} render={()=><LoginContainer/>}/>
-            <Route path={'/user'} render={()=><UserContainer/>}/>
-
-            {/*<Route path={'/sidebar'} render={()=><SideBar />}/>*/}
-        </div>
-
-    );
+componentDidMount() {
+  this.props.authApp()
 }
 
 
-export default App;
+    render () {
+
+
+        if (!this.props.isAutch) {
+
+            return <div
+                style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
+                <CircularProgress/>
+            </div>
+
+        }
+
+
+    return (
+
+<div className='app-wrapper'>
+<HeaderContainer/>
+<Navbar/>
+
+<Route path={'/dialogs'} render={()=><DialogsContainer/>}/>
+<Route path={`/profile/:userId?`} render={()=><ProfileContainer/>}/>
+<Route path={'/login'} render={()=><LoginContainer/>}/>
+<Route path={'/user'} render={()=><UserContainer/>}/>
+
+
+
+{/*<Route path={'/sidebar'} render={()=><SideBar />}/>*/}
+</div>
+
+);
+}
+
+
+}
+
+type mapStateToPropsType = {
+    isAutch:boolean
+}
+
+const mapStateToProps =(state: StoreType):mapStateToPropsType => {
+    return {
+        isAutch:state.authReducer.loading
+    }
+}
+
+type mapDispatchToPropsType ={
+   authApp:() =>void
+}
+
+
+const mapDispatchToProps = (dispatch:AppDispatchType) :mapDispatchToPropsType => {
+
+  return {
+      authApp:()=> {
+          dispatch(ThunkAuth())
+      },
+  }
+}
+
+type AppType = mapDispatchToPropsType & mapStateToPropsType
+
+export const  AppContainer  = connect(mapStateToProps,mapDispatchToProps)(App)
+
+
+
+

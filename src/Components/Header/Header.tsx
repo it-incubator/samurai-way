@@ -6,10 +6,15 @@ import {NavLink} from "react-router-dom";
 type HeaderType = {
     login:string
     isAuth:boolean
+    logout:()=>void
 }
 
 
-export const Header:React.FC<HeaderType> = ({login,isAuth,...props}) => {
+export const Header:React.FC<HeaderType> = ({login,isAuth,logout,...props}) => {
+
+    const onClickHandler =()=> {
+       logout()
+    }
 
     return (
         <div className={s.header}>
@@ -18,7 +23,7 @@ export const Header:React.FC<HeaderType> = ({login,isAuth,...props}) => {
             <div  className={s.item}>
 
                     {isAuth ?
-                    login
+                    <div onClick={onClickHandler}>{login}</div>
                         :  <NavLink to='/login' activeClassName={s.activeLink} >Login</NavLink>}
 
             </div>

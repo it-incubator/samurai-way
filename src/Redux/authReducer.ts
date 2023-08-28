@@ -11,11 +11,13 @@ const AuthInitializationState: AuthInitializationStateType = {
     },
     resultCode: 0,
     messages: [],
-    isAuth:false
+    isAuth:false,
+    loading:false
+
 }
 
 
-export const authReducer = (state = AuthInitializationState, action: setLoginType|SET_AuthACType) => {
+export const authReducer = (state = AuthInitializationState, action: setLoginType|SET_AuthACType|LoadingType) => {
 
     switch (action.type) {
         case "AUTH": {
@@ -26,7 +28,10 @@ export const authReducer = (state = AuthInitializationState, action: setLoginTyp
             return {
                 ...state,data:{...state.data,login:action.payload.login}
             }
-
+        case 'LOADING':
+            return {
+                ...state,loading:action.payload.loading
+            }
 
         default :
             return state
@@ -53,7 +58,7 @@ export  type  SET_AuthACType = ReturnType<typeof SET_AuthAC>
 
 
 export const SET_AuthAC = ( login: string) => {
-    console.log(login)
+
     return {
         type: 'SET-AUTH',
         payload: {
@@ -65,12 +70,40 @@ export const SET_AuthAC = ( login: string) => {
 
 }
 
-export const ThunkAuth =()=> (dispatch:Dispatch)=> {
+export  type  LoadingType = ReturnType<typeof LoadinAC>
+
+export const LoadinAC = ( loading:boolean) => {
+
+    return {
+        type: 'LOADING',
+        payload: {
+
+            loading
+
+        }
+    } as const
+
+}
+
+export const ThunkAuth = () => (dispatch:Dispatch)=> {
     AuthAPI.getUser()
+
         .then((res) => {
-            dispatch(SET_AuthAC(res.data.data.login));
-            dispatch(setLoginAC(true))
+            if (res.data.resultCode===0){
+                dispatch(SET_AuthAC(res.data.data.login));
+                dispatch(setLoginAC(true))
+                dispatch(LoadinAC(true))
+            }
+            else {
+                dispatch(setLoginAC(false))
+                dispatch(LoadinAC(true))
+            }
+
         })
+        .catch((error)=>{
+            'not auturized'
+        })
+
 }
 
 export const ThunkLogin =(formData:FormDataType)=> (dispatch:Dispatch)=> {
@@ -86,4 +119,19 @@ export const ThunkLogin =(formData:FormDataType)=> (dispatch:Dispatch)=> {
         .catch((error)=>{
             console.log(error)
         })
+}
+
+export const ThunkLogout=()=> (dispatch:Dispatch)=> {
+    AuthAPI.logout().then((res) => {
+        if (res.data.resultCode === 0) {
+            dispatch(setLoginAC(false))
+        } else {
+            console.log('Error')
+        }
+
+    })
+        .catch((error) => {
+            console.log(error)
+        })
+
 }

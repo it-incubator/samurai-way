@@ -1,5 +1,5 @@
 import React from 'react';
-import {AuthAPI, AuthInitializationStateType} from "../../API/Auth-api";
+import { AuthInitializationStateType} from "../../API/Auth-api";
 import {FormDataType, Login} from "./Login";
 import {AppDispatchType, StoreType} from "../../Redux/redux-store";
 import { ThunkAuth, ThunkLogin} from "../../Redux/authReducer";
@@ -27,7 +27,7 @@ export class LoginWrapper extends React.Component<MyAuthType> {
         return (
 
 
-            <Login Authme={Autme}/>
+            <Login Authme={Autme} isAuth={this.props.authReducer.isAuth}/>
 
 
         );

@@ -1,7 +1,4 @@
-.App {
-  text-align: center;
-  color: blue;
-}
+
 
 .app-wrapper {
   margin: 0 auto;
@@ -9,8 +6,8 @@
   height: 100%;
   display: grid;
   grid-template-areas:'h h'
-  'n c';
-
+  'n  c';
+  color: blue;
   grid-template-rows: 60px 1fr;
   grid-template-columns: 2fr 10fr;
 

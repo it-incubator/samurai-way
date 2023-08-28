@@ -3,6 +3,8 @@ import {AuthInitializationStateType} from "../../API/Auth-api";
 import {AppDispatchType, StoreType} from "../../Redux/redux-store";
 import {connect} from "react-redux";
 import {Header} from "./Header";
+import {AddPostDialogsActionCreator} from "../../Redux/dialogsReducer";
+import {ThunkLogout} from "../../Redux/authReducer";
 
 
 export class HeaderWrapper extends React.Component<MyAuthType> {
@@ -17,7 +19,9 @@ export class HeaderWrapper extends React.Component<MyAuthType> {
         return (
 
             <Header login={this.props.authReducer.data.login}
-                    isAuth={this.props.authReducer.isAuth}/>
+                    isAuth={this.props.authReducer.isAuth}
+                    logout={this.props.logout}
+            />
 
 
         );
@@ -38,12 +42,18 @@ const mapStateToProps = (state: StoreType) => {
     }
 }
 
-type mapDispatchToPropsType = {}
+type mapDispatchToPropsType = {
+    logout:()=>void
+}
 
 export type MyAuthType = mapDispatchToPropsType & mapStateToPropsType
 
 const mapDispatchToProps = (dispatch: AppDispatchType): mapDispatchToPropsType => {
-    return {}
+    return {
+        logout:()=> {
+            dispatch(ThunkLogout())
+        },
+    }
 }
 
 

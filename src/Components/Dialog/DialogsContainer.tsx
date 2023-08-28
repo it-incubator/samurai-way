@@ -1,21 +1,17 @@
-import React from 'react';
-import {Dialogs} from "./Dialogs";
 import {AddPostDialogsActionCreator, InitializationStateDialogType} from "../../Redux/dialogsReducer";
-import {connect} from "react-redux";;
-import {StoreType} from "../../Redux/redux-store";
-import {compose, Dispatch} from "redux";
+import {AppDispatchType, StoreType} from "../../Redux/redux-store";
+import {connect} from "react-redux";
+import {Dialogs} from "./Dialogs";
+import {compose} from "redux";
+import React from "react";
 import withAuthRedirect from "../Hoc/WithAuthRedirect";
-import {withRouter} from "react-router-dom";
-
-
-
 
 
 type mapStateToPropsType ={
     dialogsReducer:InitializationStateDialogType
 }
 
-const mapStateToProps =(state:StoreType)=> {
+const mapStateToProps =(state:StoreType):mapStateToPropsType=> {
     return {
         dialogsReducer:state.dialogsReducer,
 
@@ -24,12 +20,12 @@ const mapStateToProps =(state:StoreType)=> {
 }
 
 type mapDispatchToPropsType ={
- addPost:(inputValue:string)=>void
+    addPost:(inputValue:string)=>void
 }
 
-export type MyDialogType = mapDispatchToPropsType & mapStateToPropsType
 
-const mapDispatchToProps =(dispatch:Dispatch):mapDispatchToPropsType=> {
+
+const mapDispatchToProps =(dispatch:AppDispatchType):mapDispatchToPropsType=> {
     return {
 
         addPost:(inputValue:string)=> {
@@ -39,7 +35,13 @@ const mapDispatchToProps =(dispatch:Dispatch):mapDispatchToPropsType=> {
     }
 }
 
+export type MyDialogType = mapDispatchToPropsType & mapStateToPropsType
 
 
 
-export const  DialogsContainer  = connect(mapStateToProps,mapDispatchToProps)(Dialogs)
+export default compose <React.ComponentType>(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect)(Dialogs)
+
+
+

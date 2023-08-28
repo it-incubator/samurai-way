@@ -23,7 +23,9 @@ export const AuthAPI = {
         )
         return promise
     },
-
+logout(){
+    return   instance.delete<AuthInitializationStateType>( `/auth/login`)
+}
 }
 
 
@@ -34,6 +36,7 @@ export type AuthInitializationStateType = {
     resultCode: number
     messages: Array<string>
     isAuth:boolean
+    loading:boolean
 
 }
 
