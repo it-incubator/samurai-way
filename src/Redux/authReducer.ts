@@ -1,11 +1,14 @@
-import {AuthAPI, AuthInitializationStateType} from "../API/Auth-api";
+import {AuthAPI, AuthDataType, AuthInitializationStateType} from "../API/Auth-api";
 import {Dispatch} from "redux";
 import {FormDataType} from "../Components/Login/Login";
+import {stopSubmit} from "redux-form";
+
+
 
 
 const AuthInitializationState: AuthInitializationStateType = {
     data: {
-        id: 1,
+        id: '1',
         email: '',
         login: ''
     },
@@ -26,7 +29,7 @@ export const authReducer = (state = AuthInitializationState, action: setLoginTyp
 
         case "SET-AUTH":
             return {
-                ...state,data:{...state.data,login:action.payload.login}
+                ...state,data:action.payload.data
             }
         case 'LOADING':
             return {
@@ -57,13 +60,13 @@ export const setLoginAC = (isAuth:boolean) => {
 export  type  SET_AuthACType = ReturnType<typeof SET_AuthAC>
 
 
-export const SET_AuthAC = ( login: string) => {
+export const SET_AuthAC = ( data: AuthDataType) => {
 
     return {
         type: 'SET-AUTH',
         payload: {
 
-            login
+            data
 
         }
     } as const
@@ -90,7 +93,7 @@ export const ThunkAuth = () => (dispatch:Dispatch)=> {
 
         .then((res) => {
             if (res.data.resultCode===0){
-                dispatch(SET_AuthAC(res.data.data.login));
+                dispatch(SET_AuthAC(res.data.data));
                 dispatch(setLoginAC(true))
                 dispatch(LoadinAC(true))
             }
@@ -107,12 +110,24 @@ export const ThunkAuth = () => (dispatch:Dispatch)=> {
 }
 
 export const ThunkLogin =(formData:FormDataType)=> (dispatch:Dispatch)=> {
+
+
+
+
     AuthAPI.createLogin(formData)
         .then((res) => {
+
             if (res.data.resultCode===0)
-            {dispatch(setLoginAC(true))}
+
+            {dispatch(setLoginAC(true))
+
+                ThunkAuth()
+
+            }
             else {
-             console.log(   'Error')
+
+
+                dispatch( stopSubmit('login', {_error:res.data.messages}))
             }
 
         })

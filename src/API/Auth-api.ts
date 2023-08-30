@@ -17,31 +17,29 @@ export const AuthAPI = {
         return promise
     },
 
-    createLogin(formData:FormDataType) {
+    createLogin(formData: FormDataType) {
         const promise = instance.post<AuthInitializationStateType>(
             `/auth/login`, formData
         )
         return promise
     },
-logout(){
-    return   instance.delete<AuthInitializationStateType>( `/auth/login`)
+    logout() {
+        return instance.delete<AuthInitializationStateType>(`/auth/login`)
+    }
 }
-}
-
-
 
 
 export type AuthInitializationStateType = {
     data: AuthDataType
     resultCode: number
     messages: Array<string>
-    isAuth:boolean
-    loading:boolean
+    isAuth: boolean
+    loading: boolean
 
 }
 
-type AuthDataType = {
-    id: number
+export type AuthDataType = {
+    id: string
     email: string
     login: string
 }

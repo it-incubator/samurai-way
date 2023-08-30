@@ -9,20 +9,16 @@ import withAuthRedirect from "../Hoc/WithAuthRedirect";
 import {compose} from "redux";
 
 
-
-
-
-
-
-
-  class ProfileContainer extends React.Component<WithRouterType> {
+class ProfileContainer extends React.Component<WithRouterType> {
 
     componentDidMount() {
 
-        let userId =this.props.match.params.userId
+        let userId = this.props.match.params.userId
 
 
-        if (!userId){userId='23762'}
+        if (!userId) {
+           userId=this.props.authorizedUserID
+        }
 
         this.props.setProfileInfo(userId)
         this.props.setStatus(userId)
@@ -34,16 +30,17 @@ import {compose} from "redux";
 
     }
 
-      render() {
+    render() {
 
-        const ChangeStatus =(status:string)=> {
+        const ChangeStatus = (status: string) => {
             this.props.changeStatus(status)
         }
 
 
-        return      (
+        return (
             <div>
-               <Profile profileInfo={this.props.profileInfo}  status={this.props.status} changeStatusCallback={ChangeStatus}  />
+                <Profile profileInfo={this.props.profileInfo} status={this.props.status}
+                         changeStatusCallback={ChangeStatus}/>
 
             </div>
 
@@ -56,20 +53,20 @@ import {compose} from "redux";
 export type ProfileContainerType = mapDispatchToPropsType & mapStateToPropsType
 
 type mapDispatchToPropsType = {
-    setProfileInfo: (userId:string)=>void
-    setStatus:(userId:string)=>void
-    changeStatus:(status:string)=>void
+    setProfileInfo: (userId: string) => void
+    setStatus: (userId: string) => void
+    changeStatus: (status: string) => void
 }
 
-const mapDispatchToProps  = (dispatch:AppDispatchType):mapDispatchToPropsType => {
+const mapDispatchToProps = (dispatch: AppDispatchType): mapDispatchToPropsType => {
     return {
-        setProfileInfo: (userId:string)=> {
+        setProfileInfo: (userId: string) => {
             dispatch(ThunkGetUser(userId))
         },
-        setStatus:(userId:string)=> {
+        setStatus: (userId: string) => {
             dispatch(ThunkGetStatus(userId))
         },
-        changeStatus:(status:string)=> {
+        changeStatus: (status: string) => {
             dispatch(ThunkChangStatus(status))
         }
 
@@ -79,34 +76,32 @@ const mapDispatchToProps  = (dispatch:AppDispatchType):mapDispatchToPropsType =>
 
 type mapStateToPropsType = {
     profileInfo: ProfileType
-status:string
+    status: string
+    authorizedUserID:string
 
 }
 
-const mapStateToProps = (state:StoreType):mapStateToPropsType => {
-  return {
-      profileInfo:state.pageReducer.profileInfo,
-      status:state.pageReducer.status
+const mapStateToProps = (state: StoreType): mapStateToPropsType => {
+    return {
+        profileInfo: state.pageReducer.profileInfo,
+        status: state.pageReducer.status,
+        authorizedUserID:state.authReducer.data.id
 
 
-
-
-  }
+    }
 }
 
 
 type PathParamsType = {
-userId:string
+    userId: string
 
 };
 
 
-
-
-export default compose <React.ComponentType>(
+export default compose<React.ComponentType>(
     connect(mapStateToProps, mapDispatchToProps),
     withAuthRedirect,
     withRouter
 )(ProfileContainer)
 
-type WithRouterType = RouteComponentProps<PathParamsType>&ProfileContainerType
+type WithRouterType = RouteComponentProps<PathParamsType> & ProfileContainerType

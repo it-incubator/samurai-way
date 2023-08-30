@@ -3,7 +3,6 @@ import {AuthInitializationStateType} from "../../API/Auth-api";
 import {AppDispatchType, StoreType} from "../../Redux/redux-store";
 import {connect} from "react-redux";
 import {Header} from "./Header";
-import {AddPostDialogsActionCreator} from "../../Redux/dialogsReducer";
 import {ThunkLogout} from "../../Redux/authReducer";
 
 

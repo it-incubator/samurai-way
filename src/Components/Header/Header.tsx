@@ -23,7 +23,9 @@ export const Header:React.FC<HeaderType> = ({login,isAuth,logout,...props}) => {
             <div  className={s.item}>
 
                     {isAuth ?
-                    <div onClick={onClickHandler}>{login}</div>
+                    <div>{login}
+                        <button onClick={onClickHandler}>Logout</button>
+                    </div>
                         :  <NavLink to='/login' activeClassName={s.activeLink} >Login</NavLink>}
 
             </div>

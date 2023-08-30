@@ -4,6 +4,8 @@ import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import { Redirect} from "react-router-dom";
 import { maxLengthCreator, required} from "../../utils/validators/validators";
 import FormControls from "../FormControls/FormControls";
+import style from "../FormControls/FormControls.module.css";
+
 
 
 
@@ -54,11 +56,16 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props)=> {
                     <Field validate={[required,maxLength]}  placeholder={'email'} name={'email'} component={FormControls}/>
                 </div>
                 <div>
-                    <Field validate={[required]} placeholder={'password'} name={'password'} component={FormControls}/>
+                    <Field validate={[required]} placeholder={'password'} name={'password'}  type={'password'} component={FormControls}/>
                 </div>
                 <div>
                     <Field type={'checkbox'}  name={'rememberMe'} component={'input'}/>remember Me
                 </div>
+                {
+                    props.error &&
+                        <div  className={style.error}>{props.error}</div>
+
+                }
 
                 <button>Send</button>
             </form>
