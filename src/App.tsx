@@ -15,63 +15,56 @@ import withAuthRedirect from "./Components/Hoc/WithAuthRedirect";
 import s from "./Components/Header/Header.module.css";
 
 
-
-
-
 type PropsType = {
-    state:StoreType
+    state: StoreType
 }
-
-
 
 
 export type DialogDataType = {
-    data:DialogTypeApp[]
-    message:MessageTypeApp[]
-    profilePage:ProfilePageType
-    sideBar:SideData[]
+    data: DialogTypeApp[]
+    message: MessageTypeApp[]
+    profilePage: ProfilePageType
+    sideBar: SideData[]
 
 }
 
- export type DialogTypeApp = {
-    id:number,
-    name:string
+export type DialogTypeApp = {
+    id: number,
+    name: string
 }
 
 export type SideData = {
-    id:number,
-    name:string
+    id: number,
+    name: string
 }
-
 
 
 export type MessageTypeApp = {
-    id:number,
-    message:string
+    id: number,
+    message: string
 }
 
 type ProfilePageType = {
-    post:PostData[];
-    newPostText:string
+    post: PostData[];
+    newPostText: string
 
 }
 export type PostData = {
-    id:number,
-    message:string,
-    likeCount:number
+    id: number,
+    message: string,
+    likeCount: number
 }
-
 
 
 class App extends React.Component<AppType> {
 
 
-componentDidMount() {
-  this.props.authApp()
-}
+    componentDidMount() {
+        this.props.authApp()
+    }
 
 
-    render () {
+    render() {
 
 
         if (!this.props.isAutch) {
@@ -84,55 +77,54 @@ componentDidMount() {
         }
 
 
-    return (
+        return (
 
-<div className='app-wrapper'>
-<HeaderContainer/>
-<Navbar/>
+            <div className='app-wrapper'>
+                <HeaderContainer/>
+                <Navbar/>
 
-<Route path={'/dialogs'} render={()=><DialogsContainer/>}/>
-<Route path={`/profile/:userId?`} render={()=><ProfileContainer/>}/>
-<Route path={'/login'} render={()=><LoginContainer/>}/>
-<Route path={'/user'} render={()=><UserContainer/>}/>
+                <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
+                <Route path={`/profile/:userId?`} render={() => <ProfileContainer/>}/>
+                <Route path={'/login'} render={() => <LoginContainer/>}/>
+                <Route path={'/user'} render={() => <UserContainer/>}/>
 
 
+                {/*<Route path={'/sidebar'} render={()=><SideBar />}/>*/}
+            </div>
 
-{/*<Route path={'/sidebar'} render={()=><SideBar />}/>*/}
-</div>
-
-);
-}
+        );
+    }
 
 
 }
 
 type mapStateToPropsType = {
-    isAutch:boolean
+    isAutch: boolean
 }
 
-const mapStateToProps =(state: StoreType):mapStateToPropsType => {
+const mapStateToProps = (state: StoreType): mapStateToPropsType => {
     return {
-        isAutch:state.authReducer.loading
+        isAutch: state.authReducer.loading
     }
 }
 
-type mapDispatchToPropsType ={
-   authApp:() =>void
+type mapDispatchToPropsType = {
+    authApp: () => void
 }
 
 
-const mapDispatchToProps = (dispatch:AppDispatchType) :mapDispatchToPropsType => {
+const mapDispatchToProps = (dispatch: AppDispatchType): mapDispatchToPropsType => {
 
-  return {
-      authApp:()=> {
-          dispatch(ThunkAuth())
-      },
-  }
+    return {
+        authApp: () => {
+            dispatch(ThunkAuth())
+        },
+    }
 }
 
 type AppType = mapDispatchToPropsType & mapStateToPropsType
 
-export const  AppContainer  = connect(mapStateToProps,mapDispatchToProps)(App)
+export const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App)
 
 
 

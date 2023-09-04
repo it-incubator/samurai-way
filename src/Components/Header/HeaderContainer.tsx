@@ -9,8 +9,6 @@ import {ThunkLogout} from "../../Redux/authReducer";
 export class HeaderWrapper extends React.Component<MyAuthType> {
 
 
-    componentDidMount() {
-    }
 
 
     render() {

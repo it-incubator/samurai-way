@@ -10,10 +10,10 @@ import {MyPostType} from "./MyPostContainer";
 
 
 
-export  const MyPost = (props:MyPostType) => {
+export  const MyPost = React.memo( (props:MyPostType) => {
 
 
-
+console.log('render')
 
     const AddPost = ()=> {
             props.addPost(props.pageReducer.newPostText)
@@ -34,7 +34,7 @@ const onChangeHandler = (e:ChangeEvent<HTMLInputElement>)=> {
          <div className={s.style}>{
              props.pageReducer.post.map((p)=>{
                  return (
-                     <li>
+                     <li key={p.id}>
                          {p.message}{p.likeCount}
                      </li>
                  )
@@ -46,5 +46,5 @@ const onChangeHandler = (e:ChangeEvent<HTMLInputElement>)=> {
 
         </div>
     );
-};
+});
 
