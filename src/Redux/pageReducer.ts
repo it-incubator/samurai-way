@@ -118,25 +118,25 @@ export  const ProfileStatusAC = (status:string)=> {
 
 }
 
-export const ThunkGetUser =(userId:string) => (dispatch:Dispatch) => {
-    profileAPI.getUser(userId).then((res) => {dispatch(ProfileInfoAppDateAC(res.data))})
+export const ThunkGetUser =(userId:string) => async (dispatch:Dispatch) => {
+    const response = await profileAPI.getUser(userId)
+    dispatch(ProfileInfoAppDateAC(response.data))
 
 }
 
-export const ThunkGetStatus =(userId:string)=> (dispatch:Dispatch)=> {
-    profileAPI.getStatus(userId).then((res)=>{
-        dispatch(ProfileStatusAC(res.data))
-    })
+export const ThunkGetStatus =(userId:string)=> async (dispatch:Dispatch)=> {
+    const response = await profileAPI.getStatus(userId)
+        dispatch(ProfileStatusAC(response.data))
+
 }
 
-export const ThunkChangStatus =(status:string)=> (dispatch:Dispatch)=> {
-    profileAPI.updateStatus(status).then((res)=>{
+export const ThunkChangStatus =(status:string)=>async (dispatch:Dispatch)=> {
+    const response = await profileAPI.updateStatus(status)
 
-        if (res.data.resultCode===0){
+        if (response.data.resultCode===0){
             dispatch(ProfileStatusAC(status))
         }
 
-    })
 }
 
 

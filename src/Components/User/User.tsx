@@ -5,6 +5,7 @@ import {ItemsType} from "../../API/User-api";
 import {Preloader} from "../Preloader/Preloader";
 import {NavLink} from "react-router-dom";
 import {DisableType} from "../../Redux/userReducer";
+import {Paginator} from "./Paginator";
 
 
 
@@ -65,11 +66,11 @@ const User: React.FC<UserType> = ({
                 <div className={s.style}>
                     <div>
 
-                        {pages.map((p) => <span onClick={(e) => changePage(p)}
-
-                                                className={currentPage === p ? s.current_Page : ''}>{p}</span>)
-
-                        }
+                       <Paginator totalUsersCounter={totalUsersCounter}
+                                  currentPage={currentPage}
+                                  pageSize={pageSize}
+                                  changePage={changePage}
+                       />
 
                     </div>
                     {isFetching

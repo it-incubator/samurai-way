@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {Navbar} from "./Components/Navbar/Navbar";
-import {NavLink, Redirect, Route} from "react-router-dom";
+import { Route} from "react-router-dom";
 import {AppDispatchType, StoreType} from "./Redux/redux-store";
 import {HeaderContainer} from "./Components/Header/HeaderContainer";
 import UserContainer from "./Components/User/UserContainer";
@@ -11,8 +11,7 @@ import {ThunkAuth} from "./Redux/authReducer";
 import {connect} from "react-redux";
 import CircularProgress from "@mui/material/CircularProgress";
 import DialogsContainer from "./Components/Dialog/DialogsContainer";
-import withAuthRedirect from "./Components/Hoc/WithAuthRedirect";
-import s from "./Components/Header/Header.module.css";
+
 
 
 type PropsType = {

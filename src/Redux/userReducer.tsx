@@ -177,56 +177,56 @@ export  const  DisabledAC = ( disabled: DisableType)=> {
 }
 
 
-export const ThunkUser =(currentPage:number,pageSize:number) => (dispatch: Dispatch)=> {
+export const ThunkUser =(currentPage:number,pageSize:number) =>async (dispatch: Dispatch)=> {
 
     dispatch(ToglleIsFetchingAC(true))
-    userAPI.getUser(currentPage, pageSize)
-        .then((res) => {
+    const response = await userAPI.getUser(currentPage, pageSize)
+
             dispatch(ToglleIsFetchingAC(false))
-            dispatch(TotalUserCounterAC(res.data.totalCount))
-            dispatch(ADDUsersAC(res.data.items));
+            dispatch(TotalUserCounterAC(response.data.totalCount))
+            dispatch(ADDUsersAC(response.data.items));
 
 
-        })
+
 
 }
 
-export const ThunkChangePage =(p:number,pageSize:number) => (dispatch:Dispatch)=> {
+export const ThunkChangePage =(p:number,pageSize:number) => async (dispatch:Dispatch)=> {
 
 
     dispatch(ToglleIsFetchingAC(true))
     dispatch(CurrentPageAC(p))
 
-    userAPI.getChangePageUser(p, pageSize)
-        .then((res) => {
+    const response = await userAPI.getChangePageUser(p, pageSize)
+
             dispatch(ToglleIsFetchingAC(false))
-            dispatch(ADDUsersAC(res.data.items));
+            dispatch(ADDUsersAC(response.data.items));
             console.log( p)
 
 
-        })
+
 }
 
-export const ThunkFollow = (userId:number) => (dispatch:Dispatch)=>{
+export const ThunkFollow = (userId:number) => async (dispatch:Dispatch)=>{
     dispatch(DisabledAC({id:userId,disableButton:true}))
-    userAPI.Follow(userId)
+    const response = await  userAPI.Follow(userId)
 
-        .then((res) => {
+
            dispatch(FollowAC(userId))
             dispatch(DisabledAC({id:userId,disableButton:false}))
 
-        })
+
 }
 
-export const ThunkUNFollow = (userId:number) => (dispatch:Dispatch)=>{
+export const ThunkUNFollow = (userId:number) => async (dispatch:Dispatch)=>{
     dispatch(DisabledAC({id:userId,disableButton:true}))
-    userAPI.UNFollow(userId)
+    const response = await userAPI.UNFollow(userId)
 
-        .then((res) => {
+
             dispatch(UNFollowAC(userId))
             dispatch(DisabledAC({id:userId,disableButton:false}))
 
-        })
+
 }
 
 

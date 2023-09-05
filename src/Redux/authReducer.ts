@@ -4,8 +4,6 @@ import {FormDataType} from "../Components/Login/Login";
 import {stopSubmit} from "redux-form";
 
 
-
-
 const AuthInitializationState: AuthInitializationStateType = {
     data: {
         id: '1',
@@ -14,26 +12,26 @@ const AuthInitializationState: AuthInitializationStateType = {
     },
     resultCode: 0,
     messages: [],
-    isAuth:false,
-    loading:false
+    isAuth: false,
+    loading: false
 
 }
 
 
-export const authReducer = (state = AuthInitializationState, action: setLoginType|SET_AuthACType|LoadingType) => {
+export const authReducer = (state = AuthInitializationState, action: setLoginType | SET_AuthACType | LoadingType) => {
 
     switch (action.type) {
         case "AUTH": {
-            return {...state,isAuth:action.payload.isAuth}
+            return {...state, isAuth: action.payload.isAuth}
         }
 
         case "SET-AUTH":
             return {
-                ...state,data:action.payload.data
+                ...state, data: action.payload.data
             }
         case 'LOADING':
             return {
-                ...state,loading:action.payload.loading
+                ...state, loading: action.payload.loading
             }
 
         default :
@@ -45,12 +43,12 @@ export const authReducer = (state = AuthInitializationState, action: setLoginTyp
 export  type  setLoginType = ReturnType<typeof setLoginAC>
 
 
-export const setLoginAC = (isAuth:boolean) => {
+export const setLoginAC = (isAuth: boolean) => {
 
     return {
         type: 'AUTH',
         payload: {
-           isAuth
+            isAuth
 
         }
     } as const
@@ -60,7 +58,7 @@ export const setLoginAC = (isAuth:boolean) => {
 export  type  SET_AuthACType = ReturnType<typeof SET_AuthAC>
 
 
-export const SET_AuthAC = ( data: AuthDataType) => {
+export const SET_AuthAC = (data: AuthDataType) => {
 
     return {
         type: 'SET-AUTH',
@@ -75,7 +73,7 @@ export const SET_AuthAC = ( data: AuthDataType) => {
 
 export  type  LoadingType = ReturnType<typeof LoadinAC>
 
-export const LoadinAC = ( loading:boolean) => {
+export const LoadinAC = (loading: boolean) => {
 
     return {
         type: 'LOADING',
@@ -88,65 +86,50 @@ export const LoadinAC = ( loading:boolean) => {
 
 }
 
-export const ThunkAuth = () => (dispatch:Dispatch)=> {
-    AuthAPI.getUser()
+export const ThunkAuth = () => async (dispatch: Dispatch) => {
+    const response = await AuthAPI.getUser()
 
-        .then((res) => {
-            if (res.data.resultCode===0){
-                dispatch(SET_AuthAC(res.data.data));
-                dispatch(setLoginAC(true))
-                dispatch(LoadinAC(true))
-            }
-            else {
-                dispatch(setLoginAC(false))
-                dispatch(LoadinAC(true))
-            }
 
-        })
-        .catch((error)=>{
-            'not auturized'
-        })
+    if (response.data.resultCode === 0) {
+        dispatch(SET_AuthAC(response.data.data));
+        dispatch(setLoginAC(true))
+        dispatch(LoadinAC(true))
+    } else {
+        dispatch(setLoginAC(false))
+        dispatch(LoadinAC(true))
+    }
+
 
 }
 
-export const ThunkLogin =(formData:FormDataType)=> (dispatch:Dispatch)=> {
+export const ThunkLogin = (formData: FormDataType) => async (dispatch: Dispatch) => {
 
 
+    const response = await AuthAPI.createLogin(formData)
 
 
-    AuthAPI.createLogin(formData)
-        .then((res) => {
+    if (response.data.resultCode === 0) {
+        dispatch(setLoginAC(true))
 
-            if (res.data.resultCode===0)
+        ThunkAuth()
 
-            {dispatch(setLoginAC(true))
-
-                ThunkAuth()
-
-            }
-            else {
+    } else {
 
 
-                dispatch( stopSubmit('login', {_error:res.data.messages}))
-            }
+        dispatch(stopSubmit('login', {_error: response.data.messages}))
+    }
 
-        })
-        .catch((error)=>{
-            console.log(error)
-        })
+
 }
 
-export const ThunkLogout=()=> (dispatch:Dispatch)=> {
-    AuthAPI.logout().then((res) => {
-        if (res.data.resultCode === 0) {
-            dispatch(setLoginAC(false))
-        } else {
-            console.log('Error')
-        }
+export const ThunkLogout = () => async (dispatch: Dispatch) => {
+    const response = await AuthAPI.logout()
+    if (response.data.resultCode === 0) {
+        dispatch(setLoginAC(false))
+    } else {
+        console.log('Error')
 
-    })
-        .catch((error) => {
-            console.log(error)
-        })
+
+    }
 
 }
