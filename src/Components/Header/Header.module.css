@@ -1,7 +1,7 @@
 .header {
     grid-area: h;
     background-color: #99fff7;
-    width: 100%;
+
 
 
     padding: 10px;
@@ -21,7 +21,7 @@
     font-style: italic;
     letter-spacing: 10px;
     color: saddlebrown;
-    margin-left: 25em;
+    margin-left: 18em;
 }
 
 .item {

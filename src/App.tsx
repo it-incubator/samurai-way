@@ -1,7 +1,7 @@
 import React, {lazy} from 'react';
 import './App.css';
 import {Navbar} from "./Components/Navbar/Navbar";
-import { Route} from "react-router-dom";
+import {Route} from "react-router-dom";
 import {AppDispatchType, StoreType} from "./Redux/redux-store";
 import {HeaderContainer} from "./Components/Header/HeaderContainer";
 import UserContainer from "./Components/User/UserContainer";
@@ -14,11 +14,8 @@ import {Preloader} from "./Components/Preloader/Preloader";
 // import DialogsContainer from "./Components/Dialog/DialogsContainer";
 
 
-
-
-
-const DialogsContainer= lazy(() => import('./Components/Dialog/DialogsContainer'));
-const ProfileContainer= lazy(() => import('./Components/Profile/ProfileContainer'));
+const DialogsContainer = lazy(() => import('./Components/Dialog/DialogsContainer'));
+const ProfileContainer = lazy(() => import('./Components/Profile/ProfileContainer'));
 
 
 export type DialogDataType = {
@@ -83,19 +80,20 @@ class App extends React.Component<AppType> {
             <div className='app-wrapper'>
                 <HeaderContainer/>
                 <Navbar/>
-
-                <Route path={'/dialogs'} render={() =>
-                     <React.Suspense fallback={<Preloader />}>
-                    <DialogsContainer/>
-                    </React.Suspense>
+                <div className='app-wrapper-content'>
+                    <Route path={'/dialogs'} render={() =>
+                        <React.Suspense fallback={<Preloader/>}>
+                            <DialogsContainer/>
+                        </React.Suspense>
                     }/>
-                <Route path={`/profile/:userId?`} render={() =>
-                    <React.Suspense fallback={<Preloader />}>
-                        <ProfileContainer/>
-                    </React.Suspense>
+                    <Route path={`/profile/:userId?`} render={() =>
+                        <React.Suspense fallback={<Preloader/>}>
+                            <ProfileContainer/>
+                        </React.Suspense>
                     }/>
-                <Route path={'/login'} render={() => <LoginContainer/>}/>
-                <Route path={'/user'} render={() => <UserContainer/>}/>
+                    <Route path={'/login'} render={() => <LoginContainer/>}/>
+                    <Route path={'/user'} render={() => <UserContainer/>}/>
+                </div>
 
 
                 {/*<Route path={'/sidebar'} render={()=><SideBar />}/>*/}

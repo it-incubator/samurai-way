@@ -24,7 +24,15 @@ export const profileAPI = {
         const promise = instance.put<StatusType>(
             `/profile/status`,{status})
         return promise
+    },
+    updatePhoto(photo: FormData){
+        const promise = instance.put<PhotoType>(
+            `/profile/photo`, photo,{ headers: {
+                'Content-Type':'multipart/form-data'
+        }})
+        return promise
     }
+
 }
 
 
@@ -52,4 +60,18 @@ type StatusType = {
     messages: string
     data: {}
 }
+
+type PhotoType = {
+    resultCode: number
+    messages: string
+    photos: {
+        small:string,
+        large:string
+    }
+}
+
+
+
+
+
 

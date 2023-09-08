@@ -37,22 +37,6 @@ export const userAPI = {
         return promise
     },
 
-
-    deleteTask(todolistId: string, taskId: string) {
-        const promise = instance.delete(
-            `/users`,
-        )
-        return promise
-    },
-    updateTask(todolistId: string, taskId: string, title: string) {
-        const promise = instance.put(
-            `/users`,
-            {title: title},
-        )
-        return promise
-    },
-
-
 }
 
 

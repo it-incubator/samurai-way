@@ -2,7 +2,7 @@ import React from 'react';
 import {Profile} from "./ProfileInfo/Profile";
 import {ProfileType} from "../../API/Profile-api";
 import {connect} from "react-redux";
-import {ThunkChangStatus, ThunkGetStatus, ThunkGetUser} from "../../Redux/pageReducer";
+import {ThunkChangStatus, ThunkGetStatus, ThunkGetUser, ThunkSavePhoto} from "../../Redux/pageReducer";
 import {AppDispatchType, StoreType} from "../../Redux/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import withAuthRedirect from "../Hoc/WithAuthRedirect";
@@ -17,7 +17,7 @@ class ProfileContainer extends React.Component<WithRouterType> {
 
 
         if (!userId) {
-           userId=this.props.authorizedUserID
+            userId = this.props.authorizedUserID
         }
 
         this.props.setProfileInfo(userId)
@@ -36,11 +36,18 @@ class ProfileContainer extends React.Component<WithRouterType> {
             this.props.changeStatus(status)
         }
 
+        const SavePhoto =(photo: FormData)=> {
+            this.props.savePhoto(photo)
+        }
 
         return (
             <div>
-                <Profile profileInfo={this.props.profileInfo} status={this.props.status}
-                         changeStatusCallback={ChangeStatus}/>
+                <Profile profileInfo={this.props.profileInfo}
+                         status={this.props.status}
+                         changeStatusCallback={ChangeStatus}
+                         isOwners={!this.props.match.params.userId}
+                         savePhoto={SavePhoto}
+                />
 
             </div>
 
@@ -56,6 +63,7 @@ type mapDispatchToPropsType = {
     setProfileInfo: (userId: string) => void
     setStatus: (userId: string) => void
     changeStatus: (status: string) => void
+    savePhoto:(photo: FormData)=>void
 }
 
 const mapDispatchToProps = (dispatch: AppDispatchType): mapDispatchToPropsType => {
@@ -68,6 +76,9 @@ const mapDispatchToProps = (dispatch: AppDispatchType): mapDispatchToPropsType =
         },
         changeStatus: (status: string) => {
             dispatch(ThunkChangStatus(status))
+        },
+        savePhoto:(photo: FormData)=> {
+            dispatch(ThunkSavePhoto(photo))
         }
 
     }
@@ -77,7 +88,8 @@ const mapDispatchToProps = (dispatch: AppDispatchType): mapDispatchToPropsType =
 type mapStateToPropsType = {
     profileInfo: ProfileType
     status: string
-    authorizedUserID:string
+    authorizedUserID: string
+
 
 }
 
@@ -85,7 +97,7 @@ const mapStateToProps = (state: StoreType): mapStateToPropsType => {
     return {
         profileInfo: state.pageReducer.profileInfo,
         status: state.pageReducer.status,
-        authorizedUserID:state.authReducer.data.id
+        authorizedUserID: state.authReducer.data.id
 
 
     }

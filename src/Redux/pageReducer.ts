@@ -57,21 +57,23 @@ export  const pageReducer= (state=InitializationState,action:AllAction):Initiali
            }
 
         case 'UpdateText':
-
         return {...state,newPostText:action.newText}
 
         case 'UPDATE_PROFILE':
-
             return {...state,profileInfo:action.data}
+
         case 'SET_STATUS' :{
             return {...state,status:action.status}
+        }
+        case 'UPDATE_PHOTO' :{
+            return {...state,profileInfo:{...state.profileInfo,photos:{...state.profileInfo.photos,small:action.photo}}}
         }
 
         default :return state
     }
 }
 
-export type AllAction = AddPost|UpdateText|ProfileInfoAppDate|ProfileStatusType
+export type AllAction = AddPost|UpdateText|ProfileInfoAppDate|ProfileStatusType|ProfilePhotoType
 
 export type AddPost = ReturnType<typeof AddPostActionCreator>
 
@@ -118,6 +120,16 @@ export  const ProfileStatusAC = (status:string)=> {
 
 }
 
+
+export  type ProfilePhotoType =ReturnType<typeof ProfilePhotoAC>
+export const ProfilePhotoAC = (photo: string)=> {
+    return {
+        type:'UPDATE_PHOTO',
+        photo
+
+    } as const
+}
+
 export const ThunkGetUser =(userId:string) => async (dispatch:Dispatch) => {
     const response = await profileAPI.getUser(userId)
     dispatch(ProfileInfoAppDateAC(response.data))
@@ -136,6 +148,16 @@ export const ThunkChangStatus =(status:string)=>async (dispatch:Dispatch)=> {
         if (response.data.resultCode===0){
             dispatch(ProfileStatusAC(status))
         }
+
+}
+
+export const ThunkSavePhoto = (photo: FormData)=>async (dispatch:Dispatch)=> {
+    const response = await profileAPI.updatePhoto(photo)
+
+
+    if (response.data.resultCode===0){
+        dispatch(ProfilePhotoAC(response.data.photos.small))
+    }
 
 }
 
