@@ -25,6 +25,11 @@ export const AuthAPI = {
     },
     logout() {
         return instance.delete<AuthInitializationStateType>(`/auth/login`)
+    },
+    getCaptcha(){
+        const promise = instance.get(
+            `/security/get-captcha-url`)
+        return promise
     }
 }
 
@@ -35,6 +40,7 @@ export type AuthInitializationStateType = {
     messages: Array<string>
     isAuth: boolean
     loading: boolean
+    captchaUrl:string|null
 
 }
 

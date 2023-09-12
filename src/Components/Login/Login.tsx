@@ -7,34 +7,42 @@ import FormControls from "../FormControls/FormControls";
 import style from "../FormControls/FormControls.module.css";
 
 
-
-
-
 export type FormDataType ={
     email:string
     password:string
     rememberMe:string
+    captcha:string
 }
 
 type LoginType ={
     Authme:(formData:FormDataType)=>void
     isAuth:boolean
+
 }
 
-export const Login:React.FC<LoginType> = ({Authme,isAuth,...props}) => {
+type CaptchaType = {
+    captchaUrl:string|null
+}
+
+type LoginFormType = CaptchaType & LoginType
+
+
+
+export const Login:React.FC<LoginFormType> = ({Authme,isAuth,captchaUrl,...props}) => {
 
 const onSubmit=(formData:FormDataType)=> {
 
     Authme(formData)
-
-
 }
 
+
+
 if(isAuth){return <Redirect to={'./profile'}/>}
+
     return (
         <div className={s.style}>
            <h1>Login</h1>
-            <LoginReduxForm onSubmit={onSubmit}/>
+            <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl}  />
         </div>
     );
 };
@@ -43,10 +51,9 @@ if(isAuth){return <Redirect to={'./profile'}/>}
 
 const maxLength = maxLengthCreator(20)
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props)=> {
 
 
-
+const LoginForm: React.FC<InjectedFormProps<FormDataType,CaptchaType> & CaptchaType > = ({captchaUrl,...props})=> {
 
 
     return (
@@ -61,6 +68,17 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props)=> {
                 <div>
                     <Field type={'checkbox'}  name={'rememberMe'} component={'input'}/>remember Me
                 </div>
+                {captchaUrl &&
+                    <div>
+                        <img src={captchaUrl}/>
+                        <div>
+                            <Field validate={[required]}  name={'captcha'} component={'input'}/>captcha
+                        </div>
+
+                    </div>
+
+                }
+
                 {
                     props.error &&
                         <div  className={style.error}>{props.error}</div>
@@ -75,5 +93,5 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props)=> {
     )
 }
 
-const LoginReduxForm = reduxForm<FormDataType>({form:'login'})(LoginForm)
+const LoginReduxForm = reduxForm<FormDataType,CaptchaType>({form:'login'})(LoginForm)
 

@@ -15,12 +15,13 @@ const AuthInitializationState: AuthInitializationStateType = {
     resultCode: 0,
     messages: [],
     isAuth: false,
-    loading: false
+    loading: false,
+    captchaUrl:''
 
 }
 
 
-export const authReducer = (state = AuthInitializationState, action: setLoginType | SET_AuthACType | LoadingType) => {
+export const authReducer = (state = AuthInitializationState, action: setLoginType | SET_AuthACType | LoadingType|CaptchaType) => {
 
     switch (action.type) {
         case "AUTH": {
@@ -35,6 +36,11 @@ export const authReducer = (state = AuthInitializationState, action: setLoginTyp
             return {
                 ...state, loading: action.payload.loading
             }
+        case 'GET-CAPTCHA':
+            return {
+                ...state, captchaUrl:action.payload.url
+            }
+
 
         default :
             return state
@@ -88,6 +94,20 @@ export const LoadinAC = (loading: boolean) => {
 
 }
 
+export  type  CaptchaType = ReturnType<typeof CaptchaAC>
+
+export const CaptchaAC = (url: string|null) => {
+
+    return {
+        type: 'GET-CAPTCHA',
+        payload: {
+            url
+
+        }
+    } as const
+
+}
+
 export const ThunkAuth = () => async (dispatch: Dispatch) => {
     const response = await AuthAPI.getUser()
 
@@ -104,7 +124,7 @@ export const ThunkAuth = () => async (dispatch: Dispatch) => {
 
 }
 
-export const ThunkLogin = (formData: FormDataType):ThunkAction<void, StoreType, unknown, AnyAction> => async (dispatch) => {
+export const ThunkLogin = (formData: FormDataType): ThunkAction<void, StoreType, unknown, AnyAction> => async (dispatch) => {
 
 
     const response = await AuthAPI.createLogin(formData)
@@ -113,11 +133,12 @@ export const ThunkLogin = (formData: FormDataType):ThunkAction<void, StoreType, 
     if (response.data.resultCode === 0) {
         dispatch(setLoginAC(true))
 
-       dispatch(ThunkAuth())
+        dispatch(ThunkAuth())
 
     } else {
-
-
+        if (response.data.resultCode === 10){
+            dispatch(getCaptcha())
+        }
         dispatch(stopSubmit('login', {_error: response.data.messages}))
     }
 
@@ -128,10 +149,18 @@ export const ThunkLogout = () => async (dispatch: Dispatch) => {
     const response = await AuthAPI.logout()
     if (response.data.resultCode === 0) {
         dispatch(setLoginAC(false))
+        dispatch(CaptchaAC(null))
     } else {
         console.log('Error')
-
-
     }
 
 }
+
+export const getCaptcha = () => async (dispatch: Dispatch) => {
+
+    const response = await AuthAPI.getCaptcha()
+
+    dispatch(CaptchaAC(response.data.url))
+
+}
+

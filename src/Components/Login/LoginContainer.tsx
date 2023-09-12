@@ -1,8 +1,8 @@
 import React from 'react';
-import { AuthInitializationStateType} from "../../API/Auth-api";
+import {AuthInitializationStateType} from "../../API/Auth-api";
 import {FormDataType, Login} from "./Login";
 import {AppDispatchType, StoreType} from "../../Redux/redux-store";
-import { ThunkAuth, ThunkLogin} from "../../Redux/authReducer";
+import {ThunkAuth, ThunkLogin} from "../../Redux/authReducer";
 import {connect} from "react-redux";
 
 
@@ -11,7 +11,7 @@ export class LoginWrapper extends React.Component<MyAuthType> {
 
     componentDidMount() {
 
-            this.props.setAuth()
+        this.props.setAuth()
 
 
     }
@@ -19,7 +19,7 @@ export class LoginWrapper extends React.Component<MyAuthType> {
 
     render() {
 
-        const Autme = (formData:FormDataType) => {
+        const Autme = (formData: FormDataType) => {
             this.props.addAuth(formData)
         }
 
@@ -27,7 +27,9 @@ export class LoginWrapper extends React.Component<MyAuthType> {
         return (
 
 
-            <Login Authme={Autme} isAuth={this.props.authReducer.isAuth}/>
+            <Login Authme={Autme} isAuth={this.props.authReducer.isAuth}
+                   captchaUrl={this.props.captchaUrl}
+            />
 
 
         );
@@ -37,31 +39,30 @@ export class LoginWrapper extends React.Component<MyAuthType> {
 
 type mapStateToPropsType = {
     authReducer: AuthInitializationStateType
-
+    captchaUrl: string|null
 }
 
 const mapStateToProps = (state: StoreType) => {
 
     return {
 
-        authReducer: state.authReducer
-
-
+        authReducer: state.authReducer,
+        captchaUrl: state.authReducer.captchaUrl
     }
 }
 
 type mapDispatchToPropsType = {
-    addAuth: (formData:FormDataType) => void
+    addAuth: (formData: FormDataType) => void
     setAuth: () => void
 }
 
 export type MyAuthType = mapDispatchToPropsType & mapStateToPropsType
 
-const mapDispatchToProps = (dispatch:AppDispatchType): mapDispatchToPropsType => {
+const mapDispatchToProps = (dispatch: AppDispatchType): mapDispatchToPropsType => {
 
     return {
 
-        addAuth: (formData:FormDataType) => {
+        addAuth: (formData: FormDataType) => {
             dispatch(ThunkLogin(formData))
         },
         setAuth: () => {

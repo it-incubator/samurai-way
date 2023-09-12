@@ -204,16 +204,12 @@ export const ThunkSaveProfile = (formData: FormDataProfileType): ThunkAction<voi
         dispatch(ThunkGetUser(userId))
         dispatch(EditModeAC(false))
 
-
     } else {
-
-
         dispatch(stopSubmit('profile', {_error:response.data.messages[0]}))
 
     }
 
 }
-
 
 
 
