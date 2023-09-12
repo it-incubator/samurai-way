@@ -25,7 +25,7 @@ export const ProfileStatus:React.FC<ProfileStatusType> = ({status,changeStatusCa
         <div className={s.style}>
             {editMode
                 ?  <input onBlur={changeEditMode} value={status} onChange={changeStatus} autoFocus/>
-                : <span onDoubleClick={changeEditMode}>{status || 'No Status'}</span>}
+                : <span onDoubleClick={changeEditMode}><span className={s.boldText}>Status:</span>{status || 'No Status'}</span>}
 
 
         </div>

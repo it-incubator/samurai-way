@@ -1,7 +1,9 @@
 import {AuthAPI, AuthDataType, AuthInitializationStateType} from "../API/Auth-api";
-import {Dispatch} from "redux";
+import {AnyAction, Dispatch} from "redux";
 import {FormDataType} from "../Components/Login/Login";
 import {stopSubmit} from "redux-form";
+import {ThunkAction} from "redux-thunk";
+import {StoreType} from "./redux-store";
 
 
 const AuthInitializationState: AuthInitializationStateType = {
@@ -102,7 +104,7 @@ export const ThunkAuth = () => async (dispatch: Dispatch) => {
 
 }
 
-export const ThunkLogin = (formData: FormDataType) => async (dispatch: Dispatch) => {
+export const ThunkLogin = (formData: FormDataType):ThunkAction<void, StoreType, unknown, AnyAction> => async (dispatch) => {
 
 
     const response = await AuthAPI.createLogin(formData)
@@ -111,7 +113,7 @@ export const ThunkLogin = (formData: FormDataType) => async (dispatch: Dispatch)
     if (response.data.resultCode === 0) {
         dispatch(setLoginAC(true))
 
-        ThunkAuth()
+       dispatch(ThunkAuth())
 
     } else {
 

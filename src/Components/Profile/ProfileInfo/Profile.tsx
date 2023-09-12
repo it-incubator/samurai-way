@@ -5,6 +5,7 @@ import {ProfileInfo} from "./ProfileInfo";
 import {MyPostContainer} from "../MyPost/MyPostContainer";
 import {ProfileType} from "../../../API/Profile-api";
 import {ProfileStatus} from "./ProfileStatus.";
+import {FormDataProfileType} from "./PrifileData/FormData";
 
 
 type ProfileTypeProfile = {
@@ -13,6 +14,9 @@ type ProfileTypeProfile = {
     changeStatusCallback: (e: string) => void
     isOwners: boolean
     savePhoto:(photo: FormData)=>void
+    saveProfile:(formData:FormDataProfileType)=>void
+    editMode:boolean
+    changeEditMode:()=>void
 }
 
 
@@ -21,19 +25,29 @@ export const Profile: React.FC<ProfileTypeProfile> = ({
                                                           status,
                                                           changeStatusCallback,
                                                           isOwners,
-                                                          savePhoto,...props
+                                                          savePhoto,
+                                                          saveProfile,
+                                                          editMode,
+                                                          changeEditMode,...props
                                                       }) => {
 
     const changeStatus = (e: string) => {
         changeStatusCallback(e)
     }
+
+
+
     return (
         <div className={s.content}>
             <div className={s.style}>
                 <img className={s.city_img} src={city}/>
 
             </div>
-            <ProfileInfo profileInfo={profileInfo} isOwners={isOwners} savePhoto={savePhoto}/>
+            <ProfileInfo profileInfo={profileInfo} isOwners={isOwners}
+                         savePhoto={savePhoto} contact={profileInfo.contacts}
+                         saveProfile={saveProfile} EditMode={editMode}
+                         changeEditMode={changeEditMode}
+            />
             <ProfileStatus status={status} changeStatusCallback={changeStatus}/>
             <MyPostContainer/>
 

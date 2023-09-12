@@ -26,3 +26,7 @@
     object-fit: cover;
     border-radius: 50px;
 }
+
+.boldText {
+    font-weight: bold;
+}

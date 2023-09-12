@@ -1,4 +1,5 @@
 import axios from "axios";
+import {FormDataProfileType} from "../Components/Profile/ProfileInfo/PrifileData/FormData";
 
 
 const instance = axios.create(
@@ -10,26 +11,33 @@ const instance = axios.create(
 
 export const profileAPI = {
 
-    getUser(userId:string) {
+    getUser(userId: string) {
         const promise = instance.get<ProfileType>(
             `/profile/${userId}`)
         return promise
     },
-    getStatus(userId:string) {
+    getStatus(userId: string) {
         const promise = instance.get<string>(
             `/profile/status/${userId}`)
         return promise
     },
-    updateStatus(status:string){
+    updateStatus(status: string) {
         const promise = instance.put<StatusType>(
-            `/profile/status`,{status})
+            `/profile/status`, {status})
         return promise
     },
-    updatePhoto(photo: FormData){
+    updatePhoto(photo: FormData) {
         const promise = instance.put<PhotoType>(
-            `/profile/photo`, photo,{ headers: {
-                'Content-Type':'multipart/form-data'
-        }})
+            `/profile/photo`, photo, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+        return promise
+    },
+    updateProfile(formData:FormDataProfileType) {
+        const promise = instance.put<StatusType>(
+            `/profile/`, formData)
         return promise
     }
 
@@ -41,33 +49,37 @@ export type ProfileType = {
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
-    contacts: object
-    github: string
-    vk: string
-    facebook: string
-    instagram: string
-    twitter: string
-    website: string
-    youtube: string
-    mainLink: string
-    photos: {small:string,large: string}
-    small: string
+    contacts: {
+        github: string
+        vk: string
+        facebook: string
+        instagram: string
+        twitter: string
+        website: string
+        youtube: string
+        mainLink: string
+    }
+    photos:
+        photoType
+
 
 }
 
 type StatusType = {
     resultCode: number
-    messages: string
+    messages: string[]
     data: {}
 }
 
 type PhotoType = {
     resultCode: number
-    messages: string
-    photos: {
-        small:string,
-        large:string
-    }
+    messages: string[]
+    photos: photoType
+}
+
+export type photoType = {
+    small: string,
+    large: string
 }
 
 
