@@ -1,7 +1,7 @@
 import React, {lazy} from 'react';
 import './App.css';
 import {Navbar} from "./Components/Navbar/Navbar";
-import {Route} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import {AppDispatchType, StoreType} from "./Redux/redux-store";
 import {HeaderContainer} from "./Components/Header/HeaderContainer";
 import UserContainer from "./Components/User/UserContainer";
@@ -81,18 +81,25 @@ class App extends React.Component<AppType> {
                 <HeaderContainer/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Route path={'/dialogs'} render={() =>
-                        <React.Suspense fallback={<Preloader/>}>
-                            <DialogsContainer/>
-                        </React.Suspense>
-                    }/>
-                    <Route path={`/profile/:userId?`} render={() =>
-                        <React.Suspense fallback={<Preloader/>}>
-                            <ProfileContainer/>
-                        </React.Suspense>
-                    }/>
-                    <Route path={'/login'} render={() => <LoginContainer/>}/>
-                    <Route path={'/user'} render={() => <UserContainer/>}/>
+                    <Switch>
+
+                        <Route path={'/dialogs'} render={() =>
+                            <React.Suspense fallback={<Preloader/>}>
+                                <DialogsContainer/>
+                            </React.Suspense>
+                        }/>
+                        <Route path={`/profile/:userId?`} render={() =>
+                            <React.Suspense fallback={<Preloader/>}>
+                                <ProfileContainer/>
+                            </React.Suspense>
+                        }/>
+                        <Route path={'/login'} render={() => <LoginContainer/>}/>
+                        <Route path={'/user'} render={() => <UserContainer/>}/>
+                        <Route exact path={`/`} render={() =>
+                            <Redirect to={'/profile'}/>
+                        }/>
+                        <Route path={'/*'} render={() => <div>404 NOT FOUND</div>}/>
+                    </Switch>
                 </div>
 
 
