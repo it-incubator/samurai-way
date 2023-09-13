@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.d3d820c9.css",
+    "main.js": "/static/js/main.fdd9045b.js",
+    "static/css/853.8eb22b5e.chunk.css": "/static/css/853.8eb22b5e.chunk.css",
+    "static/js/853.5998346e.chunk.js": "/static/js/853.5998346e.chunk.js",
+    "static/css/510.d23baeaa.chunk.css": "/static/css/510.d23baeaa.chunk.css",
+    "static/js/510.e65d3915.chunk.js": "/static/js/510.e65d3915.chunk.js",
+    "static/media/iceland.jpg": "/static/media/iceland.b991d5cc2c21033561ae.jpg",
+    "static/media/Vikings.png": "/static/media/Vikings.b5d64c7254844a7ddc4b.png",
+    "static/media/flag.png": "/static/media/flag.2f795864d9150516578d.png",
+    "static/media/preloader.svg": "/static/media/preloader.1702fd19a7d336a776b97c864e17d33c.svg",
+    "index.html": "/index.html",
+    "main.d3d820c9.css.map": "/static/css/main.d3d820c9.css.map",
+    "main.fdd9045b.js.map": "/static/js/main.fdd9045b.js.map",
+    "853.8eb22b5e.chunk.css.map": "/static/css/853.8eb22b5e.chunk.css.map",
+    "853.5998346e.chunk.js.map": "/static/js/853.5998346e.chunk.js.map",
+    "510.d23baeaa.chunk.css.map": "/static/css/510.d23baeaa.chunk.css.map",
+    "510.e65d3915.chunk.js.map": "/static/js/510.e65d3915.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d3d820c9.css",
+    "static/js/main.fdd9045b.js"
+  ]
+}
